@@ -1,7 +1,7 @@
 import {Field, Form, Formik} from "formik";
 import {useDispatch} from "react-redux";
-import {register} from "../../redux/services/UserService";
 import {useNavigate} from "react-router-dom";
+import {register} from "../../redux/services/UserService";
 
 export default function Register() {
     const dipatch = useDispatch();

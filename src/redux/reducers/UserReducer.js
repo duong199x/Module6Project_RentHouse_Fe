@@ -1,5 +1,5 @@
 import {createSlice} from "@reduxjs/toolkit";
-import {login} from "../services/UserService";
+import {login, register} from "../services/UserService";
 
 const initialState = {
     list: []
@@ -10,6 +10,8 @@ const userSlice = createSlice({
     extraReducers: builder => {
         builder
             .addCase(login.fulfilled, (state, {payload}) => {
+            })
+            .addCase(register.fulfilled, (state, {payload}) => {
             })
     }
 })

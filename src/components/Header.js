@@ -22,7 +22,7 @@ const Header = () => {
                             <ul className="right">
                                 <li>
                                     <a href="my-ads.html">
-                                        <Link to={"/home"}><i className="fa fa-heart"></i>My Ads</Link>
+                                        <Link to={"/home"}><i className="fa fa-heart"></i>Wishlist</Link>
                                     </a>
                                 </li>
                                 <li>
