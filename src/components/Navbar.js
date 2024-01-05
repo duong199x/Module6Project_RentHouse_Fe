@@ -9,7 +9,7 @@ const Navbar = () => {
         <>
             <span style={{textAlign:'center',alignItems:'center'}}>
                 <h2>
-                    <Link to={'/home/authentication'}>USER</Link>   |
+                    <Link to={'/home/users'}>USER</Link>   |
                     <Link to={'/home/houses'}>HOUSE</Link>
                 </h2>
             </span>
