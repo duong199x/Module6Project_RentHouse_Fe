@@ -1,8 +1,9 @@
 import {createSlice} from "@reduxjs/toolkit";
-import {login, register} from "../services/UserService";
+import {changepassword, login, register} from "../services/UserService";
 
 const initialState = {
-    list: []
+    list: [],
+    currrentToken: ""
 }
 const userSlice = createSlice({
     name: "users",
@@ -10,8 +11,12 @@ const userSlice = createSlice({
     extraReducers: builder => {
         builder
             .addCase(login.fulfilled, (state, {payload}) => {
+                state.currrentToken = payload.accessToken;
             })
             .addCase(register.fulfilled, (state, {payload}) => {
+            })
+            .addCase(changepassword.fulfilled, (state, action) => {
+
             })
     }
 })

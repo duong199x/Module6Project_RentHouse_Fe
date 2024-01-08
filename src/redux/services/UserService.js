@@ -15,3 +15,10 @@ export const register = createAsyncThunk(
         return res.data;
     }
 )
+export const changepassword = createAsyncThunk(
+    "users/changepassword",
+    async (user) => {
+        let res = await axios.patch("http://localhost:8080/users/change-password", user)
+        return res;
+    }
+)
