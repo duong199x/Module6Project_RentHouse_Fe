@@ -1,8 +1,8 @@
-import Header from "../components/Header";
+import Header from "../components/forAdmin/Header";
 import {Outlet} from "react-router-dom";
 import Footer from "../components/Footer";
 
-import Navbar from "../components/Navbar";
+import Navbar from "../components/forAdmin/Navbar";
 
 export const Home = () => {
     return (
