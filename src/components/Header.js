@@ -63,7 +63,7 @@ const Header = () => {
                                             <ul className="child">
                                                 <li className="nav-item">
                                                     <a href="sellers.html" className="nav-link">
-                                                        <Link to={"/home/change-password"}>Change Password</Link>
+                                                        <Link to={"/home/profile/profile-detail"}>Profile</Link>
                                                     </a>
                                                 </li>
 
