@@ -1,17 +1,20 @@
 import * as React from 'react';
 import './tableStyle.css'
+import {useDispatch, useSelector} from "react-redux";
+import {useEffect} from "react";
+import {getAllHouse} from "../../redux/services/HouseService";
 
 
-
-const houses = [
-    {id:1,name: 'Hotel Luxury',description:'Vippro',price:100,startTime:'20-12-2222',endTime:'20-12-2222',location:'Ha noi',bedRoom:2,livingRoom:1,kitchenRoom:1,category:'Hotel',image:'xxxxxxxx'},
-    {id:1,name: 'Hotel Luxury',description:'Vippro',price:100,startTime:'20-12-2222',endTime:'20-12-2222',location:'Ha noi',bedRoom:2,livingRoom:1,kitchenRoom:1,category:'Hotel',image:'xxxxxxxx'},
-    {id:1,name: 'Hotel Luxury',description:'Vippro',price:100,startTime:'20-12-2222',endTime:'20-12-2222',location:'Ha noi',bedRoom:2,livingRoom:1,kitchenRoom:1,category:'Hotel',image:'xxxxxxxx'},
-    {id:1,name: 'Hotel Luxury',description:'Vippro',price:100,startTime:'20-12-2222',endTime:'20-12-2222',location:'Ha noi',bedRoom:2,livingRoom:1,kitchenRoom:1,category:'Hotel',image:'xxxxxxxx'},
-    {id:1,name: 'Hotel Luxury',description:'Vippro',price:100,startTime:'20-12-2222',endTime:'20-12-2222',location:'Ha noi',bedRoom:2,livingRoom:1,kitchenRoom:1,category:'Hotel',image:'xxxxxxxx'},
-    {id:1,name: 'Hotel Luxury',description:'Vippro',price:100,startTime:'20-12-2222',endTime:'20-12-2222',location:'Ha noi',bedRoom:2,livingRoom:1,kitchenRoom:1,category:'Hotel',image:'xxxxxxxx'},
-];
 export default function HouseManager() {
+    const dispatch = useDispatch();
+    const houses = useSelector(({houses})=>{
+        console.log(houses.list)
+        return houses.list;
+    })
+
+    useEffect(() => {
+        dispatch(getAllHouse());
+    }, [])
     return (
         <>
             <div className="table-users">
@@ -31,7 +34,9 @@ export default function HouseManager() {
                     {houses.map((item) => (
                             <tr key={item.id}>
                                 <th scope="row">{item.id}</th>
-                                <td><img src={item.image} alt="" style={{height:'80px' ,width:'80px',borderRadius:'20%'}}/></td>
+                                <td>
+                                    <img src={item.image} alt="" style={{height:'80px' ,width:'80px',borderRadius:'20%'}}/>
+                                </td>
                                 <td>{item.name}</td>
                                 <td>{item.description}</td>
                                 <td>{item.price}</td>

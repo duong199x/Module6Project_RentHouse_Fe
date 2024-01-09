@@ -11,7 +11,7 @@ export const getAllHouse = createAsyncThunk(
 export const add = createAsyncThunk(
     'houses/add',
     async (newHouse) => {
-        let response = await axios.post('http://localhost:8080/houses',newHouse);
+        let response = await axios.post('http://localhost:8080/houses/create',newHouse);
         return response.data;
     }
 )
