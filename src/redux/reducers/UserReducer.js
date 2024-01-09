@@ -1,9 +1,9 @@
 import {createSlice} from "@reduxjs/toolkit";
-import {changepassword, login, register} from "../services/UserService";
+import {changePassword, changepassword, login, logout, register} from "../services/UserService";
 
 const initialState = {
     list: [],
-    currrentToken: ""
+    currrentToken: JSON.parse(sessionStorage.getItem("currrentToken"))
 }
 const userSlice = createSlice({
     name: "users",
@@ -11,11 +11,12 @@ const userSlice = createSlice({
     extraReducers: builder => {
         builder
             .addCase(login.fulfilled, (state, {payload}) => {
-                state.currrentToken = payload.accessToken;
+                sessionStorage.setItem("currrentToken",JSON.stringify(payload))
+                state.currrentToken = payload;
             })
             .addCase(register.fulfilled, (state, {payload}) => {
             })
-            .addCase(changepassword.fulfilled, (state, action) => {
+            .addCase(changePassword.fulfilled, (state, action) => {
 
             })
     }
