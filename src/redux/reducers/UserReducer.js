@@ -1,5 +1,5 @@
 import {createSlice} from "@reduxjs/toolkit";
-import {changepassword, login, register} from "../services/UserService";
+import {changepassword, editDetailUser, getUser, login, register} from "../services/UserService";
 
 const initialState = {
     list: [],
@@ -17,6 +17,14 @@ const userSlice = createSlice({
             })
             .addCase(changepassword.fulfilled, (state, action) => {
 
+            })
+            .addCase(editDetailUser.fulfilled, (state, action) => {
+                state.userDetail = action.payload.data
+                state.currentUser = action.payload.data
+                state.isActiveEdit = false;
+            })
+            .addCase(getUser.fulfilled,(state,action)=>{
+                state.userDetail = action.payload.data
             })
     }
 })

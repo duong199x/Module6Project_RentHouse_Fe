@@ -1,4 +1,62 @@
+import {useEffect,useState} from "react";
+import axios from "axios";
+import {useParams} from "react-router-dom";
+
 export default function ProfileDetail() {
+    const { id } = useParams();
+    // Khởi tạo state để lưu trữ dữ liệu từ axios
+    const [userInfo, setUserInfo] = useState(null);
+    const [editedUserInfo, setEditedUserInfo] = useState({
+        username: '',
+        fullName: '',
+        dateOfBirth: '',
+        address: '',
+        phone: '',
+        email: ''
+    });
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState(null);
+
+    useEffect(() => {
+        // Hàm async để gửi yêu cầu axios
+        const fetchData = async () => {
+            try {
+                // Gửi yêu cầu axios
+                const response = await axios.get(`http://localhost:8080/users/${id}`);
+
+                // Lưu trữ dữ liệu vào state
+                setUserInfo(response.data);
+                setLoading(false); // Đánh dấu là đã tải xong
+            } catch (error) {
+                // Xử lý lỗi nếu có
+                setError(error);
+                setLoading(false);
+            }
+        };
+
+        // Gọi hàm fetchData khi component được mount
+        fetchData();
+    }, []); // Tham số thứ hai là một mảng rỗng để đảm bảo useEffect chỉ chạy một lần khi component được mount
+
+    const handleInputChange = (e) => {
+        const { name, value } = e.target;
+        setUserInfo((prevUserInfo) => ({
+            ...prevUserInfo,
+            [name]: value,
+        }));
+        console.log(userInfo);
+    };
+
+    const handleSaveChanges = async () => {
+        axios.patch(`http://localhost:8080/users/${id}`, userInfo)
+            .then(response => {
+                console.log('User updated successfully:', response.data);
+            })
+            .catch(error => {
+                console.error('Error updating user:', error);
+            });
+    };
+
     return (
         <>
             <div className="col-md-9">
@@ -9,28 +67,36 @@ export default function ProfileDetail() {
                             <section>
 
                                 <div className="form-group">
-                                    <label htmlFor="location" className="col-form-label required">User Name</label>
-                                    <input name="location" type="text" className="form-control"
-                                           id="input-location2" placeholder="Your Location"
-                                           value="Manhattan, NY" required/>
+                                    <label htmlFor="username" className="col-form-label required">User Name</label>
+                                    <input name="username" type="text" className="form-control"
+                                           id="username" placeholder="Your UserName"
+                                           value={userInfo && userInfo.username ? userInfo.username : ''}
+                                           onChange={handleInputChange}
+                                           required/>
                                 </div>
                                 <div className="form-group">
-                                    <label htmlFor="location" className="col-form-label required">Full Name</label>
-                                    <input name="location" type="text" className="form-control"
-                                           id="input-location2" placeholder="Your Location"
-                                           value="Manhattan, NY" required/>
+                                    <label htmlFor="fullName" className="col-form-label required">Full Name</label>
+                                    <input name="fullName" type="text" className="form-control"
+                                           id="fullName" placeholder="Your Full Name"
+                                           value={userInfo && userInfo.fullName ? userInfo.fullName : ''}
+                                           onChange={handleInputChange}
+                                           required/>
                                 </div>
                                 <div className="form-group">
-                                    <label htmlFor="location" className="col-form-label required">Date Of Birth</label>
-                                    <input name="location" type="text" className="form-control"
-                                           id="input-location2" placeholder="Your Location"
-                                           value="Manhattan, NY" required/>
+                                    <label htmlFor="dateOfBirth" className="col-form-label required">Date Of Birth</label>
+                                    <input name="dateOfBirth" type="text" className="form-control"
+                                           id="dateOfBirth" placeholder="Your Date Of Birth"
+                                           value={userInfo && userInfo.dateOfBirth ? userInfo.dateOfBirth : ''}
+                                           onChange={handleInputChange}
+                                           required/>
                                 </div>
                                 <div className="form-group">
-                                    <label htmlFor="location" className="col-form-label required">Address</label>
-                                    <input name="location" type="text" className="form-control"
-                                           id="input-location2" placeholder="Your Location"
-                                           value="Manhattan, NY" required/>
+                                    <label htmlFor="address" className="col-form-label required">Address</label>
+                                    <input name="address" type="text" className="form-control"
+                                           id="address" placeholder="Your Address"
+                                           value={userInfo && userInfo.address ? userInfo.address : ''}
+                                           onChange={handleInputChange}
+                                           required/>
                                 </div>
 
                             </section>
@@ -39,19 +105,25 @@ export default function ProfileDetail() {
                                 <div className="form-group">
                                     <label htmlFor="phone" className="col-form-label">Phone</label>
                                     <input name="phone" type="text" className="form-control" id="phone"
-                                           placeholder="Your Phone" value="312-238-3329"/>
+                                           placeholder="Your Phone"
+                                           value={userInfo && userInfo.phone ? userInfo.phone : ''}
+                                           onChange={handleInputChange}
+                                    />
                                 </div>
                                 <div className="form-group">
                                     <label htmlFor="email" className="col-form-label">Email</label>
                                     <input name="email" type="email" className="form-control" id="email"
-                                           placeholder="Your Email" value="jane.doe@example.com"/>
+                                           placeholder="Your Email"
+                                           value={userInfo && userInfo.email ? userInfo.email : ''}
+                                           onChange={handleInputChange}
+                                    />
                                 </div>
 
                             </section>
 
                             <section className="clearfix">
-                                <button type="submit" className="btn btn-primary float-right">Save
-                                    Changes
+                                <button type="submit" className="btn btn-primary float-right" onClick={handleSaveChanges}>
+                                    Save Changes
                                 </button>
                             </section>
                         </div>
