@@ -1,8 +1,11 @@
 import * as React from 'react';
-import  './headerStyle.css'
+import './headerStyle.css'
 import {Link} from "react-router-dom";
 
 const Header = () => {
+    const logoutScreen = ()=>{
+        sessionStorage.removeItem("currrentToken")
+    }
     return (
 
         <>
@@ -27,12 +30,17 @@ const Header = () => {
                                 </li>
                                 <li>
                                     <a href="sign-in.html">
-                                        <Link to={"/home/login"}><i className="fa fa-sign-in"></i>Log In</Link>
+                                        <Link to={"/login"}><i className="fa fa-sign-in"></i>Log In</Link>
                                     </a>
                                 </li>
                                 <li>
                                     <a href="register.html">
-                                        <Link to={"/home/register"}><i className="fa fa-pencil-square-o"></i>Register</Link>
+                                        <Link to={"/register"}><i className="fa fa-pencil-square-o"></i>Register</Link>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="register.html">
+                                        <Link to={"/login"} onClick={logoutScreen}><i className="fa fa-pencil-square-o"></i>Logout</Link>
                                     </a>
                                 </li>
                             </ul>
@@ -47,7 +55,8 @@ const Header = () => {
                                 <a className="navbar-brand" href="index.html">
                                     <img src="assets/img/logo.png" alt=""/>
                                 </a>
-                                <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar"
+                                <button className="navbar-toggler" type="button" data-toggle="collapse"
+                                        data-target="#navbar"
                                         aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
                                     <span className="navbar-toggler-icon"></span>
                                 </button>
@@ -88,7 +97,7 @@ const Header = () => {
 
             </header>
         </>
-)
+    )
 }
 
 export default Header;
