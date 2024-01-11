@@ -13,6 +13,7 @@ import ProfileDetail from "./pages/user/profile/ProfileDetail";
 import Bookmarks from "./pages/user/profile/Bookmarks";
 import ListHouseOfUser from "./pages/user/profile/ListHouseOfUser";
 import {useSelector} from "react-redux";
+import HouseDetail from "./pages/user/HouseDetail";
 
 function App() {
     const currentUser = useSelector(({users}) => {
@@ -28,17 +29,24 @@ function App() {
                         <>
                             <Route path={'user'} element={<UserPage/>}>
                                 <Route path={'house'} element={<ListHouse/>}/>
-                            </Route>
-                            <Route path={'home'} element={<Home/>}>
-                                <Route path={'users'} element={<UserManager/>}/>
-                                <Route path={'houses'} element={<HouseManager/>}/>
+                                <Route path={'house/:id'} element={<HouseDetail/>}/>
                                 <Route path={'profile'} element={<Profile/>}>
-                                    <Route path={"change-password"} element={<ChangePassword/>}/>
                                     <Route path={"profile-detail"} element={<ProfileDetail/>}/>
+                                    <Route path={"change-password"} element={<ChangePassword/>}/>
                                     <Route path={"bookmarks"} element={<Bookmarks/>}/>
                                     <Route path={"list-house-user"} element={<ListHouseOfUser/>}/>
                                 </Route>
                                 <Route path={'create'} element={<CreateHouse/>}/>
+                            </Route>
+                            <Route path={'admin'} element={<Home/>}>
+                                <Route path={'users'} element={<UserManager/>}/>
+                                <Route path={'houses'} element={<HouseManager/>}/>
+                            </Route>
+                            <Route path={'home'} >
+                                <Route>
+
+                                </Route>
+
                                 {/*<Route path={'edit/:id'} element={<UpdateProduct/>}/>*/}
                                 {/*<Route path={':id'} element={<ProductDetail/>}/>*/}
                             </Route>
