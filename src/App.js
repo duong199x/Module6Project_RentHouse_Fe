@@ -21,7 +21,6 @@ function App() {
     const id = useSelector(({users}) => {
         return users.userId;
     })
-    debugger;
 
     return (
         <>

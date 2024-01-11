@@ -3,8 +3,8 @@ import './headerStyle.css'
 import {Link} from "react-router-dom";
 
 const Header = () => {
-    const logoutScreen = ()=>{
-        sessionStorage.removeItem("currrentToken")
+    const logoutScreen = () => {
+        localStorage.clear()
     }
     return (
 
@@ -40,7 +40,8 @@ const Header = () => {
                                 </li>
                                 <li>
                                     <a href="register.html">
-                                        <Link to={"/login"} onClick={logoutScreen}><i className="fa fa-pencil-square-o"></i>Logout</Link>
+                                        <Link to={"/login"} onClick={logoutScreen}><i
+                                            className="fa fa-pencil-square-o"></i>Logout</Link>
                                     </a>
                                 </li>
                             </ul>

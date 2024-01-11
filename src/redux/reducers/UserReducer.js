@@ -3,8 +3,7 @@ import {changePassword, changepassword, login, logout, register} from "../servic
 
 const initialState = {
     list: [],
-    userId: null,
-    currrentToken: JSON.parse(sessionStorage.getItem("currrentToken"))
+    currrentToken: JSON.parse(localStorage.getItem("currentToken"))
 }
 const userSlice = createSlice({
     name: "users",
@@ -12,10 +11,8 @@ const userSlice = createSlice({
     extraReducers: builder => {
         builder
             .addCase(login.fulfilled, (state, {payload}) => {
-                debugger;
-                sessionStorage.setItem("currrentToken",JSON.stringify(payload))
+                localStorage.setItem("currentToken",JSON.stringify(payload))
                 state.currrentToken = payload;
-                state.userId = payload.userId;
             })
             .addCase(register.fulfilled, (state, {payload}) => {
             })

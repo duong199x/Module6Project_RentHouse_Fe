@@ -1,19 +1,17 @@
 import {useEffect,useState} from "react";
 import axios from "axios";
 import {useParams} from "react-router-dom";
+import {editDetailUser, getUser} from "../../../redux/services/UserService";
+import {useDispatch, useSelector} from "react-redux";
 
 export default function ProfileDetail() {
+    const dispatch = useDispatch();
+    let currentUser = JSON.parse(localStorage.getItem("currentToken"));
+    console.log(currentUser.id);
     const { id } = useParams();
     // Khởi tạo state để lưu trữ dữ liệu từ axios
     const [userInfo, setUserInfo] = useState(null);
-    const [editedUserInfo, setEditedUserInfo] = useState({
-        username: '',
-        fullName: '',
-        dateOfBirth: '',
-        address: '',
-        phone: '',
-        email: ''
-    });
+
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
 
@@ -33,10 +31,29 @@ export default function ProfileDetail() {
                 setLoading(false);
             }
         };
-
-        // Gọi hàm fetchData khi component được mount
-        fetchData();
+        fetchData();// Gọi hàm fetchData khi component được mount
     }, []); // Tham số thứ hai là một mảng rỗng để đảm bảo useEffect chỉ chạy một lần khi component được mount
+
+    // useEffect(() => {
+    //     const fetchData = async () => {
+    //         dispatch(getUser(currentUser.id));
+    //     }
+    //     fetchData();
+    // }, [dispatch, currentUser])
+
+    // const user = useSelector((state) => state.users.list.find((u) => u.id === currentUser.id));
+    // useEffect(() => {
+    //     if (user) {
+    //         setUserInfo({
+    //             username: user.username,
+    //             fullName: user.fullName,
+    //             dateOfBirth: user.dateOfBirth,
+    //             address: user.address,
+    //             phone: user.phone,
+    //             email: user.email,
+    //         });
+    //     }
+    // }, [user]);
 
     const handleInputChange = (e) => {
         const { name, value } = e.target;
@@ -48,13 +65,9 @@ export default function ProfileDetail() {
     };
 
     const handleSaveChanges = async () => {
-        axios.patch(`http://localhost:8080/users/${id}`, userInfo)
-            .then(response => {
-                console.log('User updated successfully:', response.data);
-            })
-            .catch(error => {
-                console.error('Error updating user:', error);
-            });
+        dispatch(editDetailUser(userInfo)).then(()=>{
+            alert("Update User Success!")
+        })
     };
 
     return (
@@ -84,7 +97,7 @@ export default function ProfileDetail() {
                                 </div>
                                 <div className="form-group">
                                     <label htmlFor="dateOfBirth" className="col-form-label required">Date Of Birth</label>
-                                    <input name="dateOfBirth" type="text" className="form-control"
+                                    <input name="dateOfBirth" type="date" className="form-control"
                                            id="dateOfBirth" placeholder="Your Date Of Birth"
                                            value={userInfo && userInfo.dateOfBirth ? userInfo.dateOfBirth : ''}
                                            onChange={handleInputChange}

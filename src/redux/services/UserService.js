@@ -1,7 +1,7 @@
 import {createAsyncThunk} from "@reduxjs/toolkit";
 import axios from "axios";
 import getAxios from "./customAxios";
-import customAxios from "./api";
+
 
 export const login = createAsyncThunk(
     "users/login",
@@ -21,22 +21,21 @@ export const changePassword = createAsyncThunk(
     "users/changePassword",
     async (user) => {
         let res = await getAxios().patch("users/change-password", user)
-        return res;
+        return res.data;
     }
 )
 export const editDetailUser = createAsyncThunk(
     'user/edit',
     async (data) => {
-        const res  = await customAxios.patch('users/' + data.id, data);
+        let res  = await getAxios().patch('users/' + data.id, data);
         return res;
     }
 )
 
 export const getUser = createAsyncThunk(
     'user/get',
-    async (data) =>{
-        const res = await customAxios.get('users/' + data.id, data);
-        return res;
-
+    async (id) =>{
+        const res = await getAxios().get('users/' + id);
+        return res.data;
     }
 )
