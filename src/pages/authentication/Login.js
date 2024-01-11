@@ -14,7 +14,7 @@ export default function Login() {
     const loginUser = (value) => {
         dispatch(login(value)).then((data) => {
             console.log(data)
-            debugger;
+            // debugger;
             navigate("/user/house")
         })
     }

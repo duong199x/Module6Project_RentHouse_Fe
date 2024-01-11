@@ -21,7 +21,6 @@ export default function ProfileDetail() {
             try {
                 // Gửi yêu cầu axios
                 const response = await axios.get(`http://localhost:8080/users/${id}`);
-
                 // Lưu trữ dữ liệu vào state
                 setUserInfo(response.data);
                 setLoading(false); // Đánh dấu là đã tải xong
@@ -34,26 +33,6 @@ export default function ProfileDetail() {
         fetchData();// Gọi hàm fetchData khi component được mount
     }, []); // Tham số thứ hai là một mảng rỗng để đảm bảo useEffect chỉ chạy một lần khi component được mount
 
-    // useEffect(() => {
-    //     const fetchData = async () => {
-    //         dispatch(getUser(currentUser.id));
-    //     }
-    //     fetchData();
-    // }, [dispatch, currentUser])
-
-    // const user = useSelector((state) => state.users.list.find((u) => u.id === currentUser.id));
-    // useEffect(() => {
-    //     if (user) {
-    //         setUserInfo({
-    //             username: user.username,
-    //             fullName: user.fullName,
-    //             dateOfBirth: user.dateOfBirth,
-    //             address: user.address,
-    //             phone: user.phone,
-    //             email: user.email,
-    //         });
-    //     }
-    // }, [user]);
 
     const handleInputChange = (e) => {
         const { name, value } = e.target;
