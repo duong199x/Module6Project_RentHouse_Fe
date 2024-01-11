@@ -9,7 +9,6 @@ export default function UserPage() {
     return (
         <>
             <HeaderUser/>
-            <NavbarUser/>
             <Outlet/>
             <Footer/>
         </>
