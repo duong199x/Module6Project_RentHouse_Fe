@@ -1,6 +1,10 @@
 import {Link, Outlet} from "react-router-dom";
+import {useSelector} from "react-redux";
 
 export default function Profile() {
+    const currentUser = useSelector(({users}) => {
+        return users.currrentToken;
+    })
     return (
         <>
             <section className="content">
@@ -11,28 +15,28 @@ export default function Profile() {
                                 <nav className="nav flex-column side-nav">
                                     <a className="nav-link icon" href="my-profile.html">
                                         <i className="fa fa-user"></i>
-                                        <Link to={"/home/profile/profile-detail"}>My Profile</Link>
+                                        <Link to={`/user/profile/profile-detail/${currentUser.id}`}>My Profile</Link>
                                     </a>
-                                    <a className="nav-link active icon" href="change-password.html">
+                                    <a className="nav-link active icon" href="">
                                         <i className="fa fa-recycle"></i>
-                                        <Link to={"/home/profile/change-password"}>Change Password</Link>
+                                        <Link to={"/user/profile/change-password"}>Change Password</Link>
                                     </a>
-                                    <a className="nav-link icon" href="my-ads.html">
+                                    <a className="nav-link icon" href="">
                                         <i className="fa fa-heart"></i>
-                                        <Link to={"/home/profile/bookmarks"}>Bookmarks</Link>
+                                        <Link to={"/user/profile/bookmarks"}>Bookmarks</Link>
                                     </a>
-                                    <a className="nav-link icon" href="sold-items.html">
+                                    <a className="nav-link icon" href="">
                                         <i className="fa fa-check"></i>History Buy (Order)
                                     </a>
-                                    <a className="nav-link icon" href="bookmarks.html">
+                                    <a className="nav-link icon" href="">
                                         <i className="fa fa-star"></i>
-                                        <Link to={"/home/profile/list-house-user"}>My Ads Listing</Link>
+                                        <Link to={"/user/profile/list-house-user"}>My Ads Listing</Link>
                                     </a>
-                                    <a className="nav-link icon" href="bookmarks.html">
+                                    <a className="nav-link icon" href="">
                                         <i className="fa fa-star"></i>
-                                        <Link to={"/home/create"}>Add House</Link>
+                                        <Link to={"/user/create"}>Add House</Link>
                                     </a>
-                                    <a className="nav-link icon" href="sold-items.html">
+                                    <a className="nav-link icon" href="">
                                         <i className="fa fa-check"></i>Sold Items
                                     </a>
                                 </nav>
