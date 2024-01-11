@@ -42,15 +42,6 @@ function App() {
                                 <Route path={'users'} element={<UserManager/>}/>
                                 <Route path={'houses'} element={<HouseManager/>}/>
                             </Route>
-                            <Route path={'home'} >
-                                <Route>
-
-                                </Route>
-
-                                {/*<Route path={'edit/:id'} element={<UpdateProduct/>}/>*/}
-                                {/*<Route path={':id'} element={<ProductDetail/>}/>*/}
-                            </Route>
-
                         </>
                     ) : (
                         <>
