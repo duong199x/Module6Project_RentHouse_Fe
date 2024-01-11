@@ -13,8 +13,6 @@ export default function Login() {
     const dispatch = useDispatch()
     const loginUser = (value) => {
         dispatch(login(value)).then((data) => {
-            console.log(data)
-            debugger;
             navigate("/user/house")
         })
     }
