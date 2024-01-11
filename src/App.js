@@ -12,6 +12,8 @@ import ChangePassword from "./pages/user/profile/ChangePassword";
 import ProfileDetail from "./pages/user/profile/ProfileDetail";
 import Bookmarks from "./pages/user/profile/Bookmarks";
 import ListHouseOfUser from "./pages/user/profile/ListHouseOfUser";
+import HouseDetails from "./pages/houses/HouseDetail";
+import ImageUpload from "./firebase/ImageUpload";
 
 function App() {
     return (
@@ -32,6 +34,7 @@ function App() {
                         <Route path={"list-house-user"} element={<ListHouseOfUser/>}/>
                     </Route>
                     <Route path={'create'} element={<CreateHouse/>}/>
+                    <Route path={'addImage'} element={<ImageUpload/>}/>
                     {/*<Route path={'edit/:id'} element={<UpdateProduct/>}/>*/}
                     {/*<Route path={':id'} element={<ProductDetail/>}/>*/}
                 </Route>
