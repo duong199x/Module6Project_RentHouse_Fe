@@ -36,6 +36,8 @@ function App() {
                                     <Route path={"change-password"} element={<ChangePassword/>}/>
                                     <Route path={"bookmarks"} element={<Bookmarks/>}/>
                                     <Route path={"list-house-user"} element={<ListHouseOfUser/>}/>
+                                    <Route path={'create'} element={<CreateHouse/>}/>
+                                    <Route path={'addImage'} element={<ImageUpload/>}/>
                                 </Route>
                                 <Route path={'create'} element={<CreateHouse/>}/>
                             </Route>
@@ -43,13 +45,6 @@ function App() {
                                 <Route path={'users'} element={<UserManager/>}/>
                                 <Route path={'houses'} element={<HouseManager/>}/>
                             </Route>
-                            <Route path={'home'} >
-                                <Route path={'create'} element={<CreateHouse/>}/>
-                                <Route path={'addImage'} element={<ImageUpload/>}/>
-                                {/*<Route path={'edit/:id'} element={<UpdateProduct/>}/>*/}
-                                {/*<Route path={':id'} element={<ProductDetail/>}/>*/}
-                            </Route>
-
                         </>
                     ) : (
                         <>
