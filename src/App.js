@@ -14,11 +14,12 @@ import Bookmarks from "./pages/user/profile/Bookmarks";
 import ListHouseOfUser from "./pages/user/profile/ListHouseOfUser";
 import ImageUpload from "./firebase/ImageUpload";
 import {useSelector} from "react-redux";
-import HouseDetail from "./pages/user/HouseDetail";
+import HouseDetail from "./pages/houses/HouseDetail";
+
 
 function App() {
     const currentUser = useSelector(({users}) => {
-        return users.currrentToken;
+        return users.currentToken;
     })
     return (
         <>

@@ -1,6 +1,4 @@
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-// jQuery
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
 var automaticGeoLocation = false;
 var resizeId;
 
@@ -12,7 +10,7 @@ $(document).ready(function($) {
     if( $(".geo-location").length > 0 && $(".map").length === 0 ){
         $("body").append("<div id='map-helper' style='display: none'></div>");
         var map = new google.maps.Map(document.getElementById("map-helper"));
-        autoComplete(map);
+        autoCompvare(map);
     }
 
 //  Selectize
@@ -255,7 +253,7 @@ $(document).ready(function($) {
         $.getScript( "assets/js/jquery.nouislider.all.min.js", function() {
             $('.ui-slider').each(function() {
                 if( $("body").hasClass("rtl") ) var rtl = "rtl";
-                else rtl = "ltr";
+                else  rtl = "ltr";
 
                 var step;
                 if( $(this).attr('data-step') ) {
@@ -417,23 +415,23 @@ function simpleMap(latitude, longitude, markerImage, mapTheme, mapElement, marke
         }
     });
 
-    autoComplete(map, marker);
+    autoCompvare(map, marker);
 
 }
 
-//Autocomplete ---------------------------------------------------------------------------------------------------------
+//Autocompvare ---------------------------------------------------------------------------------------------------------
 
-function autoComplete(map, marker){
+function autoCompvare(map, marker){
     if( $("#input-location").length ){
         if( !map ){
             map = new google.maps.Map(document.getElementById("input-location"));
         }
         var mapCenter;
         var input = document.getElementById('input-location');
-        var autocomplete = new google.maps.places.Autocomplete(input);
-        autocomplete.bindTo('bounds', map);
-        google.maps.event.addListener(autocomplete, 'place_changed', function() {
-            var place = autocomplete.getPlace();
+        var autocompvare = new google.maps.places.Autocompvare(input);
+        autocompvare.bindTo('bounds', map);
+        google.maps.event.addListener(autocompvare, 'place_changed', function() {
+            var place = autocompvare.getPlace();
             if (!place.geometry) {
                 return;
             }
@@ -511,10 +509,10 @@ if( $("#input-location2").length ){
 	}
 	var mapCenter;
 	var input = document.getElementById('input-location2');
-	var autocomplete = new google.maps.places.Autocomplete(input);
-	autocomplete.bindTo('bounds', map);
-	google.maps.event.addListener(autocomplete, 'place_changed', function() {
-		var place = autocomplete.getPlace();
+	var autocompvare = new google.maps.places.Autocompvare(input);
+	autocompvare.bindTo('bounds', map);
+	google.maps.event.addListener(autocompvare, 'place_changed', function() {
+		var place = autocompvare.getPlace();
 		if (!place.geometry) {
 			return;
 		}
