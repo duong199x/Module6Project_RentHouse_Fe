@@ -124,12 +124,12 @@ export const CustomSelectField = ({label, options, name, ...rest}) => {
 };
 
 
-export const CustomCheckboxField = ({label, ...props}) => {
+export const CustomCheckboxField = ({label, defaultChecked,...props}) => {
     const [field] = useField(props);
     return (
         <ThemeProvider theme={theme}>
             <FormControlLabel
-                control={<Checkbox {...field} {...props} />}
+                control={<Checkbox defaultChecked={defaultChecked} {...field} {...props} />}
                 label={label}
                 style={{fontSize: theme.typography.fontSize}}
             />

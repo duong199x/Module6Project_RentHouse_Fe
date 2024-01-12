@@ -16,6 +16,7 @@ import ImageUpload from "./firebase/ImageUpload";
 import {useSelector} from "react-redux";
 import HouseDetail from "./pages/user/HouseDetail";
 import {CreateConvenient} from "./pages/houses/convenient/AddConvenientToHouse";
+import {UpdateHouse} from "./pages/houses/update/UpdateHouse";
 
 function App() {
     const currentUser = useSelector(({users}) => {
@@ -35,6 +36,7 @@ function App() {
                                 <Route path={'create'} element={<CreateHouse/>}/>
                                 <Route path={'addImage'} element={<ImageUpload/>}/>
                                 <Route path={'convenient'} element={<CreateConvenient/>}/>
+                                <Route path={'houseupdate/:id'} element={<UpdateHouse/>}/>
                                 <Route path={'profile'} element={<Profile/>}>
                                     <Route path={"profile-detail"} element={<ProfileDetail/>}/>
                                     <Route path={"change-password"} element={<ChangePassword/>}/>
