@@ -1,14 +1,22 @@
 import TextField from '@mui/material/TextField';
-import {createTheme, ThemeProvider} from "@mui/material";
-import { FormControl, InputLabel, Select, MenuItem } from '@mui/material';
-import {ErrorMessage, Field} from "formik";
-import {login} from "../../redux/services/UserService";
+import {
+    Checkbox,
+    createTheme,
+    FormControl,
+    FormControlLabel,
+    InputLabel,
+    MenuItem,
+    Select,
+    ThemeProvider
+} from "@mui/material";
+import {Field, useField} from "formik";
+
 const theme = createTheme({
     components: {
         MuiTextField: {
             defaultProps: {
                 sx: {
-                    width:'100%',
+                    width: '100%',
                     fontSize: 14,
                 },
             },
@@ -27,7 +35,7 @@ const theme = createTheme({
                 },
             },
             styleOverrides: {
-                shrink: ({ ownerState, theme }) => ({
+                shrink: ({ownerState, theme}) => ({
                     ...(ownerState.shrink && {
                         fontSize: "1.5rem !important",
                         top: "0 !important",
@@ -54,9 +62,31 @@ const theme = createTheme({
                 },
             },
         },
+
+        MuiCheckbox: {
+            defaultProps: {
+                sx: {
+                    height: '100%',
+                    fontSize: 50,
+                    backgroundColor: 'whitesmoke',
+                    '&:focus': {
+                        backgroundColor: 'transparent',
+                    },
+                },
+            },
+        },
+        MuiFormControlLabel: {
+            styleOverrides: {
+                label: {
+                    fontSize: 16, // Kích thước font mong muốn cho CustomCheckboxField
+                },
+            },
+        },
+
+
     },
 });
-export const CustomTextField = ({ name,label}) => {
+export const CustomTextField = ({name, label}) => {
     return (
         <ThemeProvider theme={theme}>
             <Field
@@ -70,9 +100,7 @@ export const CustomTextField = ({ name,label}) => {
 };
 
 
-
-
-export const CustomSelectField = ({ label, options,name,...rest }) => {
+export const CustomSelectField = ({label, options, name, ...rest}) => {
     return (
         <ThemeProvider theme={theme}>
             <FormControl fullWidth>
@@ -95,3 +123,16 @@ export const CustomSelectField = ({ label, options,name,...rest }) => {
     );
 };
 
+
+export const CustomCheckboxField = ({label, ...props}) => {
+    const [field] = useField(props);
+    return (
+        <ThemeProvider theme={theme}>
+            <FormControlLabel
+                control={<Checkbox {...field} {...props} />}
+                label={label}
+                style={{fontSize: theme.typography.fontSize}}
+            />
+        </ThemeProvider>
+    );
+};
