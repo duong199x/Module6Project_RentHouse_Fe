@@ -1,7 +1,11 @@
 import {Link} from "react-router-dom";
 import * as React from "react";
+import {useSelector} from "react-redux";
 
 export default function NavbarUser() {
+    const currentUser = useSelector(({users}) => {
+        return users.currentToken;
+    })
     return (
         <>
             <div className="main-navigation">
@@ -27,12 +31,12 @@ export default function NavbarUser() {
                                           className="nav-link">Wishlist</Link>
                                 </li>
                                 <li className="nav-item has-child">
-                                    <Link to={"profile/profile-detail"} className="nav-link" href="#">Your
+                                    <Link to={`/user/profile/profile-detail/${currentUser.id}`} className="nav-link" href="#">Your
                                         Profile</Link>
 
                                     <ul className="child">
                                         <li className="nav-item has-child">
-                                            <Link to={"profile/profile-detail"} href="#"
+                                            <Link to={`/user/profile/profile-detail/${currentUser.id}`} href="#"
                                                   className="nav-link">Profile</Link>
                                         </li>
                                         <li className="nav-item has-child">

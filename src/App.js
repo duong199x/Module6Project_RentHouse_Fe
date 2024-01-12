@@ -21,6 +21,10 @@ function App() {
     const currentUser = useSelector(({users}) => {
         return users.currentToken;
     })
+    const id = useSelector(({users}) => {
+        return users.userId;
+    })
+
     return (
         <>
             <Routes>
@@ -33,8 +37,8 @@ function App() {
                                 <Route path={'house'} element={<ListHouse/>}/>
                                 <Route path={'house/:id'} element={<HouseDetail/>}/>
                                 <Route path={'profile'} element={<Profile/>}>
-                                    <Route path={"profile-detail"} element={<ProfileDetail/>}/>
                                     <Route path={"change-password"} element={<ChangePassword/>}/>
+                                    <Route path={`profile-detail/:id`} element={<ProfileDetail/>}/>
                                     <Route path={"bookmarks"} element={<Bookmarks/>}/>
                                     <Route path={"list-house-user"} element={<ListHouseOfUser/>}/>
                                     <Route path={'create'} element={<CreateHouse/>}/>
