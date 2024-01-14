@@ -37,7 +37,9 @@ export default function Profile() {
                                         <Link to={"/user/create"}>Add House</Link>
                                     </a>
                                     <a className="nav-link icon" href="">
-                                        <i className="fa fa-check"></i>Sold Items
+                                        <i className="fa fa-check"></i>
+                                        <Link to={"/user/addImage"}>Sold Items</Link>
+
                                     </a>
                                 </nav>
                             </div>

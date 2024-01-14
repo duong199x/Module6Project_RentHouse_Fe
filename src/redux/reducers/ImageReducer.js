@@ -4,7 +4,6 @@ import {addImages, getAllImage} from "../services/ImageService";
 
 const initialState = {
     list: []
-
 }
 
 const imageSlice = createSlice({
