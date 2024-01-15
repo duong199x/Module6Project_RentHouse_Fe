@@ -6,7 +6,7 @@ import Login from "./pages/authentication/Login";
 import Register from "./pages/authentication/Register";
 import UserPage from "./pages/user/UserPage";
 import ListHouse from "./pages/user/ListHouse";
-import CreateHouse from "./pages/houses/CreateHouse";
+
 import Profile from "./pages/user/profile/Profile";
 import ChangePassword from "./pages/user/profile/ChangePassword";
 import ProfileDetail from "./pages/user/profile/ProfileDetail";
@@ -14,9 +14,10 @@ import Bookmarks from "./pages/user/profile/Bookmarks";
 import ListHouseOfUser from "./pages/user/profile/ListHouseOfUser";
 import ImageUpload from "./firebase/ImageUpload";
 import {useSelector} from "react-redux";
-import HouseDetail from "./pages/houses/HouseDetail";
 import {CreateConvenient} from "./pages/houses/convenient/AddConvenientToHouse";
 import {UpdateHouse} from "./pages/houses/update/UpdateHouse";
+import HouseDetail from "./pages/houses/HouseDetail";
+import CreateHouse from "./pages/houses/create/CreateHouse";
 
 function App() {
     const currentUser = useSelector(({users}) => {
@@ -59,6 +60,9 @@ function App() {
                         </>
                     )
                 }
+                <>
+                    <Route path='*' element={<Navigate to="login"/>}/>
+                </>
             </Routes>
         </>
     );

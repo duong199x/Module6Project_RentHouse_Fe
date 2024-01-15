@@ -37,7 +37,6 @@ export const update = createAsyncThunk(
     async (newProduct) => {
         console.log(newProduct)
         let response = await getAxios().put('houses/' + newProduct.id, newProduct);
-
         return response.data;
     }
 )
