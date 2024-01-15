@@ -3,6 +3,7 @@ import {useEffect} from "react";
 import {getAllHouse} from "../../redux/services/HouseService";
 import {Link} from "react-router-dom";
 import {getAllCategories} from "../../redux/services/CategoryService";
+import {getImageByHouseId} from "../../redux/services/ImageService";
 
 export default function ListHouse() {
     const dispatch = useDispatch();
@@ -182,7 +183,7 @@ export default function ListHouse() {
                                                 </h3>
                                                 <Link to={`${item.id}`}
                                                       className="image-wrapper background-image">
-                                                    <img src="assets/img/image-01.jpg" alt=""/>
+                                                    <img src="https://img.freepik.com/free-vector/beautiful-home_24877-50819.jpg" alt=""/>
                                                 </Link>
                                             </div>
 
