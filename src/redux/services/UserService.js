@@ -17,7 +17,7 @@ export const login = createAsyncThunk(
 export const register = createAsyncThunk(
     "users/register",
     async (user) => {
-        let res = await axios.post("http://localhost:8080/register", user)
+        let res = await getAxios().post("/register", user)
         return res.data;
     }
 )

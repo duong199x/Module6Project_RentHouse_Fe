@@ -15,7 +15,8 @@ import ListHouseOfUser from "./pages/user/profile/ListHouseOfUser";
 import ImageUpload from "./firebase/ImageUpload";
 import {useSelector} from "react-redux";
 import HouseDetail from "./pages/houses/HouseDetail";
-
+import {CreateConvenient} from "./pages/houses/convenient/AddConvenientToHouse";
+import {UpdateHouse} from "./pages/houses/update/UpdateHouse";
 
 function App() {
     const currentUser = useSelector(({users}) => {
@@ -36,15 +37,16 @@ function App() {
                             <Route path={'user'} element={<UserPage/>}>
                                 <Route path={'house'} element={<ListHouse/>}/>
                                 <Route path={'house/:id'} element={<HouseDetail/>}/>
+                                <Route path={'create'} element={<CreateHouse/>}/>
+                                <Route path={'addImage'} element={<ImageUpload/>}/>
+                                <Route path={'convenient'} element={<CreateConvenient/>}/>
+                                <Route path={'houseupdate/:id'} element={<UpdateHouse/>}/>
                                 <Route path={'profile'} element={<Profile/>}>
                                     <Route path={"change-password"} element={<ChangePassword/>}/>
                                     <Route path={`profile-detail/:id`} element={<ProfileDetail/>}/>
                                     <Route path={"bookmarks"} element={<Bookmarks/>}/>
                                     <Route path={"list-house-user"} element={<ListHouseOfUser/>}/>
-                                    <Route path={'create'} element={<CreateHouse/>}/>
-                                    <Route path={'addImage'} element={<ImageUpload/>}/>
                                 </Route>
-                                <Route path={'create'} element={<CreateHouse/>}/>
                             </Route>
                             <Route path={'admin'} element={<Home/>}>
                                 <Route path={'users'} element={<UserManager/>}/>
