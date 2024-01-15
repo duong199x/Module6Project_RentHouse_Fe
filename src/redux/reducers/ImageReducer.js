@@ -1,14 +1,14 @@
 import {createSlice} from "@reduxjs/toolkit";
 
-import {addImages, getAllImage, removeImageById} from "../services/ImageService";
-import {removeById} from "../services/HouseService";
+import {addImages, getAllImage, getImageByHouseId,removeImageById} from "../services/ImageService";
 
 const initialState = {
-    list: []
+    list: [],
+    listImage: []
 }
 
 const imageSlice = createSlice({
-    name: 'houses',
+    name: 'images',
     initialState,
     extraReducers: builder => {
         builder.addCase(getAllImage.fulfilled, (state, {payload}) => {
@@ -19,6 +19,9 @@ const imageSlice = createSlice({
         })
         builder.addCase(removeImageById.fulfilled, (state, {payload}) => {
             state.list.splice(payload)
+        })
+        builder.addCase(getImageByHouseId.fulfilled, (state, {payload}) => {
+            state.listImage = payload;
         })
     }
 })
