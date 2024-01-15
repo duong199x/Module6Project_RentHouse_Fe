@@ -1,5 +1,5 @@
 import {createSlice} from "@reduxjs/toolkit";
-import {add, getAllHouse, getById, removeById, update} from "../services/HouseService";
+import {add, getAllHouse, getById, getHouseByUser, removeById, update} from "../services/HouseService";
 
 const initialState = {
     list: [],
@@ -19,7 +19,8 @@ const initialState = {
             "id": 0
         },
         "convenients": []
-    }
+    },
+    listByUser: []
 }
 
 const houseSlice = createSlice({
@@ -41,6 +42,9 @@ const houseSlice = createSlice({
         builder.addCase(update.fulfilled, (state, {payload}) => {
             const index = state.list.findIndex(product => product.id === payload.id);
             state.list[index] = payload;
+        })
+        builder.addCase(getHouseByUser.fulfilled, (state, {payload}) => {
+            state.listByUser = payload;
         })
     }
 })

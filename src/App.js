@@ -45,7 +45,7 @@ function App() {
                                     <Route path={"change-password"} element={<ChangePassword/>}/>
                                     <Route path={`profile-detail/:id`} element={<ProfileDetail/>}/>
                                     <Route path={"bookmarks"} element={<Bookmarks/>}/>
-                                    <Route path={"list-house-user"} element={<ListHouseOfUser/>}/>
+                                    <Route path={"list-house-user/:id"} element={<ListHouseOfUser/>}/>
                                 </Route>
                             </Route>
                             <Route path={'admin'} element={<Home/>}>
