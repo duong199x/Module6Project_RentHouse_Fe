@@ -3,7 +3,7 @@ import {changePassword, changepassword, login, logout, register} from "../servic
 
 const initialState = {
     list: [],
-    currrentToken: JSON.parse(localStorage.getItem("currentToken"))
+    currentToken: JSON.parse(localStorage.getItem("currentToken"))
 }
 const userSlice = createSlice({
     name: "users",
@@ -12,12 +12,19 @@ const userSlice = createSlice({
         builder
             .addCase(login.fulfilled, (state, {payload}) => {
                 localStorage.setItem("currentToken",JSON.stringify(payload))
-                state.currrentToken = payload;
+                state.currentToken = payload;
+            })
+            .addCase(login.rejected, (state, action) => {
+                state.currentToken = null;
             })
             .addCase(register.fulfilled, (state, {payload}) => {
             })
             .addCase(changePassword.fulfilled, (state, action) => {
 
+            })
+            .addCase(logout.fulfilled,(state, {payload}) => {
+                state.currentToken = null;
+                localStorage.clear();
             })
     }
 })

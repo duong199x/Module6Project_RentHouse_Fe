@@ -3,7 +3,7 @@ import {useSelector} from "react-redux";
 
 export default function Profile() {
     const currentUser = useSelector(({users}) => {
-        return users.currrentToken;
+        return users.currentToken;
     })
     return (
         <>
@@ -37,7 +37,9 @@ export default function Profile() {
                                         <Link to={"/user/create"}>Add House</Link>
                                     </a>
                                     <a className="nav-link icon" href="">
-                                        <i className="fa fa-check"></i>Sold Items
+                                        <i className="fa fa-check"></i>
+                                        <Link to={"/user/addImage"}>Sold Items</Link>
+
                                     </a>
                                 </nav>
                             </div>
