@@ -3,6 +3,7 @@ import {useDispatch, useSelector} from "react-redux";
 import {useEffect, useState} from "react";
 import {getImageByHouseId} from "../../redux/services/ImageService";
 import './carousel.css'
+import {getById} from "../../redux/services/HouseService";
 
 export default function HouseDetail() {
     const [activeIndex, setActiveIndex] = useState(0);
@@ -13,10 +14,14 @@ export default function HouseDetail() {
     const {id} = useParams()
     const dispatch = useDispatch();
     const imageList = useSelector(({images}) => {
-        console.log(images.listImage)
         return images.listImage;
     })
+    const houseDetail = useSelector(({houses}) => {
+        console.log(houses.houseUpdate)
+        return houses.houseUpdate
+    })
     useEffect(() => {
+        dispatch(getById(id))
         dispatch(getImageByHouseId(id))
     }, []);
     const carouselItemStyle = {
@@ -31,11 +36,11 @@ export default function HouseDetail() {
                     <div className="hero-wrapper">
                         <div className="page-title">
                             <div className="container clearfix">
-                                <div className="float-left float-xs-none"><h1>Furniture For Sale <span
-                                    className="tag">Offer</span></h1> <h4 className="location"><a href="#">Manhattan,
-                                    NY</a></h4></div>
+                                <div className="float-left float-xs-none"><h1>{houseDetail.name}<span
+                                    className="tag">Offer</span></h1> <h4 className="location"><a
+                                    href="#">{houseDetail.location}</a></h4></div>
                                 <div className="float-right float-xs-none price">
-                                    <div className="number">$80</div>
+                                    <div className="number">{houseDetail.price} VND</div>
                                     <div className="id opacity-50"><strong>ID: </strong>3479</div>
                                 </div>
                             </div>
@@ -48,11 +53,13 @@ export default function HouseDetail() {
                         <div className="container">
                             <section>
                                 {/* Main Carousel */}
-                                <div id="myCarousel" className="carousel slide carousel-fade" data-ride="carousel" data-interval="false">
+                                <div id="myCarousel" className="carousel slide carousel-fade" data-ride="carousel"
+                                     data-interval="false">
                                     <div className="carousel-inner">
                                         {imageList && imageList.map((item, index) => (
                                             <div key={index} className={`carousel-item ${index === 0 ? 'active' : ''}`}>
-                                                <img className="d-block" src={item.image} alt={`carousel_image_${index}`}  style={carouselItemStyle}/>
+                                                <img className="d-block" src={item.image}
+                                                     alt={`carousel_image_${index}`} style={carouselItemStyle}/>
                                             </div>
                                         ))}
                                     </div>
@@ -66,7 +73,8 @@ export default function HouseDetail() {
                                             rows[rows.length - 1].push(item);
                                             return rows;
                                         }, []).map((row, rowIndex) => (
-                                            <div key={rowIndex} className={`carousel-item ${rowIndex === 0 ? 'active' : ''}`}>
+                                            <div key={rowIndex}
+                                                 className={`carousel-item ${rowIndex === 0 ? 'active' : ''}`}>
                                                 <div className="row">
                                                     {row.map((thumb, thumbIndex) => (
                                                         <div
@@ -76,17 +84,20 @@ export default function HouseDetail() {
                                                             className={`thumb col-sm-4 ${activeIndex === (rowIndex * 3) + thumbIndex ? 'active' : ''}`}
                                                             onClick={() => handleThumbnailClick((rowIndex * 3) + thumbIndex)}
                                                         >
-                                                            <img src={thumb.image} alt={`thumbnail_${(rowIndex * 3) + thumbIndex}`} />
+                                                            <img src={thumb.image}
+                                                                 alt={`thumbnail_${(rowIndex * 3) + thumbIndex}`}/>
                                                         </div>
                                                     ))}
                                                 </div>
                                             </div>
                                         ))}
-                                        <a className="carousel-control-prev" href="#thumbSlider" role="button" data-slide="prev">
+                                        <a className="carousel-control-prev" href="#thumbSlider" role="button"
+                                           data-slide="prev">
                                             <span className="carousel-control-prev-icon" aria-hidden="true"></span>
                                             <span className="sr-only">Previous</span>
                                         </a>
-                                        <a className="carousel-control-next" href="#thumbSlider" role="button" data-slide="next">
+                                        <a className="carousel-control-next" href="#thumbSlider" role="button"
+                                           data-slide="next">
                                             <span className="carousel-control-next-icon" aria-hidden="true"></span>
                                             <span className="sr-only">Next</span>
                                         </a>
@@ -97,32 +108,19 @@ export default function HouseDetail() {
                             </section>
                             <div className="row flex-column-reverse flex-md-row">
                                 <div className="col-md-8">
-                                    <section><h2>Description</h2> <p> Lorem ipsum dolor sit amet, consectetur adipiscing
-                                        elit. Ut nec tincidunt arcu, sit amet fermentum sem. Class aptent taciti
-                                        sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos.
-                                        Vestibulum tincidunt, sapien sagittis sollicitudin dapibus, risus mi euismod
-                                        elit, in dictum justo lacus sit amet dui. Sed faucibus vitae nisl at
-                                        dignissim. </p></section>
+                                    <section><h2>Description</h2> <p> {houseDetail.description} </p></section>
                                     <section><h2>Details</h2>
                                         <dl className="columns-3">
-                                            <dt>Date Added</dt>
-                                            <dd>05.04.2017</dd>
-                                            <dt>Type</dt>
-                                            <dd>Offer</dd>
-                                            <dt>Status</dt>
-                                            <dd>Used</dd>
-                                            <dt>First Owner</dt>
-                                            <dd>Yes</dd>
-                                            <dt>Material</dt>
-                                            <dd>Wood, Leather</dd>
-                                            <dt>Color</dt>
-                                            <dd>White, Grey</dd>
-                                            <dt>Height</dt>
-                                            <dd>47cm</dd>
-                                            <dt>Width</dt>
-                                            <dd>203cm</dd>
-                                            <dt>Length</dt>
-                                            <dd>54cm</dd>
+                                            <dt>bedRoom</dt>
+                                            <dd>{houseDetail.bedRoom}</dd>
+                                            <dt>bathRoom</dt>
+                                            <dd>{houseDetail.bathRoom}</dd>
+                                            <dt>livingRoom</dt>
+                                            <dd>{houseDetail.livingRoom}</dd>
+                                            <dt>kitchen</dt>
+                                            <dd>{houseDetail.kitchen}</dd>
+                                            <dt>category</dt>
+                                            <dd>{houseDetail.category.name}</dd>
                                         </dl>
                                     </section>
                                     <section><h2>Location</h2>
@@ -130,11 +128,10 @@ export default function HouseDetail() {
                                     </section>
                                     <section><h2>Features</h2>
                                         <ul className="features-checkboxes columns-3">
-                                            <li>Quality Wood</li>
-                                            <li>Brushed Alluminium Handles</li>
-                                            <li>Foam mattress</li>
-                                            <li>Detachable chaise section</li>
-                                            <li>3 fold pull out mechanism</li>
+                                            {houseDetail.convenients.map((item) =>
+                                                <li>{item.name}</li>
+                                                )}
+
                                         </ul>
                                     </section>
                                     <hr/>

@@ -12,20 +12,20 @@ export const getAllHouse = createAsyncThunk(
 export const add = createAsyncThunk(
     'houses/add',
     async (newHouse) => {
-        let response = await getAxios().post('houses/create',newHouse);
+        let response = await getAxios().post('houses/create', newHouse);
         return response.data;
     }
 )
 export const getById = createAsyncThunk(
     'houses/getById',
     async (id) => {
-        let response = await getAxios().get('houses/' +id);
+        let response = await getAxios().get('houses/' + id);
         return response.data;
     }
 )
 export const removeById = createAsyncThunk(
     'houses/remove',
-    async (id  ) => {
+    async (id) => {
         let response = await getAxios().delete('houses/' + id);
         return response.data;
     }
@@ -34,7 +34,14 @@ export const update = createAsyncThunk(
     'houses/update',
     async (newProduct) => {
         console.log(newProduct)
-        let response = await getAxios().put('houses/'+newProduct.id,newProduct);
+        let response = await getAxios().put('houses/' + newProduct.id, newProduct);
+        return response.data;
+    }
+)
+export const getHouseByUser = createAsyncThunk(
+    "houses/getHouseByUser",
+    async (userId) => {
+        let response = await getAxios().get('houses/user/' + userId);
         return response.data;
     }
 )
