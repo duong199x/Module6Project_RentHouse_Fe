@@ -16,6 +16,9 @@ export default function ListHouse() {
         dispatch(getAllCategories())
         dispatch(getAllHouse());
     }, [])
+
+
+
     return (
         <>
             <form className="hero-form form">

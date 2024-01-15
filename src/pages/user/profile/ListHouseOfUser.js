@@ -1,6 +1,6 @@
 import {useDispatch, useSelector} from "react-redux";
 import {useEffect} from "react";
-import {getById, getHouseByUser} from "../../../redux/services/HouseService";
+import {getById, getHouseByUser, removeById} from "../../../redux/services/HouseService";
 import {Link, useParams} from "react-router-dom";
 
 export default function ListHouseOfUser() {
@@ -13,6 +13,18 @@ export default function ListHouseOfUser() {
     useEffect(() => {
         dispatch(getHouseByUser(id))
     }, []);
+    function handleDelete(idHouse) {
+        // eslint-disable-next-line no-restricted-globals
+        // let isConfirmed = confirm("Are you sure you want to delete");
+        if (true)    {
+            dispatch(removeById(idHouse)).then(()=> {
+                dispatch(getHouseByUser(id))
+            })
+        }
+        else {
+            alert("Oke la")
+        }
+    }
     return (
         <>
             <div className="col-md-9">
@@ -63,13 +75,17 @@ export default function ListHouseOfUser() {
                                 </h4>
                                 <div className="price">{item.price} VND</div>
                                 <div className="admin-controls">
-                                    <Link to={"/"} href="edit-ad.html">
+                                    <Link to={`/user/houseupdate/${item.id}`} >
                                         <i className="fa fa-pencil"></i>Edit
                                     </Link>
                                     <a href="#" className="ad-hide">
                                         <i className="fa fa-eye-slash"></i>Hide
                                     </a>
-                                    <a href="#" className="ad-remove">
+                                    <a
+                                        onClick={()=>
+                                        handleDelete(item.id)
+                                    }
+                                       href="#" className="ad-remove">
                                         <i className="fa fa-trash"></i>Remove
                                     </a>
                                 </div>
@@ -78,8 +94,8 @@ export default function ListHouseOfUser() {
                                     <p>{item.description}</p>
                                 </div>
 
-                                <Link to={`http://localhost:3000/user/house/${item.id}`} href="single-listing-1.html"
-                                   className="detail text-caps underline">Detail</Link>
+                                <Link to={`/user/house/${item.id}`} href="single-listing-1.html"
+                                      className="detail text-caps underline">Detail</Link>
                             </div>
                         </div>
                     )}
