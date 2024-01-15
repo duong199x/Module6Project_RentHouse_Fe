@@ -14,9 +14,9 @@ import Bookmarks from "./pages/user/profile/Bookmarks";
 import ListHouseOfUser from "./pages/user/profile/ListHouseOfUser";
 import ImageUpload from "./firebase/ImageUpload";
 import {useSelector} from "react-redux";
+import HouseDetail from "./pages/houses/HouseDetail";
 import {CreateConvenient} from "./pages/houses/convenient/AddConvenientToHouse";
 import {UpdateHouse} from "./pages/houses/update/UpdateHouse";
-import HouseDetail from "./pages/houses/HouseDetail";
 
 function App() {
     const currentUser = useSelector(({users}) => {
@@ -45,7 +45,7 @@ function App() {
                                     <Route path={"change-password"} element={<ChangePassword/>}/>
                                     <Route path={`profile-detail/:id`} element={<ProfileDetail/>}/>
                                     <Route path={"bookmarks"} element={<Bookmarks/>}/>
-                                    <Route path={"list-house-user"} element={<ListHouseOfUser/>}/>
+                                    <Route path={"list-house-user/:id"} element={<ListHouseOfUser/>}/>
                                 </Route>
                             </Route>
                             <Route path={'admin'} element={<Home/>}>
