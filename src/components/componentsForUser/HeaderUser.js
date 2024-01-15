@@ -1,11 +1,17 @@
 import Navbar from "../forAdmin/Navbar";
 import NavbarUser from "./NavbarUser";
-import {Link} from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
 import * as React from "react";
+import {logout} from "../../redux/services/UserService";
+import {useDispatch} from "react-redux";
 
 export default function HeaderUser() {
+    const dispatch = useDispatch()
+    const navigate = useNavigate();
     const logoutScreen = () => {
-        localStorage.clear()
+        dispatch(logout()).then(() => {
+            navigate("/login")
+        })
     }
     return (
         <>
@@ -24,20 +30,13 @@ export default function HeaderUser() {
 
                             <ul className="right">
                                 <li>
-                                    <a href="sign-in.html">
-                                        <Link to={"/login"}><i className="fa fa-sign-in"></i>Log In</Link>
-                                    </a>
+                                    <Link to={"/login"}><i className="fa fa-sign-in"></i>Log In</Link>
                                 </li>
                                 <li>
-                                    <a href="register.html">
-                                        <Link to={"/register"}><i className="fa fa-pencil-square-o"></i>Register</Link>
-                                    </a>
+                                    <Link to={"/register"}><i className="fa fa-pencil-square-o"></i>Register</Link>
                                 </li>
-                                <li>
-                                    <a href="register.html">
-                                        <Link to={"/login"} onClick={logoutScreen}><i
-                                            className="fa fa-pencil-square-o"></i>Logout</Link>
-                                    </a>
+                                <li style={{padding: "8px"}}>
+                                    <button onClick={logoutScreen} style={{background: "transparent", color: "white", border: 'none', cursor:'pointer'}}><i className="fa fa-pencil-square-o"></i>Logout</button>
                                 </li>
                             </ul>
 

@@ -2,12 +2,16 @@ import {createAsyncThunk} from "@reduxjs/toolkit";
 import axios from "axios";
 import getAxios from "./customAxios";
 
-
 export const login = createAsyncThunk(
     "users/login",
-    async (user) => {
-        let res = await getAxios().post("login", user)
-        return res.data;
+    async (user, {rejectWithValue} ) => {
+        try {
+            let res = await getAxios().post("login", user)
+            return res.data;
+        } catch (e) {
+            return rejectWithValue(e)
+        }
+
     }
 )
 export const register = createAsyncThunk(
@@ -22,6 +26,18 @@ export const changePassword = createAsyncThunk(
     async (user) => {
         let res = await getAxios().patch("users/change-password", user)
         return res.data;
+    }
+)
+export const logout = createAsyncThunk(
+    "users/logout",
+    async ()=>{
+        try {
+            let res = await getAxios().get("users/logout")
+            return res.data;
+        } catch (e) {
+            console.log(e)
+        }
+
     }
 )
 export const editDetailUser = createAsyncThunk(

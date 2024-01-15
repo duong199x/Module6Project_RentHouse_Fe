@@ -3,7 +3,7 @@ import {useSelector} from "react-redux";
 
 export default function Profile() {
     const currentUser = useSelector(({users}) => {
-        return users.currrentToken;
+        return users.currentToken;
     })
     return (
         <>

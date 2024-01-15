@@ -4,7 +4,7 @@ import {useSelector} from "react-redux";
 
 export default function NavbarUser() {
     const currentUser = useSelector(({users}) => {
-        return users.currrentToken;
+        return users.currentToken;
     })
     return (
         <>
