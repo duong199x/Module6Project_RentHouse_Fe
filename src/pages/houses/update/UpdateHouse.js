@@ -4,12 +4,25 @@ import React, {useEffect, useState} from "react";
 import {getAllCategories} from "../../../redux/services/CategoryService";
 import {LocalizationProvider} from "@mui/x-date-pickers";
 import {AdapterDateFns} from "@mui/x-date-pickers/AdapterDateFns";
-import {Field, Form, Formik} from "formik";
+import {ErrorMessage, Field, Form, Formik} from "formik";
 import {CustomCheckboxField, CustomSelectField, CustomTextField} from "../../../components/UI/FormField";
 import {getById, update} from "../../../redux/services/HouseService";
 import {getAllConvenient} from "../../../redux/services/ConvenientService";
+import * as Yup from "yup";
 
 export function UpdateHouse() {
+    const addSchema = Yup.object().shape({
+        name: Yup.string()
+            .required('Vui lòng nhập đủ thông tin!'),
+        price: Yup.number()
+            .positive('Số phải lớn hơn 0!')
+            .integer('Số phải là số nguyên!')
+            .required('Vui lòng nhập đủ thông tin!'),
+        location: Yup.string()
+            .required('Vui lòng nhập đủ thông tin!'),
+        description: Yup.string()
+            .required('Vui lòng nhập đủ thông tin!'),
+    });
     const navigate = useNavigate();
     const dispatch = useDispatch();
     const [fetched, setFetched] = useState(false);
@@ -56,24 +69,37 @@ export function UpdateHouse() {
                 <LocalizationProvider dateAdapter={AdapterDateFns}>
                     <Formik initialValues={houses}
                             enableReinitialize={true}
-                            onSubmit={save}>
+                            onSubmit={save}
+                            validationSchema={addSchema}>
                         <div className="main-formAdd">
                             <Form>
                                 <div className="formAdd">
                                     <div className="row">
                                         <div className="col-4"><CustomTextField name="name" label={"Name"}
                                                                                 type={"text"}/>
+                                            <div className="validateNamePro">
+                                                <p style={{color: "red"}}><ErrorMessage name={"name"}/></p>
+                                            </div>
                                         </div>
                                         <div className="col-4"><CustomTextField name="price" label={"Price"}
                                                                                 type={"text"}/>
+                                            <div className="validateNamePro">
+                                                <p style={{color: "red"}}><ErrorMessage name={"price"}/></p>
+                                            </div>
                                         </div>
                                         <div className="col-4"><CustomTextField name="location" label={"Location"}
                                                                                 type={"text"}/>
+                                            <div className="validateNamePro">
+                                                <p style={{color: "red"}}><ErrorMessage name={"location"}/></p>
+                                            </div>
                                         </div>
                                     </div>
                                     <div className="row">
                                         <div className="col-8">
                                             <CustomTextField name="description" label={"Description"} type={"text"}/>
+                                            <div className="validateNamePro">
+                                                <p style={{color: "red"}}><ErrorMessage name={"description"}/></p>
+                                            </div>
                                         </div>
                                         <div className="col-4">
                                             <CustomSelectField
