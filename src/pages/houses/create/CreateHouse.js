@@ -5,8 +5,8 @@ import {useNavigate} from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
 import {LocalizationProvider} from "@mui/x-date-pickers";
 import {AdapterDateFns} from "@mui/x-date-pickers/AdapterDateFns";
-import {CustomSelectField, CustomTextField} from "../../components/UI/FormField";
-import {getAllCategories} from "../../redux/services/CategoryService";
+import {CustomSelectField, CustomTextField} from "../../../components/UI/FormField";
+import {getAllCategories} from "../../../redux/services/CategoryService";
 
 export default function CreateHouse() {
     const navigate = useNavigate();

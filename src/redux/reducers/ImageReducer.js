@@ -1,6 +1,7 @@
 import {createSlice} from "@reduxjs/toolkit";
 
-import {addImages, getAllImage} from "../services/ImageService";
+import {addImages, getAllImage, removeImageById} from "../services/ImageService";
+import {removeById} from "../services/HouseService";
 
 const initialState = {
     list: []
@@ -15,6 +16,9 @@ const imageSlice = createSlice({
         })
         builder.addCase(addImages.fulfilled, (state, {payload}) => {
             state.list.push(payload);
+        })
+        builder.addCase(removeImageById.fulfilled, (state, {payload}) => {
+            state.list.splice(payload)
         })
     }
 })

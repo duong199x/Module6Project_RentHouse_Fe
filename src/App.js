@@ -6,7 +6,7 @@ import Login from "./pages/authentication/Login";
 import Register from "./pages/authentication/Register";
 import UserPage from "./pages/user/UserPage";
 import ListHouse from "./pages/user/ListHouse";
-import CreateHouse from "./pages/houses/CreateHouse";
+import CreateHouse from "./pages/houses/create/CreateHouse";
 import Profile from "./pages/user/profile/Profile";
 import ChangePassword from "./pages/user/profile/ChangePassword";
 import ProfileDetail from "./pages/user/profile/ProfileDetail";
@@ -33,15 +33,17 @@ function App() {
                             <Route path={'user'} element={<UserPage/>}>
                                 <Route path={'house'} element={<ListHouse/>}/>
                                 <Route path={'house/:id'} element={<HouseDetail/>}/>
-                                <Route path={'create'} element={<CreateHouse/>}/>
-                                <Route path={'addImage'} element={<ImageUpload/>}/>
-                                <Route path={'convenient'} element={<CreateConvenient/>}/>
-                                <Route path={'houseupdate/:id'} element={<UpdateHouse/>}/>
                                 <Route path={'profile'} element={<Profile/>}>
                                     <Route path={"profile-detail"} element={<ProfileDetail/>}/>
                                     <Route path={"change-password"} element={<ChangePassword/>}/>
                                     <Route path={"bookmarks"} element={<Bookmarks/>}/>
-                                    <Route path={"list-house-user"} element={<ListHouseOfUser/>}/>
+                                    <Route path={'create'} element={<CreateHouse/>}>
+                                        <Route path={'convenient'} element={<CreateConvenient/>}/>
+                                        <Route path={'image'} element={<ImageUpload/>}/>
+                                    </Route>
+                                    <Route path={"list-house-user"} element={<ListHouseOfUser/>}>
+                                        <Route path={'update/:id'} element={<UpdateHouse/>}/>
+                                    </Route>
                                 </Route>
                             </Route>
                             <Route path={'admin'} element={<Home/>}>
