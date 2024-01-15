@@ -28,7 +28,15 @@ export const editDetailUser = createAsyncThunk(
     'user/edit',
     async (data) => {
         let res  = await getAxios().patch('users/' + data.id, data);
-        return res;
+        return res.data;
+    }
+)
+
+export const editImageUser = createAsyncThunk(
+    'user/editImage',
+    async (data) => {
+        let res  = await getAxios().patch('users/avatar/' + data.id, data);
+        return res.data;
     }
 )
 

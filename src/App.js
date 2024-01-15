@@ -12,6 +12,7 @@ import ChangePassword from "./pages/user/profile/ChangePassword";
 import ProfileDetail from "./pages/user/profile/ProfileDetail";
 import Bookmarks from "./pages/user/profile/Bookmarks";
 import ListHouseOfUser from "./pages/user/profile/ListHouseOfUser";
+import ImageUpload from "./firebase/ImageUpload";
 import {useSelector} from "react-redux";
 import HouseDetail from "./pages/user/HouseDetail";
 
@@ -39,6 +40,8 @@ function App() {
                                     <Route path={`profile-detail/:id`} element={<ProfileDetail/>}/>
                                     <Route path={"bookmarks"} element={<Bookmarks/>}/>
                                     <Route path={"list-house-user"} element={<ListHouseOfUser/>}/>
+                                    <Route path={'create'} element={<CreateHouse/>}/>
+                                    <Route path={'addImage'} element={<ImageUpload/>}/>
                                 </Route>
                                 <Route path={'create'} element={<CreateHouse/>}/>
                             </Route>
@@ -46,15 +49,6 @@ function App() {
                                 <Route path={'users'} element={<UserManager/>}/>
                                 <Route path={'houses'} element={<HouseManager/>}/>
                             </Route>
-                            <Route path={'home'} >
-                                <Route>
-
-                                </Route>
-
-                                {/*<Route path={'edit/:id'} element={<UpdateProduct/>}/>*/}
-                                {/*<Route path={':id'} element={<ProductDetail/>}/>*/}
-                            </Route>
-
                         </>
                     ) : (
                         <>

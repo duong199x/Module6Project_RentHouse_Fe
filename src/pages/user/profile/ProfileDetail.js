@@ -1,53 +1,102 @@
-import {useEffect,useState} from "react";
+import {useEffect, useState} from "react";
 import axios from "axios";
 import {useParams} from "react-router-dom";
-import {editDetailUser, getUser} from "../../../redux/services/UserService";
+import {editDetailUser, editImageUser, getUser} from "../../../redux/services/UserService";
 import {useDispatch, useSelector} from "react-redux";
+import {storage} from "../../../firebase/FireBaseConfig";
+import {getDownloadURL, ref, uploadBytesResumable} from "firebase/storage";
 
 export default function ProfileDetail() {
     const dispatch = useDispatch();
-    let currentUser = JSON.parse(localStorage.getItem("currentToken"));
-    console.log(currentUser.id);
-    const { id } = useParams();
-    // Khởi tạo state để lưu trữ dữ liệu từ axios
-    const [userInfo, setUserInfo] = useState(null);
+    const {id} = useParams();
+    const [userInfo, setUserInfo] = useState({
+        username: '',
+        fullName: '',
+        dateOfBirth: '',
+        address: '',
+        phone: '',
+        email: '',
+        imageUser: ''
+    });
 
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
 
+    const [image, setImage] = useState('');
+    const [url, setUrl] = useState(null);
+
     useEffect(() => {
-        // Hàm async để gửi yêu cầu axios
         const fetchData = async () => {
             try {
-                // Gửi yêu cầu axios
                 const response = await axios.get(`http://localhost:8080/users/${id}`);
-                // Lưu trữ dữ liệu vào state
+
                 setUserInfo(response.data);
-                setLoading(false); // Đánh dấu là đã tải xong
+                setLoading(false);
             } catch (error) {
-                // Xử lý lỗi nếu có
                 setError(error);
                 setLoading(false);
             }
         };
-        fetchData();// Gọi hàm fetchData khi component được mount
-    }, []); // Tham số thứ hai là một mảng rỗng để đảm bảo useEffect chỉ chạy một lần khi component được mount
+        fetchData();
+    }, []);
 
 
     const handleInputChange = (e) => {
-        const { name, value } = e.target;
+        const {name, value} = e.target;
         setUserInfo((prevUserInfo) => ({
             ...prevUserInfo,
             [name]: value,
         }));
-        console.log(userInfo);
     };
 
     const handleSaveChanges = async () => {
-        dispatch(editDetailUser(userInfo)).then(()=>{
-            alert("Update User Success!")
+        dispatch(editImageUser(userInfo)).then(() => {
+            dispatch(editDetailUser(userInfo)).then(() => {
+                alert("Update User Success!")
+            })
         })
     };
+
+
+    useEffect(() => {
+        const uploadFile = () => {
+            const name = new Date().getTime() + image.name
+            const storageRef = ref(storage, name)
+            const uploadTask = uploadBytesResumable(storageRef, image);
+
+            uploadTask.on(
+                'state_changed',
+                (snapshot) => {
+                    const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+                    console.log('Upload is ' + progress + '% done');
+                    switch (snapshot.state) {
+                        case 'paused':
+                            console.log('Upload is paused');
+                            break;
+                        case 'running':
+                            console.log('Upload is running');
+                            break;
+                        default:
+                            break;
+                    }
+                },
+                (error) => {
+                    console.log(error)
+                },
+                () => {
+                    getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
+                        setUserInfo((prevUserInfo) => ({
+                            ...prevUserInfo,
+                            imageUser: downloadURL,
+                        }));
+                        console.log(userInfo);
+                    });
+                }
+            );
+        }
+        image && uploadFile()
+    }, [image])
+
 
     return (
         <>
@@ -63,7 +112,7 @@ export default function ProfileDetail() {
                                     <input name="username" type="text" className="form-control"
                                            id="username" placeholder="Your UserName"
                                            value={userInfo && userInfo.username ? userInfo.username : ''}
-                                           onChange={handleInputChange}
+                                           readOnly='true'
                                            required/>
                                 </div>
                                 <div className="form-group">
@@ -75,7 +124,8 @@ export default function ProfileDetail() {
                                            required/>
                                 </div>
                                 <div className="form-group">
-                                    <label htmlFor="dateOfBirth" className="col-form-label required">Date Of Birth</label>
+                                    <label htmlFor="dateOfBirth" className="col-form-label required">Date Of
+                                        Birth</label>
                                     <input name="dateOfBirth" type="date" className="form-control"
                                            id="dateOfBirth" placeholder="Your Date Of Birth"
                                            value={userInfo && userInfo.dateOfBirth ? userInfo.dateOfBirth : ''}
@@ -114,22 +164,34 @@ export default function ProfileDetail() {
                             </section>
 
                             <section className="clearfix">
-                                <button type="submit" className="btn btn-primary float-right" onClick={handleSaveChanges}>
+                                <button type="submit" className="btn btn-primary float-right"
+                                        onClick={handleSaveChanges}>
                                     Save Changes
                                 </button>
                             </section>
                         </div>
                         <div className="col-md-4">
-                            <div className="profile-image">
-                                <div className="image background-image">
-                                    <img src="assets/img/author-09.jpg" alt=""/>
-                                </div>
-                                <div className="single-file-input">
-                                    <input type="file" id="user_image" name="user_image"/>
-                                    <div className="btn btn-framed btn-primary small">Upload a picture
-                                    </div>
-                                </div>
+                            <img
+                                className={'avatar'}
+                                src={userInfo.imageUser || ''}
+                                alt="avatar"
+                                style={{width:"150px",height:"150px",borderRadius:"50%"}}
+                            />
+                            <div
+                                style={{borderRadius:"5px",backgroundColor:"red",border:"1.5px solid red",color:"white",textAlign:"center",textDecoration:"none",
+                                    display:"inline-block",fontSize:"16px",margin:"4px 2px",cursor:"pointer",width:"150px",height:"50px"}}
+
+                                onClick={() => document.querySelector('.input-field').click()}
+                            >
+                                Choose profile picture
+                                <input
+                                    type='file'
+                                    className={'input-field'}
+                                    onChange={(e) => setImage(e.target.files[0])}
+                                    hidden
+                                />
                             </div>
+
                         </div>
                     </div>
                 </form>
