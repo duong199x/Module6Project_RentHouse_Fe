@@ -39,20 +39,16 @@ export function UpdateHouse() {
         }
         fetchData();
     }, []);
+
     const convenients = useSelector(({convenients}) => {
         return convenients.listConvenient;
     })
-
     const save = (values) => {
-
-        // values.convenients.map(Number)
-        let convenientIds = values.convenients.map(item => item.id)
-        values = (({convenients, ...value}) => value)(values)
-        values = {...values, convenientIds}
         let user = {id: currentUserId}
-        const data ={...values,user}
-        console.log(data)
-        dispatch(update(data)).then(() => {
+        let convenientIds = values.convenients.map(Number)
+        values = (({convenients,userDTO, ...value}) => value)(values)
+        values = {...values, convenientIds, user}
+        dispatch(update(values)).then(() => {
             navigate(`/user/manager-house/list-house-user/${currentUserId}`);
         })
     }
@@ -67,7 +63,7 @@ export function UpdateHouse() {
         <>
             {fetched ? <><h2>UPDATE YOUR HOUSE</h2>
                 <LocalizationProvider dateAdapter={AdapterDateFns}>
-                    <Formik initialValues={houses}
+                    <Formik initialValues={{...houses, convenients: houses.convenients.map(item => item.id)}}
                             enableReinitialize={true}
                             onSubmit={save}
                             validationSchema={addSchema}>
@@ -121,7 +117,6 @@ export function UpdateHouse() {
                                                                                 type={"text"}/>
                                         </div>
                                     </div>
-
                                     <div className="row input-checkbox">
                                         {
                                             convenients.map((convenient) => {
@@ -136,6 +131,7 @@ export function UpdateHouse() {
                                                 )
                                             })}
                                     </div>
+
 
                                     <div className="row btn-checkbox">
                                         <button type="submit" className="btn btn-success">UPDATE</button>

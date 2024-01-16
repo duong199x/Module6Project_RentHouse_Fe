@@ -10,6 +10,9 @@ import {v4 as uuidv4} from "uuid";
 import {Formik} from "formik";
 
 export default function ShowFormImageUpdate () {
+    const currentUserId = useSelector(({users}) => {
+        return users.currentToken.id;
+    })
     const navigate = useNavigate();
     const {idHouse} = useParams()
     const dispatch = useDispatch();
@@ -20,7 +23,7 @@ export default function ShowFormImageUpdate () {
         // eslint-disable-next-line react-hooks/rules-of-hooks
         useEffect(() => {
             dispatch(getImageByHouseId(idHouse)).then(() => {
-                console.log(images);
+                navigate(`/user/manager-house/list-house-user/${currentUserId}`);
             });
         }, []);
     }
