@@ -20,6 +20,7 @@ import HouseDetail from "./pages/houses/HouseDetail";
 import CreateHouse from "./pages/houses/create/CreateHouse";
 import ShowFormImageUpdate from "./pages/houses/update/ShowUpdateImage";
 import ManagerHouse from "./pages/user/managerHouse/ManagerHouse";
+import HistoryBuy from "./pages/user/profile/HistoryBuy";
 
 
 function App() {
@@ -50,6 +51,7 @@ function App() {
                                     <Route path={"change-password"} element={<ChangePassword/>}/>
                                     <Route path={`profile-detail/:id`} element={<ProfileDetail/>}/>
                                     <Route path={"bookmarks"} element={<Bookmarks/>}/>
+                                    <Route path={"history"} element={<HistoryBuy/>}/>
                                 </Route>
                                 <Route path={"manager-house"} element={<ManagerHouse/>}>
                                     <Route path={"list-house-user/:id"} element={<ListHouseOfUser/>}/>

@@ -49,7 +49,7 @@ export function UpdateHouse() {
         values = (({convenients,userDTO, ...value}) => value)(values)
         values = {...values, convenientIds, user}
         dispatch(update(values)).then(() => {
-            navigate('/user');
+            navigate(`/user/manager-house/list-house-user/${currentUserId}`);
         })
     }
     const houses = useSelector(({houses}) => {

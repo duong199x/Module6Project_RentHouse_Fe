@@ -25,13 +25,14 @@ export default function CreateHouse() {
     const currentUserId = useSelector(({users}) => {
         return users.currentToken.id;
     })
-
+    console.log("currentUserId",currentUserId)
 
     const navigate = useNavigate();
     const dispatch = useDispatch();
     const handleNext = (values) => {
+        let user = {id: currentUserId}
         const propsToPass = {
-            data: values,
+            data: {...values, user},
         };
 
         navigate('/user/convenient',
@@ -64,9 +65,6 @@ export default function CreateHouse() {
                         "livingRoom": 0,
                         "kitchen": 0,
                         "category": {
-                            "id": 0
-                        },
-                        "user": {
                             "id": 0
                         }
                     }
@@ -130,7 +128,6 @@ export default function CreateHouse() {
                                 </div>
 
                                 <div className="row">
-                                    <Field name="user.id" type="hidden" value={currentUserId}/>
                                     <button className="btn btn-success" type={"submit"}>Next</button>
                                 </div>
 
