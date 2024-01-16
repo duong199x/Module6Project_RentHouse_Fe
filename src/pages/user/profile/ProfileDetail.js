@@ -23,8 +23,6 @@ export default function ProfileDetail() {
     const [error, setError] = useState(null);
 
     const [image, setImage] = useState('');
-    const [url, setUrl] = useState(null);
-
     useEffect(() => {
         const fetchData = async () => {
             try {
