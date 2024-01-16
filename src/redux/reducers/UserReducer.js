@@ -1,9 +1,27 @@
 import {createSlice} from "@reduxjs/toolkit";
-import {changePassword, changepassword, login, logout, register} from "../services/UserService";
+import {
+    changePassword,
+    changepassword,
+    editDetailUser,
+    getUser,
+    login,
+    logout,
+    register
+} from "../services/UserService";
 
 const initialState = {
     list: [],
-    currentToken: JSON.parse(localStorage.getItem("currentToken"))
+    currentToken: JSON.parse(localStorage.getItem("currentToken")),
+    currentUser: {
+        username: "",
+        email: "",
+        fullName: "",
+        address: "",
+        phone: "",
+        age: "",
+        dateOfBirth: "",
+        imageUser: ""
+    },
 }
 const userSlice = createSlice({
     name: "users",
@@ -25,6 +43,12 @@ const userSlice = createSlice({
             .addCase(logout.fulfilled,(state, {payload}) => {
                 state.currentToken = null;
                 localStorage.clear();
+            })
+            .addCase(getUser.fulfilled,(state, {payload}) => {
+                state.currentUser = payload;
+            })
+            .addCase(editDetailUser.fulfilled,(state, action) => {
+
             })
     }
 })
