@@ -11,13 +11,14 @@ import Profile from "./pages/user/profile/Profile";
 import ChangePassword from "./pages/user/profile/ChangePassword";
 import ProfileDetail from "./pages/user/profile/ProfileDetail";
 import Bookmarks from "./pages/user/profile/Bookmarks";
-import ListHouseOfUser from "./pages/user/profile/ListHouseOfUser";
+import ListHouseOfUser from "./pages/user/managerHouse/ListHouseOfUser";
 import ImageUpload from "./firebase/ImageUpload";
 import {useSelector} from "react-redux";
 import {CreateConvenient} from "./pages/houses/convenient/AddConvenientToHouse";
 import {UpdateHouse} from "./pages/houses/update/UpdateHouse";
 import HouseDetail from "./pages/houses/HouseDetail";
 import CreateHouse from "./pages/houses/create/CreateHouse";
+import ManagerHouse from "./pages/user/managerHouse/ManagerHouse";
 
 function App() {
     const currentUser = useSelector(({users}) => {
@@ -46,6 +47,8 @@ function App() {
                                     <Route path={"change-password"} element={<ChangePassword/>}/>
                                     <Route path={`profile-detail/:id`} element={<ProfileDetail/>}/>
                                     <Route path={"bookmarks"} element={<Bookmarks/>}/>
+                                </Route>
+                                <Route path={"manager-house"} element={<ManagerHouse/>}>
                                     <Route path={"list-house-user/:id"} element={<ListHouseOfUser/>}/>
                                 </Route>
                             </Route>
