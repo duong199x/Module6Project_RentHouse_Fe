@@ -31,7 +31,8 @@ export default function NavbarUser() {
                                           className="nav-link">Wishlist</Link>
                                 </li>
                                 <li className="nav-item has-child">
-                                    <Link to={`/user/profile/profile-detail/${currentUser.id}`} className="nav-link" href="#">Your
+                                    <Link to={`/user/profile/profile-detail/${currentUser.id}`} className="nav-link" href="#">
+                                        Your
                                         Profile</Link>
 
                                     <ul className="child">
@@ -40,7 +41,7 @@ export default function NavbarUser() {
                                                   className="nav-link">Profile</Link>
                                         </li>
                                         <li className="nav-item has-child">
-                                            <Link to={"manager-house"} href="#" className="nav-link">Manager House</Link>
+                                            <Link to={`/user/manager-house/list-house-user/${currentUser.id}`} href="#" className="nav-link">Manager House</Link>
                                         </li>
                                         <li className="nav-item has-child">
                                             <Link to={""} href="#" className="nav-link">Message</Link>

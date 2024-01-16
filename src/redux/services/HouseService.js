@@ -13,6 +13,7 @@ export const add = createAsyncThunk(
     'houses/add',
     async (newHouse) => {
         let response = await getAxios().post('houses/create', newHouse);
+        console.log(response)
         return response.data;
     }
 )
@@ -20,13 +21,15 @@ export const getById = createAsyncThunk(
     'houses/getById',
     async (id) => {
         let response = await getAxios().get('houses/' + id);
+        console.log("IDDDDDD",id)
+        console.log("id",response)
         return response.data;
     }
 )
 export const removeById = createAsyncThunk(
     'houses/remove',
     async (id) => {
-        let response = await getAxios().delete('houses/' + id);
+        let response = await getAxios().delete('houses/delete/' + id);
         return response.data;
     }
 )

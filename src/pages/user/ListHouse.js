@@ -1,24 +1,30 @@
 import {useDispatch, useSelector} from "react-redux";
-import {useEffect} from "react";
+import {useEffect, useState} from "react";
 import {getAllHouse} from "../../redux/services/HouseService";
-import {Link} from "react-router-dom";
 import {getAllCategories} from "../../redux/services/CategoryService";
+import {House} from "./House";
 
 export default function ListHouse() {
     const dispatch = useDispatch();
-    const categories = useSelector(state=> state.categories.listCategories)
+    const categories = useSelector(state => state.categories.listCategories)
+    const message= useSelector(state=>state.houses.message)
     const houses = useSelector(({houses}) => {
         return houses.list;
     })
-
     useEffect(() => {
         dispatch(getAllCategories())
         dispatch(getAllHouse());
     }, [])
+
     return (
         <>
-            <form className="hero-form form">
+            <form className="hero-form form" style={{paddingTop:"50px"}}>
+                <div style={{marginTop:"0px"}}>
+                    <h2 style={{color:"#FF0000"}}>HÃY THUÊ VÀ BÁN NHÀ THEO CÁCH CỦA BẠN ^^</h2>
+                    {message && <h2 style={{color: 'green'}}> {message} </h2>}
+                </div>
                 <div className="container">
+
 
                     <div className="main-search-form">
                         <div className="form-row">
@@ -27,9 +33,7 @@ export default function ListHouse() {
                                     <input name="keyword" type="text" className="form-control" id="what"
                                            placeholder="What are you looking for?"/>
                                 </div>
-
                             </div>
-
                             <div className="col-md-3 col-sm-3">
                                 <div className="form-group">
                                     <input name="location" type="text" className="form-control"
@@ -38,15 +42,12 @@ export default function ListHouse() {
                                           data-placement="top" title="Find My Position"><i
                                         className="fa fa-map-marker"></i></span>
                                 </div>
-
                             </div>
-
-
                             <div className="col-md-3 col-sm-3">
                                 <div className="form-group">
                                     <select name="category" id="category" data-placeholder="Select Category">
                                         <option value="">Select Category</option>
-                                        {categories && categories.map((i)=><option value={i.id} >{i.name } </option>)
+                                        {categories && categories.map((i) => <option value={i.id}>{i.name} </option>)
                                         }
                                     </select>
                                 </div>
@@ -56,12 +57,8 @@ export default function ListHouse() {
                             <div className="col-md-3 col-sm-3">
                                 <button type="submit" className="btn btn-primary width-100">Search</button>
                             </div>
-
                         </div>
-
                     </div>
-
-
                     <div className="alternative-search-form">
                         <a href="#collapseAlternativeSearchForm" className="icon" data-toggle="collapse"
                            aria-expanded="false" aria-controls="collapseAlternativeSearchForm"><i
@@ -88,7 +85,6 @@ export default function ListHouse() {
                                             Featured
                                         </label>
                                     </div>
-
                                     <div className="col-xl-6 col-lg-12 col-md-12 col-sm-12">
                                         <div className="form-row">
                                             <div className="col-md-4 col-sm-4">
@@ -98,9 +94,7 @@ export default function ListHouse() {
                                                            placeholder="Minimal Price"/>
                                                     <span className="input-group-addon small">$</span>
                                                 </div>
-
                                             </div>
-
                                             <div className="col-md-4 col-sm-4">
                                                 <div className="form-group">
                                                     <input name="max_price" type="text"
@@ -108,9 +102,7 @@ export default function ListHouse() {
                                                            placeholder="Maximal Price"/>
                                                     <span className="input-group-addon small">$</span>
                                                 </div>
-
                                             </div>
-
                                             <div className="col-md-4 col-sm-4">
                                                 <div className="form-group">
                                                     <select name="distance" id="distance" className="small"
@@ -123,23 +115,14 @@ export default function ListHouse() {
                                                         <option value="5">100km</option>
                                                     </select>
                                                 </div>
-
                                             </div>
-
                                         </div>
-
                                     </div>
-
                                 </div>
-
                             </div>
-
                         </div>
-
                     </div>
-
                 </div>
-
             </form>
             <section className="content">
                 <section className="block">
@@ -153,7 +136,7 @@ export default function ListHouse() {
                                 <select name="categories" id="categories" className="small width-200px"
                                         data-placeholder="Category">
                                     <option value="">Category</option>
-                                    {categories && categories.map((i)=><option value={i.id} >{i.name } </option>)
+                                    {categories && categories.map((i) => <option value={i.id}>{i.name} </option>)
                                     }
                                 </select>
                                 <select name="sorting" id="sorting" className="small width-200px"
@@ -168,50 +151,12 @@ export default function ListHouse() {
                         </div>
 
                         <div className="items masonry grid-xl-4-items grid-lg-3-items grid-md-2-items">
-
                             {houses && houses.map((item) => {
                                 return (
-                                    <div className="item" key={item.id}>
-                                        {/*<div className="ribbon-featured">Featured</div>*/}
-                                        <div className="wrapper">
-                                            <div className="image">
-                                                <h3>
-                                                    <a href="#" className="tag category">{item.category.name}</a>
-                                                    <Link to={`${item.id}`} className="title">{item.name}</Link>
-                                                    <span className="tag">Offer</span>
-                                                </h3>
-                                                <Link to={`${item.id}`}
-                                                      className="image-wrapper background-image">
-                                                    <img src="assets/img/image-01.jpg" alt=""/>
-                                                </Link>
-                                            </div>
+                                    <House item={item}/>
 
-                                            <h4 className="location">
-                                                <a href="#">{item.location}</a>
-                                            </h4>
-                                            <div className="price">${item.price}</div>
-                                            <div className="meta">
-                                                <figure>
-                                                    <i className="fa fa-calendar-o"></i>02.05.2017
-                                                </figure>
-                                                <figure>
-                                                    <a href="#">
-                                                        <i className="fa fa-user"></i>Jane Doe
-                                                    </a>
-                                                </figure>
-                                            </div>
-
-                                            <div className="description">
-                                                <p>{item.description}</p>
-                                            </div>
-
-                                            <Link to={`${item.id}`} href="single-listing-1.html"
-                                                  className="detail text-caps underline">Detail</Link>
-                                        </div>
-                                    </div>
                                 )
                             })}
-
 
                             {/*<a href="submit.html" className="item call-to-action">*/}
                             {/*    <div className="wrapper">*/}

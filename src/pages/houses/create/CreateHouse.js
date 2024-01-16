@@ -1,21 +1,39 @@
-import {Field, Form, Formik} from "formik";
+import {ErrorMessage, Field, Form, Formik} from "formik";
 import './formAdd.css'
 import React, {useEffect} from "react";
 import {useNavigate} from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
 import {LocalizationProvider} from "@mui/x-date-pickers";
 import {AdapterDateFns} from "@mui/x-date-pickers/AdapterDateFns";
-import {CustomSelectField, CustomTextField} from "../../components/UI/FormField";
-import {getAllCategories} from "../../redux/services/CategoryService";
+import {CustomSelectField, CustomTextField} from "../../../components/UI/FormField";
+import {getAllCategories} from "../../../redux/services/CategoryService";
+import * as Yup from "yup";
 
 export default function CreateHouse() {
+    const addSchema = Yup.object().shape({
+        name: Yup.string()
+            .required('Vui lòng nhập đủ thông tin!'),
+        price: Yup.number()
+            .positive('Số phải lớn hơn 0!')
+            .integer('Số phải là số nguyên!')
+            .required('Vui lòng nhập đủ thông tin!'),
+        location: Yup.string()
+            .required('Vui lòng nhập đủ thông tin!'),
+        description: Yup.string()
+            .required('Vui lòng nhập đủ thông tin!'),
+    });
+    const currentUserId = useSelector(({users}) => {
+        return users.currentToken.id;
+    })
+    console.log(currentUserId)
+
+
     const navigate = useNavigate();
     const dispatch = useDispatch();
     const handleNext = (values) => {
         const propsToPass = {
             data: values,
         };
-        console.log(propsToPass);
 
         navigate('/user/convenient',
             {
@@ -54,17 +72,29 @@ export default function CreateHouse() {
                         }
                     }
 
-                } onSubmit={handleNext}>
+                } onSubmit={handleNext} validationSchema={addSchema}
+                >
                     <div className="main-formAdd">
                         <Form>
                             <div className="formAdd">
                                 <div className="row">
-                                    <div className="col-4"><CustomTextField name="name" label={"Name"} type={"text"}/>
+                                    <div className="col-4">
+                                        <CustomTextField name="name" label={"Name"} type={"text"}/>
+                                        <div className="validateNamePro">
+                                            <p style={{color: "red"}}><ErrorMessage name={"name"}/></p>
+                                        </div>
+
                                     </div>
                                     <div className="col-4"><CustomTextField name="price" label={"Price"} type={"text"}/>
+                                        <div className="validateNamePro">
+                                            <p style={{color: "red"}}><ErrorMessage name={"price"}/></p>
+                                        </div>
                                     </div>
                                     <div className="col-4"><CustomTextField name="location" label={"Location"}
                                                                             type={"text"}/>
+                                        <div className="validateNamePro">
+                                            <p style={{color: "red"}}><ErrorMessage name={"location"}/></p>
+                                        </div>
                                     </div>
 
 
@@ -72,6 +102,9 @@ export default function CreateHouse() {
                                 <div className="row">
                                     <div className="col-8">
                                         <CustomTextField name="description" label={"Description"} type={"text"}/>
+                                        <div className="validateNamePro">
+                                            <p style={{color: "red"}}><ErrorMessage name={"description"}/></p>
+                                        </div>
                                     </div>
                                     <div className="col-4">
                                         <CustomSelectField
@@ -98,7 +131,7 @@ export default function CreateHouse() {
                                 </div>
 
                                 <div className="row">
-                                    <Field name="user.id" type="hidden" value={1}/>
+                                    <Field name="user.id" type="hidden" value={currentUserId}/>
                                     <button className="btn btn-success" type={"submit"}>Next</button>
                                 </div>
 
