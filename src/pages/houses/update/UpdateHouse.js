@@ -42,13 +42,18 @@ export function UpdateHouse() {
     const convenients = useSelector(({convenients}) => {
         return convenients.listConvenient;
     })
+
     const save = (values) => {
+
         // values.convenients.map(Number)
         let convenientIds = values.convenients.map(item => item.id)
         values = (({convenients, ...value}) => value)(values)
         values = {...values, convenientIds}
-        dispatch(update(values)).then(() => {
-            navigate('/user');
+        let user = {id: currentUserId}
+        const data ={...values,user}
+        console.log(data)
+        dispatch(update(data)).then(() => {
+            navigate(`/user/manager-house/list-house-user/${currentUserId}`);
         })
     }
     const houses = useSelector(({houses}) => {
@@ -116,9 +121,7 @@ export function UpdateHouse() {
                                                                                 type={"text"}/>
                                         </div>
                                     </div>
-                                    <div className="row">
-                                        <Field name="user.id" type="hidden" value={currentUserId}/>
-                                    </div>
+
                                     <div className="row input-checkbox">
                                         {
                                             convenients.map((convenient) => {
@@ -133,7 +136,6 @@ export function UpdateHouse() {
                                                 )
                                             })}
                                     </div>
-
 
                                     <div className="row btn-checkbox">
                                         <button type="submit" className="btn btn-success">UPDATE</button>
