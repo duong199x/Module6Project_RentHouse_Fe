@@ -1,7 +1,5 @@
 import ImagePreview from "../../../components/UI/ImagePreview";
 import React, {useEffect, useState} from "react";
-import {getAllCategories} from "../../../redux/services/CategoryService";
-import {add, getAllHouse} from "../../../redux/services/HouseService";
 import {useDispatch, useSelector} from "react-redux";
 import {useNavigate, useParams} from "react-router-dom";
 import {addImages, getImageByHouseId, removeImageById} from "../../../redux/services/ImageService";
@@ -14,7 +12,6 @@ import {Formik} from "formik";
 export default function ShowFormImageUpdate () {
     const navigate = useNavigate();
     const {idHouse} = useParams()
-    console.log(idHouse)
     const dispatch = useDispatch();
     const images = useSelector(({images}) => {
         return images.listImage;
@@ -60,7 +57,6 @@ export default function ShowFormImageUpdate () {
                     </div>
                 </div>
             </div>
-
             <Formik
                 initialValues={{
                     images: []
