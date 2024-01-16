@@ -7,6 +7,7 @@ import {House} from "./House";
 export default function ListHouse() {
     const dispatch = useDispatch();
     const categories = useSelector(state => state.categories.listCategories)
+    const message= useSelector(state=>state.houses.message)
     const houses = useSelector(({houses}) => {
         return houses.list;
     })
@@ -20,6 +21,7 @@ export default function ListHouse() {
             <form className="hero-form form" style={{paddingTop:"50px"}}>
                 <div style={{marginTop:"0px"}}>
                     <h2 style={{color:"#FF0000"}}>HÃY THUÊ VÀ BÁN NHÀ THEO CÁCH CỦA BẠN ^^</h2>
+                    {message && <h2 style={{color: 'green'}}> {message} </h2>}
                 </div>
                 <div className="container">
 

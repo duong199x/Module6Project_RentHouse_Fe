@@ -14,7 +14,7 @@ export const add = createAsyncThunk(
     async (newHouse) => {
         let response = await getAxios().post('houses/create', newHouse);
         console.log(response)
-        // return response.data;
+        return response.data;
     }
 )
 export const getById = createAsyncThunk(
