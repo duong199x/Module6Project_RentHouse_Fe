@@ -421,17 +421,53 @@ function simpleMap(latitude, longitude, markerImage, mapTheme, mapElement, marke
 
 //Autocompvare ---------------------------------------------------------------------------------------------------------
 
-function autoCompvare(map, marker){
-    if( $("#input-location").length ){
-        if( !map ){
+// function autoCompvare(map, marker){
+//     if( $("#input-location").length ){
+//         if( !map ){
+//             map = new google.maps.Map(document.getElementById("input-location"));
+//         }
+//         var mapCenter;
+//         var input = document.getElementById('input-location');
+//         var autocompvare = new google.maps.places.Autocompvare(input);//input
+//         autocompvare.bindTo('bounds', map);
+//         google.maps.event.addListener(autocompvare, 'place_changed', function() {
+//             var place = autocompvare.getPlace();
+//             if (!place.geometry) {
+//                 return;
+//             }
+//             if (place.geometry.viewport) {
+//                 map.fitBounds(place.geometry.viewport);
+//             } else {
+//                 map.setCenter(place.geometry.location);
+//                 map.setZoom(17);
+//             }
+//             mapCenter = place.geometry.location;
+//             if( marker ){
+//                 marker.setPosition(place.geometry.location);
+//                 marker.setVisible(true);
+//                 $('#latitude').val( marker.getPosition().lat() );
+//                 $('#longitude').val( marker.getPosition().lng() );
+//             }
+//             var address = '';
+//             if (place.address_components) {
+//                 address = [
+//                     (place.address_components[0] && place.address_components[0].short_name || ''),
+//                     (place.address_components[1] && place.address_components[1].short_name || ''),
+//                     (place.address_components[2] && place.address_components[2].short_name || '')
+//                 ].join(' ');
+//             }
+//         });
+function autoCompvare(map, marker) {
+    if ($("#input-location").length) {
+        if (!map) {
             map = new google.maps.Map(document.getElementById("input-location"));
         }
         var mapCenter;
         var input = document.getElementById('input-location');
-        var autocompvare = new google.maps.places.Autocompvare(input);
-        autocompvare.bindTo('bounds', map);
-        google.maps.event.addListener(autocompvare, 'place_changed', function() {
-            var place = autocompvare.getPlace();
+        var autocomplete = new google.maps.places.Autocomplete(input); // Sửa lỗi chính tả ở đây
+        autocomplete.bindTo('bounds', map);
+        google.maps.event.addListener(autocomplete, 'place_changed', function () {
+            var place = autocomplete.getPlace();
             if (!place.geometry) {
                 return;
             }
@@ -442,11 +478,11 @@ function autoCompvare(map, marker){
                 map.setZoom(17);
             }
             mapCenter = place.geometry.location;
-            if( marker ){
+            if (marker) {
                 marker.setPosition(place.geometry.location);
                 marker.setVisible(true);
-                $('#latitude').val( marker.getPosition().lat() );
-                $('#longitude').val( marker.getPosition().lng() );
+                $('#latitude').val(marker.getPosition().lat());
+                $('#longitude').val(marker.getPosition().lng());
             }
             var address = '';
             if (place.address_components) {
@@ -457,6 +493,9 @@ function autoCompvare(map, marker){
                 ].join(' ');
             }
         });
+    }
+}
+
 
         $('.geo-location').on("click", function(e) {
             e.preventDefault();
