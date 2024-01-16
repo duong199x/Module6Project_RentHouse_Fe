@@ -39,14 +39,15 @@ export function UpdateHouse() {
         }
         fetchData();
     }, []);
+
     const convenients = useSelector(({convenients}) => {
         return convenients.listConvenient;
     })
     const save = (values) => {
-        // values.convenients.map(Number)
-        let convenientIds = values.convenients.map(item => item.id)
-        values = (({convenients, ...value}) => value)(values)
-        values = {...values, convenientIds}
+        let user = {id: currentUserId}
+        let convenientIds = values.convenients.map(Number)
+        values = (({convenients,userDTO, ...value}) => value)(values)
+        values = {...values, convenientIds, user}
         dispatch(update(values)).then(() => {
             navigate('/user');
         })
@@ -62,7 +63,7 @@ export function UpdateHouse() {
         <>
             {fetched ? <><h2>UPDATE YOUR HOUSE</h2>
                 <LocalizationProvider dateAdapter={AdapterDateFns}>
-                    <Formik initialValues={houses}
+                    <Formik initialValues={{...houses, convenients: houses.convenients.map(item => item.id)}}
                             enableReinitialize={true}
                             onSubmit={save}
                             validationSchema={addSchema}>
@@ -115,9 +116,6 @@ export function UpdateHouse() {
                                         <div className="col-3"><CustomTextField name="kitchen" label={"Kitchen"}
                                                                                 type={"text"}/>
                                         </div>
-                                    </div>
-                                    <div className="row">
-                                        <Field name="user.id" type="hidden" value={currentUserId}/>
                                     </div>
                                     <div className="row input-checkbox">
                                         {

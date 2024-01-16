@@ -67,7 +67,7 @@ export default function CreateHouse() {
                             "id": 0
                         },
                         "user": {
-                            "id": 1
+                            "id": 0
                         }
                     }
 
