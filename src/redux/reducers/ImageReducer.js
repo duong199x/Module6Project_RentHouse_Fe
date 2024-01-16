@@ -8,7 +8,7 @@ const initialState = {
 }
 
 const imageSlice = createSlice({
-    name: 'houses',
+    name: 'images',
     initialState,
     extraReducers: builder => {
         builder.addCase(getAllImage.fulfilled, (state, {payload}) => {

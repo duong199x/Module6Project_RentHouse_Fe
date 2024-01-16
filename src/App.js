@@ -18,6 +18,7 @@ import {CreateConvenient} from "./pages/houses/convenient/AddConvenientToHouse";
 import {UpdateHouse} from "./pages/houses/update/UpdateHouse";
 import HouseDetail from "./pages/houses/HouseDetail";
 import CreateHouse from "./pages/houses/create/CreateHouse";
+import ShowFormImageUpdate from "./pages/houses/update/ShowUpdateImage";
 
 function App() {
     const currentUser = useSelector(({users}) => {
@@ -37,6 +38,7 @@ function App() {
                         <>
                             <Route path={'user'} element={<UserPage/>}>
                                 <Route path={'house'} element={<ListHouse/>}/>
+                                <Route path={'images/:idHouse'} element={<ShowFormImageUpdate/>}/>
                                 <Route path={'house/:id'} element={<HouseDetail/>}/>
                                 <Route path={'create'} element={<CreateHouse/>}/>
                                 <Route path={'addImage'} element={<ImageUpload/>}/>

@@ -13,7 +13,7 @@ export const addImages = createAsyncThunk(
     'images/add',
     async (data) => {
         console.log(data)
-        let response = await axios.post('http://localhost:8080/images/create/' + data.idHouse, data.imageList);
+        let response = await axios.post('http://localhost:8080/images/create/' + data[0], data[1]);
         return response.data;
     }
 )
@@ -25,8 +25,12 @@ export const removeImageById = createAsyncThunk(
     })
 export const getImageByHouseId = createAsyncThunk(
     "images/getImageByHouseId",
-    async (houseId) => {
-        let res = await getAxios().get("images/" + houseId);
+    async (idHouse) => {
+        let res = await getAxios().get("images/" + idHouse);
         return res.data
     }
+
 )
+export const showImage = async (id)=>{
+    return await getAxios().get("images/" + id)
+}
