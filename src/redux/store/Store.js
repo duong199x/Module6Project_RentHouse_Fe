@@ -5,6 +5,7 @@ import houseReducer from "../reducers/HouseReducer";
 import imageReducer from "../reducers/ImageReducer";
 import categoryReducer from "../reducers/CategoryReducer";
 import convenientService from "../reducers/ConvenientService";
+import bookingReducer from "../reducers/BookingReducer";
 
 export const store = configureStore ({
     reducer: {
@@ -12,7 +13,8 @@ export const store = configureStore ({
         houses : houseReducer,
         categories: categoryReducer,
         images : imageReducer,
-        convenients : convenientService
+        convenients : convenientService,
+        bookings: bookingReducer
     }
 })
 export default store;
