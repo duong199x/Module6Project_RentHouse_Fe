@@ -5,7 +5,7 @@ export default function HouseDetail() {
     return (
         <>
             <h1>HouseDetail</h1>
-            <Link to={"/user/houseupdate/1"}>Click</Link>
+            <Link to={"houseupdate/1"}>Click</Link>
         </>
     )
 }

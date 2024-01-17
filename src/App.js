@@ -21,6 +21,7 @@ import CreateHouse from "./pages/houses/create/CreateHouse";
 import ShowFormImageUpdate from "./pages/houses/update/ShowUpdateImage";
 import ManagerHouse from "./pages/user/managerHouse/ManagerHouse";
 import HistoryBuy from "./pages/user/profile/HistoryBuy";
+import {ToastContainer} from "react-toastify";
 
 
 function App() {
@@ -33,13 +34,26 @@ function App() {
 
     return (
         <>
+            <ToastContainer
+                position="top-right"
+                autoClose={5000}
+                hideProgressBar={false}
+                newestOnTop={false}
+                closeOnClick
+                rtl={false}
+                pauseOnFocusLoss
+                draggable
+                pauseOnHover
+                theme="light"
+            />
+            {/* Same as */}
+            <ToastContainer />
             <Routes>
-                <Route path={"login"} element={<Login/>}/>
-                <Route path={"register"} element={<Register/>}/>
+                <Route path="/" element={<Navigate to="login"/>} />
                 {
                     currentUser ? (
                         <>
-                            <Route path={'user'} element={<UserPage/>}>
+                            <Route element={<UserPage/>}>
                                 <Route path={'house'} element={<ListHouse/>}/>
                                 <Route path={'images/:idHouse'} element={<ShowFormImageUpdate/>}/>
                                 <Route path={'house/:id'} element={<HouseDetail/>}/>
@@ -61,16 +75,15 @@ function App() {
                                 <Route path={'users'} element={<UserManager/>}/>
                                 <Route path={'houses'} element={<HouseManager/>}/>
                             </Route>
+                            <Route path='*' element={<Navigate to="house"/>}/>
                         </>
                     ) : (
                         <>
-                            <Route path='*' element={<Navigate to="login"/>}/>
+                            <Route path={"login"} element={<Login/>}/>
+                            <Route path={"register"} element={<Register/>}/>
                         </>
                     )
                 }
-                <>
-                    <Route path='*' element={<Navigate to="login"/>}/>
-                </>
             </Routes>
         </>
     );

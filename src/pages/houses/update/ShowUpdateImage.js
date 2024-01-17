@@ -23,7 +23,7 @@ export default function ShowFormImageUpdate () {
         // eslint-disable-next-line react-hooks/rules-of-hooks
         useEffect(() => {
             dispatch(getImageByHouseId(idHouse)).then(() => {
-                navigate(`/user/manager-house/list-house-user/${currentUserId}`);
+                navigate(`manager-house/list-house-user/${currentUserId}`);
             });
         }, []);
     }

@@ -35,7 +35,7 @@ export default function CreateHouse() {
             data: {...values, user},
         };
 
-        navigate('/user/convenient',
+        navigate('convenient',
             {
                 state: propsToPass,
                 replace: true

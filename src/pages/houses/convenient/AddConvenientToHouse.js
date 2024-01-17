@@ -25,7 +25,7 @@ export function CreateConvenient() {
     };
     const handleNext = (values) => {
         const propsToPass = {...propsReceived.data, convenientIds: values.selectedConvenients.map(Number)}
-        navigate('/user/addImage',
+        navigate('addImage',
             {
                 state: propsToPass
             });

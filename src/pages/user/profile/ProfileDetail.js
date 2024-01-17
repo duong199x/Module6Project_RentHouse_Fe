@@ -25,7 +25,7 @@ export default function ProfileDetail() {
     const handleSaveChanges = (value) => {
         const request = {...value, user}
         dispatch(editDetailUser(request)).then(() => {
-            navigate("/user/profile/profile-detail/" + id)
+            navigate("profile/profile-detail/" + id)
         })
     };
     const [loading, setLoading] = useState(false);
