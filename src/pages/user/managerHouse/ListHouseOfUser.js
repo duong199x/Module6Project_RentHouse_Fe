@@ -3,6 +3,7 @@ import {useEffect} from "react";
 import {getById, getHouseByUser, removeById} from "../../../redux/services/HouseService";
 import {Link, useParams} from "react-router-dom";
 import {HouseOfUser} from "./HouseOfUser";
+import "./houses_user.css"
 
 export default function ListHouseOfUser() {
     const dispatch = useDispatch();
@@ -27,8 +28,7 @@ export default function ListHouseOfUser() {
     }
     return (
         <>
-            <div className="col-md-9">
-
+            <div className="col-md-9 houses-user">
                 <div className="section-title clearfix">
                     <div className="float-left float-xs-none">
                         {/*<label className="mr-3 align-text-bottom">Sort by: </label>*/}
@@ -44,19 +44,17 @@ export default function ListHouseOfUser() {
                     </div>
                 </div>
 
+
                 <div className="items list compact grid-xl-3-items grid-lg-2-items grid-md-2-items">
                     {listHouseByUserId && listHouseByUserId.map((item) =>
                         {
                             return (
                                 <HouseOfUser item={item} handleDelete={()=>handleDelete(item.id)}/>
+
                             )
                         }
 
-
-
                     )}
-
-
                 </div>
 
             </div>
