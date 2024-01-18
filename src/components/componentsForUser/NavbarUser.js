@@ -27,7 +27,7 @@ export default function NavbarUser() {
                                           className="nav-link">Home</Link>
                                 </li>
                                 <li>
-                                    <Link to={""} href="#"
+                                    <Link to={"/profile/bookmarks"} href="#"
                                           className="nav-link">Wishlist</Link>
                                 </li>
                                 <li className="nav-item has-child">
@@ -41,14 +41,14 @@ export default function NavbarUser() {
                                                   className="nav-link">Profile</Link>
                                         </li>
                                         <li className="nav-item has-child">
-                                            <Link to={`manager-house/list-house-user/${currentUser.id}`} href="#" className="nav-link">Manager House</Link>
+                                            <Link to={`manager-house/list-house-user/${currentUser.id}`} href="#" className="nav-link">Manage House</Link>
                                         </li>
                                         <li className="nav-item has-child">
                                             <Link to={""} href="#" className="nav-link">Message</Link>
                                         </li>
 
                                         <li className="nav-item has-child">
-                                            <Link to={""} href="#" className="nav-link">Trips</Link>
+                                            <Link to={`/profile/history/${currentUser.id}`} href="#" className="nav-link">Trips</Link>
                                         </li>
                                     </ul>
 

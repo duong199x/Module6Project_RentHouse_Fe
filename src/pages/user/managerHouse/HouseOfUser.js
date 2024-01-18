@@ -34,10 +34,10 @@ export function HouseOfUser({item, handleDelete}) {
                     </h4>
                     <div className="price">{item.price} VND</div>
                     <div className="admin-controls">
-                        <Link to={`houseupdate/${item.id}`}>
+                        <Link to={`/manager-house/houseupdate/${item.id}`}>
                             <i className="fa fa-pencil"></i>EDIT
                         </Link>
-                        <Link to={`images/${item.id}`}>
+                        <Link to={`/manager-house/images/${item.id}`}>
                             <i className="fa fa-pencil"></i>EDIT IMAGE</Link>
                         <a
                             onClick={() =>

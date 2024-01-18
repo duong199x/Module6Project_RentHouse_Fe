@@ -1,4 +1,4 @@
-import {Link, Outlet, Route, Routes} from "react-router-dom";
+import {Link, Outlet} from "react-router-dom";
 import {useSelector} from "react-redux";
 import "./managerHouse.css"
 
@@ -24,7 +24,7 @@ export default function ManagerHouse() {
                                     </a>
                                     <a className="nav-link icon" href="">
                                         <i className="fa fa-check"></i>
-                                        <Link to={"/manager-house"}>Sold Items</Link>
+                                        <Link to={"/manager-house/sold-item"}>Sold Items</Link>
 
                                     </a>
                                 </nav>

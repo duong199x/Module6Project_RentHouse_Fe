@@ -61,7 +61,9 @@ export function UpdateHouse() {
 
     return (
         <>
-            {fetched ? <><h2>UPDATE YOUR HOUSE</h2>
+            <div className="col-md-9 image-div">
+            {fetched ? <>
+                <h2 style={{textAlign:"center",color:"red"}}>UPDATE YOUR HOUSE</h2>
                 <LocalizationProvider dateAdapter={AdapterDateFns}>
                     <Formik initialValues={{...houses, convenients: houses.convenients.map(item => item.id)}}
                             enableReinitialize={true}
@@ -143,6 +145,7 @@ export function UpdateHouse() {
 
                     </Formik>
                 </LocalizationProvider></> : <></>}
+            </div>
         </>
     )
 }
