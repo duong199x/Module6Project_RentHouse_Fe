@@ -303,7 +303,7 @@ export default function HouseDetail() {
                                                 <div className="author">
                                                     <div className="author-image">
                                                         <div className="background-image"><img
-                                                            src={houseDetail.userDTO.imageUser} alt=""/></div>
+                                                            src={houseDetail.userDTO.imageUser ? houseDetail.userDTO.imageUser : 'https://placehold.co/400'} alt=""/></div>
                                                     </div>
                                                     <div className="author-description">
                                                         <h3>{houseDetail.userDTO.fullName}</h3>
