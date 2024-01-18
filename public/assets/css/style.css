@@ -2416,7 +2416,6 @@ mark, .mark {
     background-color: #ffdc23;
 }
 p {
-    opacity: .65;
     font-weight: normal;
 }
 ul, ol, dl {}
