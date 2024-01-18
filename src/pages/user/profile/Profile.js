@@ -8,7 +8,6 @@ export default function Profile() {
     return (
         <>
             <section className="content">
-                <section className="block">
                     <div className="container">
                         <div className="row">
                             <div className="col-md-3">
@@ -33,7 +32,6 @@ export default function Profile() {
                             <Outlet/>
                         </div>
                     </div>
-                </section>
             </section>
         </>
     )
