@@ -20,6 +20,8 @@ import HouseDetail from "./pages/houses/HouseDetail";
 import CreateHouse from "./pages/houses/create/CreateHouse";
 import ShowFormImageUpdate from "./pages/houses/update/ShowUpdateImage";
 import ManagerHouse from "./pages/user/managerHouse/ManagerHouse";
+import WindowConfirmSuccess from "./components/WindowConfirm/WindowConfirmSuccess";
+import WindowConfirmFailed from "./components/WindowConfirm/WindowConfirmFailed";
 
 
 function App() {
@@ -35,6 +37,8 @@ function App() {
             <Routes>
                 <Route path={"login"} element={<Login/>}/>
                 <Route path={"register"} element={<Register/>}/>
+                <Route path={"windowconfirmsuccess"} element={<WindowConfirmSuccess/>}/>
+                <Route path={"windowconfirmfailed"} element={<WindowConfirmFailed/>}/>
                 {
                     currentUser ? (
                         <>
