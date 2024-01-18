@@ -25,7 +25,7 @@ export function CreateConvenient() {
     };
     const handleNext = (values) => {
         const propsToPass = {...propsReceived.data, convenientIds: values.selectedConvenients.map(Number)}
-        navigate('/user/addImage',
+        navigate('/manager-house/addImage',
             {
                 state: propsToPass
             });
@@ -37,9 +37,10 @@ export function CreateConvenient() {
                 initialValues={initialValues}
                 onSubmit={handleNext}
             >
+                <div className="col-md-9 convenient" >
                 <Form>
                     <div className="row">
-                        <h3>VUI LÒNG LỰA CHỌN CÁC TIỆN NGHI CÓ TRONG NGÔI NHÀ CỦA BẠN</h3>
+                        <h3 className="h3-convenient">VUI LÒNG LỰA CHỌN CÁC TIỆN NGHI CÓ TRONG NGÔI NHÀ CỦA BẠN</h3>
                     </div>
                     <div className="row input-checkbox">
                         <Field
@@ -64,7 +65,10 @@ export function CreateConvenient() {
                     <div className="row btn-checkbox">
                         <button type="submit" className="btn btn-success">Next</button>
                     </div>
+
+
                 </Form>
+                </div>
             </Formik>
         </>
 

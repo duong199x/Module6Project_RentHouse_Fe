@@ -3,6 +3,7 @@ import {useEffect, useState} from "react";
 import {getAllHouse} from "../../redux/services/HouseService";
 import {getAllCategories} from "../../redux/services/CategoryService";
 import {House} from "./House";
+import {Navigate} from "react-router-dom";
 
 export default function ListHouse() {
     const dispatch = useDispatch();
@@ -16,11 +17,19 @@ export default function ListHouse() {
         dispatch(getAllHouse());
     }, [])
 
+    const currentUser = useSelector(({users}) => {
+        return users.currentToken;
+    });
+
+    if (!currentUser) {
+        return <Navigate to="/login"/>
+    }
+
     return (
         <>
             <form className="hero-form form" style={{paddingTop:"50px"}}>
                 <div style={{marginTop:"0px"}}>
-                    <h2 style={{color:"#FF0000"}}>HÃY THUÊ VÀ BÁN NHÀ THEO CÁCH CỦA BẠN ^^</h2>
+                    <h2 style={{color:"#FF0000",textAlign:"center"}}>HÃY THUÊ VÀ BÁN NHÀ THEO CÁCH CỦA BẠN ^^</h2>
                     {message && <h2 style={{color: 'green'}}> {message} </h2>}
                 </div>
                 <div className="container">

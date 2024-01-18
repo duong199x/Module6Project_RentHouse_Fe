@@ -39,11 +39,12 @@ const ImageUploadForm = () => {
                 }
                 let data = {...propsReceived, images}
                 await dispatch(add(data)).then(() => {
-                    navigate(`/user/manager-house/list-house-user/${currentUserId}`);
+                    navigate(`manager-house/list-house-user/${currentUserId}`);
                 });
             }}
         >
             {({values, setFieldValue, handleSubmit}) => (
+                <div className="col-md-9 image-div">
                 <form onSubmit={handleSubmit}>
                     <div className={"title-formAddImage"}>
                         <h3>Để hoàn tất việc thêm mới vui lòng thêm ảnh cho ngôi nhà của bạn</h3>
@@ -84,6 +85,7 @@ const ImageUploadForm = () => {
                         </div>
                     </div>
                 </form>
+                </div>
             )}
         </Formik>
     );

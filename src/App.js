@@ -21,6 +21,7 @@ import CreateHouse from "./pages/houses/create/CreateHouse";
 import ShowFormImageUpdate from "./pages/houses/update/ShowUpdateImage";
 import ManagerHouse from "./pages/user/managerHouse/ManagerHouse";
 import HistoryBuy from "./pages/user/profile/HistoryBuy";
+import {ToastContainer} from "react-toastify";
 import SoldItem from "./pages/user/managerHouse/SoldItem";
 
 
@@ -34,20 +35,30 @@ function App() {
 
     return (
         <>
+            <ToastContainer
+                position="top-right"
+                autoClose={5000}
+                hideProgressBar={false}
+                newestOnTop={false}
+                closeOnClick
+                rtl={false}
+                pauseOnFocusLoss
+                draggable
+                pauseOnHover
+                theme="light"
+            />
+            {/* Same as */}
+            <ToastContainer />
             <Routes>
-                <Route path={"login"} element={<Login/>}/>
-                <Route path={"register"} element={<Register/>}/>
+                <Route path="/" element={<Navigate to="login"/>} />
                 {
                     currentUser ? (
                         <>
-                            <Route path={'user'} element={<UserPage/>}>
+                            <Route element={<UserPage/>}>
                                 <Route path={'house'} element={<ListHouse/>}/>
-                                <Route path={'images/:idHouse'} element={<ShowFormImageUpdate/>}/>
+
                                 <Route path={'house/:id'} element={<HouseDetail/>}/>
-                                <Route path={'create'} element={<CreateHouse/>}/>
-                                <Route path={'addImage'} element={<ImageUpload/>}/>
-                                <Route path={'convenient'} element={<CreateConvenient/>}/>
-                                <Route path={'houseupdate/:id'} element={<UpdateHouse/>}/>
+
                                 <Route path={'profile'} element={<Profile/>}>
                                     <Route path={"change-password"} element={<ChangePassword/>}/>
                                     <Route path={`profile-detail/:id`} element={<ProfileDetail/>}/>
@@ -55,7 +66,13 @@ function App() {
                                     <Route path={"history/:id"} element={<HistoryBuy/>}/>
                                 </Route>
                                 <Route path={"manager-house"} element={<ManagerHouse/>}>
-                                    <Route path={"list-house-user/:id"} element={<ListHouseOfUser/>}/>
+                                    <Route path={'create'} element={<CreateHouse/>}/>
+                                    <Route path={'addImage'} element={<ImageUpload/>}/>
+                                    <Route path={'convenient'} element={<CreateConvenient/>}/>
+                                    <Route path={'houseupdate/:id'} element={<UpdateHouse/>}/>
+                                    <Route path={'images/:id'} element={<ShowFormImageUpdate/>}/>
+                                    <Route path={"list-house-user/:id"} element={<ListHouseOfUser/>}>
+                                    </Route>
                                     <Route path={"sold-item"} element={<SoldItem/>}/>
                                 </Route>
                             </Route>
@@ -63,16 +80,15 @@ function App() {
                                 <Route path={'users'} element={<UserManager/>}/>
                                 <Route path={'houses'} element={<HouseManager/>}/>
                             </Route>
+                            {/*<Route path='*' element={<Navigate to="house"/>}/>*/}
                         </>
                     ) : (
                         <>
-                            <Route path='*' element={<Navigate to="login"/>}/>
+                            <Route path={"login"} element={<Login/>}/>
+                            <Route path={"register"} element={<Register/>}/>
                         </>
                     )
                 }
-                <>
-                    <Route path='*' element={<Navigate to="login"/>}/>
-                </>
             </Routes>
         </>
     );
