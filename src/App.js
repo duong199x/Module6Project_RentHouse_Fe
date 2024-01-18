@@ -57,9 +57,6 @@ function App() {
                                 <Route path={'house'} element={<ListHouse/>}/>
                                 <Route path={'images/:idHouse'} element={<ShowFormImageUpdate/>}/>
                                 <Route path={'house/:id'} element={<HouseDetail/>}/>
-                                <Route path={'create'} element={<CreateHouse/>}/>
-                                <Route path={'addImage'} element={<ImageUpload/>}/>
-                                <Route path={'convenient'} element={<CreateConvenient/>}/>
                                 <Route path={'houseupdate/:id'} element={<UpdateHouse/>}/>
                                 <Route path={'profile'} element={<Profile/>}>
                                     <Route path={"change-password"} element={<ChangePassword/>}/>
@@ -68,7 +65,11 @@ function App() {
                                     <Route path={"history"} element={<HistoryBuy/>}/>
                                 </Route>
                                 <Route path={"manager-house"} element={<ManagerHouse/>}>
-                                    <Route path={"list-house-user/:id"} element={<ListHouseOfUser/>}/>
+                                    <Route path={'create'} element={<CreateHouse/>}/>
+                                    <Route path={'addImage'} element={<ImageUpload/>}/>
+                                    <Route path={'convenient'} element={<CreateConvenient/>}/>
+                                    <Route path={"list-house-user/:id"} element={<ListHouseOfUser/>}>
+                                    </Route>
                                 </Route>
                             </Route>
                             <Route path={'admin'} element={<Home/>}>

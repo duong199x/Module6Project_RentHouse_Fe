@@ -1,5 +1,6 @@
-import {Link, Outlet} from "react-router-dom";
+import {Link, Outlet, Route, Routes} from "react-router-dom";
 import {useSelector} from "react-redux";
+import "./managerHouse.css"
 
 export default function ManagerHouse() {
     const currentUser = useSelector(({users}) => {
@@ -8,27 +9,28 @@ export default function ManagerHouse() {
     return (
         <>
             <section className="content">
-                <section className="block">
+                <section className="block set-block">
                     <div className="container">
                         <div className="row">
-                            <div className="col-md-3">
+                            <div className="col-md-2" style={{marginTop:"20px"}}>
                                 <nav className="nav flex-column side-nav">
                                     <a className="nav-link icon" href="">
                                         <i className="fa fa-star"></i>
-                                        <Link to={`manager-house/list-house-user/${currentUser.id}`}>My Ads Listing</Link>
+                                        <Link to={`/manager-house/list-house-user/${currentUser.id}`}>My Ads Listing</Link>
                                     </a>
                                     <a className="nav-link icon" href="">
                                         <i className="fa fa-star"></i>
-                                        <Link to={"create"}>Add House</Link>
+                                        <Link to={`/manager-house/create`}>Add House</Link>
                                     </a>
                                     <a className="nav-link icon" href="">
                                         <i className="fa fa-check"></i>
-                                        <Link to={"addImage"}>Sold Items</Link>
+                                        <Link to={"/manager-house"}>Sold Items</Link>
 
                                     </a>
                                 </nav>
                             </div>
                             <Outlet/>
+
                         </div>
                     </div>
                 </section>
