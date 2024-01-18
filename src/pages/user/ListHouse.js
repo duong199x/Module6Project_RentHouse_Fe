@@ -29,7 +29,7 @@ export default function ListHouse() {
         <>
             <form className="hero-form form" style={{paddingTop:"50px"}}>
                 <div style={{marginTop:"0px"}}>
-                    <h2 style={{color:"#FF0000"}}>HÃY THUÊ VÀ BÁN NHÀ THEO CÁCH CỦA BẠN ^^</h2>
+                    <h2 style={{color:"#FF0000",textAlign:"center"}}>HÃY THUÊ VÀ BÁN NHÀ THEO CÁCH CỦA BẠN ^^</h2>
                     {message && <h2 style={{color: 'green'}}> {message} </h2>}
                 </div>
                 <div className="container">
