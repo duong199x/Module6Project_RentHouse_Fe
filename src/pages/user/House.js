@@ -6,10 +6,9 @@ export function House ({item}) {
     const [images,setImages]= useState([]);
     useEffect(() => {
         showImage(item.id).then((response)=>{
-            // console.log(response)
             setImages(response.data)
         })
-    }, []);
+    }, [item]);
     return (
         <>
             <div className="item" key={item.id}>

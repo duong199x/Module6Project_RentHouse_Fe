@@ -46,3 +46,12 @@ export const getHouseByUser = createAsyncThunk(
         return response.data;
     }
 )
+
+export const searchHouse = createAsyncThunk(
+    "houses/search",
+    async (request) => {
+        let response = await getAxios().post('houses/search', request);
+        console.log(response.data);
+        return response.data;
+    }
+)
