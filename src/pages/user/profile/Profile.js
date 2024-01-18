@@ -25,7 +25,7 @@ export default function Profile() {
                                         <i className="fa fa-heart"></i>
                                         <Link to={"/user/profile/bookmarks"}>Bookmarks</Link>
                                     </a>
-                                    <Link to={"/user/profile/history"} className="nav-link icon" href="">
+                                    <Link to={`/user/profile/history/${currentUser.id}`} className="nav-link icon" href="">
                                         <i className="fa fa-check"></i>History Buy (Order)
                                     </Link>
                                 </nav>

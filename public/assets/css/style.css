@@ -1282,7 +1282,7 @@ Headers:		'Varela Round', sans-serif;
 }
 .items:not(.selectize-input).list .item .additional-info ul li {
     display: inline-block;
-    margin-right: 5rem;
+    margin-right: 3.5rem;
 }
 .items:not(.selectize-input).list .item .additional-info ul li figure {
     float: none;

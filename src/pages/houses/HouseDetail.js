@@ -9,7 +9,8 @@ import {DemoContainer, DemoItem} from "@mui/x-date-pickers/internals/demo";
 import {LocalizationProvider} from "@mui/x-date-pickers";
 import {AdapterDayjs} from "@mui/x-date-pickers/AdapterDayjs";
 import dayjs from 'dayjs';
-import {addBooking} from "../../redux/services/BookingService";
+import {addBooking, getAllBookingByHouseId, getHistoryBooking} from "../../redux/services/BookingService";
+import {date} from "yup";
 
 export default function HouseDetail() {
     const [activeIndex, setActiveIndex] = useState(0);
@@ -54,7 +55,7 @@ export default function HouseDetail() {
     ]);
     let betweentday = (value[1] - value[0]) / 86400000;
     // tăng giảm khách
-    const [count, setCount] = useState(0);
+    const [count, setCount] = useState(1);
     const increment = () => {
         if (count < 6)
             setCount(count + 1);
@@ -64,18 +65,19 @@ export default function HouseDetail() {
             setCount(count - 1);
     };
     //xử lí thêm hoa đơn
-        let bookingInfo = {
-            startDate: formatDate(value[0]),
-            endDate: formatDate(value[1]),
-            numberOfGuests: count,
-            userId: currentUser.id,
-            houseId: houseDetail.id,
-            price: betweentday * houseDetail.price + betweentday * houseDetail.price * 0.05
-        }
+    let bookingInfo = {
+        startDate: formatDate(value[0]),
+        endDate: formatDate(value[1]),
+        numberOfGuests: count,
+        userId: currentUser.id,
+        houseId: houseDetail.id,
+        price: betweentday * houseDetail.price + betweentday * houseDetail.price * 0.05
+    }
     const bookRoom = (info) => {
         dispatch(addBooking(info)).then(() => {
         })
     }
+
     function formatDate(date) {
         let d = new Date(date),
             month = '' + (d.getMonth() + 1),
@@ -89,6 +91,41 @@ export default function HouseDetail() {
 
         return [year, month, day].join('-');
     }
+
+    // bắt list booking của house
+    const listBookingHouse = useSelector(({bookings}) => {
+        return bookings.list;
+    })
+    useEffect(() => {
+        dispatch(getAllBookingByHouseId(id))
+    }, []);
+
+    function generateDates(startDate, endDate) {
+        let currentDate = new Date(startDate);
+        const dates = [];
+        while (currentDate <= endDate) {
+            dates.push(formatDate(new Date(currentDate)));
+            currentDate.setDate(currentDate.getDate() + 1);
+        }
+        return dates;
+    }
+
+    let disabledDates = [];
+    for (let i = 0; i < listBookingHouse.length; i++) {
+        let generatedDates = generateDates(new Date(formatDate(listBookingHouse[i].startDate)), new Date(formatDate(listBookingHouse[i].endDate)));
+        disabledDates = [...disabledDates, ...generatedDates]
+    }
+    console.log(disabledDates)
+    const shouldDisableDate = (date) => {
+        let dateString = date.toISOString().split('T')[0];
+        const dateNow = new Date(dateString);
+        dateNow.setDate(dateNow.getDate() + 1);
+        const year = dateNow.getFullYear();
+        const month = (dateNow.getMonth() + 1).toString().padStart(2, '0');
+        const day = dateNow.getDate().toString().padStart(2, '0');
+        dateString = `${year}-${month}-${day}`;
+        return disabledDates.includes(dateString);
+    };
     return (
         <>{fetched &&
             <div className="page sub-page">
@@ -215,6 +252,8 @@ export default function HouseDetail() {
                                                                 component="DateRangePicker">
                                                                 <DateRangePicker
                                                                     value={value}
+                                                                    disablePast={true}
+                                                                    shouldDisableDate={shouldDisableDate}
                                                                     onChange={(newValue) => setValue(newValue)}
                                                                 />
                                                             </DemoItem>
@@ -252,7 +291,8 @@ export default function HouseDetail() {
                                                 </dl>
                                                 <hr/>
                                                 <button type="submit" className="btn btn-primary"
-                                                        style={{width: '100%'}} onClick={()=>bookRoom(bookingInfo)}>Đặt phòng
+                                                        style={{width: '100%'}}
+                                                        onClick={() => bookRoom(bookingInfo)}>Đặt phòng
                                                 </button>
                                             </div>
                                         </section>

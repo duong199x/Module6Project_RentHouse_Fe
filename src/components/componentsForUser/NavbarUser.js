@@ -27,7 +27,7 @@ export default function NavbarUser() {
                                           className="nav-link">Home</Link>
                                 </li>
                                 <li>
-                                    <Link to={""} href="#"
+                                    <Link to={"/user/profile/bookmarks"} href="#"
                                           className="nav-link">Wishlist</Link>
                                 </li>
                                 <li className="nav-item has-child">
@@ -48,7 +48,7 @@ export default function NavbarUser() {
                                         </li>
 
                                         <li className="nav-item has-child">
-                                            <Link to={""} href="#" className="nav-link">Trips</Link>
+                                            <Link to={`/user/profile/history/${currentUser.id}`} href="#" className="nav-link">Trips</Link>
                                         </li>
                                     </ul>
 
