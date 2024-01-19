@@ -14,7 +14,7 @@ export default function NavbarUser() {
             <div className="main-navigation">
                 <div className="container">
                     <nav className="navbar navbar-expand-lg navbar-light justify-content-between">
-                        <a className="navbar-brand" href="index.html">
+                        <a className="navbar-brand" href="/house">
                             <img src="../assets/img/logo.png" alt=""/>
                         </a>
                         <button className="navbar-toggler" type="button" data-toggle="collapse"

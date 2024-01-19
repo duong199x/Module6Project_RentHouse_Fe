@@ -7,13 +7,20 @@ import TextField from "@mui/material/TextField";
 import {Button, colors} from "@mui/material";
 import Weather from "../extenstion/Weather";
 import "./Login.css"
+import axios from "axios";
 
 export default function Login() {
     const navigate = useNavigate();
     const dispatch = useDispatch()
     const loginUser = (value) => {
-        dispatch(login(value)).then(() => {
-            navigate("/house")
+        dispatch(login(value)).then((data) => {
+            console.log(data);
+            // TODO: Gọi API để lấy  thông tin user sau khi đăng nhập thành công
+            // axios.get(`http://localhost:8080/users/${data.data.id}`).then(resp => {
+            //     console.log(resp);
+                // TODO: lưu vào localstorage trường role
+            // });
+            navigate("/house");
         })
     }
 

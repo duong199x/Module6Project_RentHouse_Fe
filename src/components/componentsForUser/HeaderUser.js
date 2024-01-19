@@ -3,7 +3,7 @@ import NavbarUser from "./NavbarUser";
 import {Link, useNavigate} from "react-router-dom";
 import * as React from "react";
 import {logout} from "../../redux/services/UserService";
-import {useDispatch} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 
 export default function HeaderUser() {
     const dispatch = useDispatch()
@@ -13,6 +13,9 @@ export default function HeaderUser() {
             navigate("/login")
         })
     }
+    const currentUser = useSelector(({users}) => {
+        return users.currentToken;
+    })
     return (
         <>
             <header className="hero">
@@ -29,12 +32,16 @@ export default function HeaderUser() {
                             </ul>
 
                             <ul className="right">
+                                {!currentUser ? (
+                                    <>
                                 <li>
                                     <Link to={"/login"}><i className="fa fa-sign-in"></i>Log In</Link>
                                 </li>
                                 <li>
                                     <Link to={"/register"}><i className="fa fa-pencil-square-o"></i>Register</Link>
                                 </li>
+                                    </>
+                                    ) : '' }
                                 <li style={{padding: "8px"}}>
                                     <button onClick={logoutScreen} style={{background: "transparent", color: "white", border: 'none', cursor:'pointer'}}><i className="fa fa-pencil-square-o"></i>Logout</button>
                                 </li>

@@ -5,7 +5,6 @@ export function ImageSoldItem({item}) {
     const [images, setImages] = useState([]);
     useEffect(() => {
         showImage(item.id).then((response) => {
-            console.log(response)
             setImages(response.data)
         })
     }, []);

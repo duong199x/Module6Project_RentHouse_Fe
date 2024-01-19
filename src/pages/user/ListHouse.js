@@ -15,10 +15,14 @@ export default function ListHouse() {
         return houses.list;
     });
     const convenients = useSelector(({ convenients }) => {
-        return convenients.listConvenient.map(convenient => ({
-            value: convenient.id,
-            label: convenient.name,
-        }));
+        if (convenients.listConvenient) {
+            return convenients.listConvenient.map(convenient => ({
+                value: convenient.id,
+                label: convenient.name,
+            }));
+        } else {
+            return [];
+        }
     });
     const customStyles = {
         control: (provided) => ({
@@ -54,12 +58,10 @@ export default function ListHouse() {
 
     return (
         <>
-                <form className="hero-form form" style={{ paddingTop: "50px" }} 
+                <form className="hero-form form pt-5"
                 onSubmit={formik.handleSubmit}>
-                    <div style={{ marginTop: "0px" }}>
-                        <h2 style={{ color: "#FF0000" }}>HÃY THUÊ VÀ BÁN NHÀ THEO CÁCH CỦA BẠN ^^</h2>
+                        <h2 className="text-danger text-center mb-3">HÃY THUÊ VÀ BÁN NHÀ THEO CÁCH CỦA BẠN ^^</h2>
                         {message && <h2 style={{ color: 'green' }}> {message} </h2>}
-                    </div>
                     <div className="container">
                         <div className="main-search-form">
                             <div className="form-row">
@@ -80,7 +82,7 @@ export default function ListHouse() {
                                 </div>
                                 <div className="col-md-3 col-sm-3">
                                     <div className="form-group">
-                                        <select name="categoryId" id="category" placeholder="Select Category" onChange={formik.handleChange} value={formik.values.categoryId}>
+                                        <select className="" name="categoryId" id="category" placeholder="Select Category" onChange={formik.handleChange} value={formik.values.categoryId}>
                                             <option value="" label="Select Category" />
                                             {categories &&
                                                 categories.map((category) => (
@@ -158,7 +160,7 @@ export default function ListHouse() {
                                 <select name="categories" id="categories" className="small width-200px"
                                     data-placeholder="Category">
                                     <option value="">Category</option>
-                                    {categories && categories.map((i) => <option value={i.id}>{i.name} </option>)
+                                    {categories && categories.map((i) => <option key={i.id} value={i.id}>{i.name} </option>)
                                     }
                                 </select>
                                 <select name="sorting" id="sorting" className="small width-200px"

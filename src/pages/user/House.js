@@ -24,7 +24,7 @@ export function House ({item}) {
                         <Link to={`${item.id}`}
                               className="image-wrapper background-image">
                             {/*<img src={images.length>0 ? images[0].image : ""} alt=""/>*/}
-                            <img src={images && images.length > 0 ? images[0].image : ""} alt=""/>
+                            <img src={images && images.length > 0 ? images[0].image : "https://placehold.co/400"} alt=""/>
 
                         </Link>
                     </div>
