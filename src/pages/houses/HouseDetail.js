@@ -1,4 +1,4 @@
-import {useParams} from "react-router-dom";
+import {useNavigate, useParams} from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
 import {useEffect, useState} from "react";
 import {getImageByHouseId} from "../../redux/services/ImageService";
@@ -11,6 +11,7 @@ import {AdapterDayjs} from "@mui/x-date-pickers/AdapterDayjs";
 import dayjs from 'dayjs';
 import {addBooking, getAllBookingByHouseId, getHistoryBooking} from "../../redux/services/BookingService";
 import {date} from "yup";
+import {toast} from "react-toastify";
 
 export default function HouseDetail() {
     const [activeIndex, setActiveIndex] = useState(0);
@@ -73,8 +74,20 @@ export default function HouseDetail() {
         houseId: houseDetail.id,
         price: betweentday * houseDetail.price + betweentday * houseDetail.price * 0.05
     }
+    const navigate = useNavigate();
     const bookRoom = (info) => {
-        dispatch(addBooking(info)).then(() => {
+        dispatch(addBooking(info)).then((data) => {
+            if (data.error) {
+                console.log(data.error);
+                toast.error(`Book House Failure (${data.error.message})!`, {
+                    position: "top-right"
+                });
+            } else {
+                toast.success(`Book House  Successfully!`, {
+                    position: "top-right"
+                });
+                navigate(`/profile/history/${currentUser.id}`);
+            }
         })
     }
 
@@ -204,9 +217,17 @@ export default function HouseDetail() {
 
 
                             </section>
+
                             <div className="row flex-column-reverse flex-md-row">
                                 <div className="col-md-8">
-                                    <section><h2>Description</h2> <p> {houseDetail.description} </p></section>
+                                    <div className="card mb-5">
+                                        <div className="card-body">
+                                    <section><h2>Description</h2> <p> {houseDetail.description}<br/>
+                                        <br/>
+                                        <hr/>
+                                        CHECK IN : 14:00<br/>
+                                        CHECKOUT : 12:00</p></section>
+                                            <hr/>
                                     <section><h2>Details</h2>
                                         <dl className="columns-3">
                                             <dt>BedRoom</dt>
@@ -221,6 +242,7 @@ export default function HouseDetail() {
                                             <dd>{houseDetail?.category?.name}</dd>
                                         </dl>
                                     </section>
+                                            <hr/>
                                     <section><h2>Convenients</h2>
                                         <ul className="features-checkboxes columns-3">
                                             {houseDetail.convenients.map((item) =>
@@ -229,11 +251,16 @@ export default function HouseDetail() {
 
                                         </ul>
                                     </section>
+
+                                        </div>
+                                        </div>
                                     <section><h2>Location</h2>
                                         <div className="map height-300px" id="map-small"></div>
                                     </section>
                                     <hr/>
                                 </div>
+
+
                                 <div className="col-md-4">
                                     <aside className="sidebar">
                                         <section>
@@ -290,10 +317,11 @@ export default function HouseDetail() {
                                                     <dd>{betweentday * houseDetail.price + betweentday * houseDetail.price * 0.05} VND</dd>
                                                 </dl>
                                                 <hr/>
-                                                <button type="submit" className="btn btn-primary"
-                                                        style={{width: '100%'}}
-                                                        onClick={() => bookRoom(bookingInfo)}>Đặt phòng
-                                                </button>
+                                                {currentUser.id === houseDetail.userDTO.id ?  ""
+                                                    :<button type="submit" className="btn btn-primary"
+                                                                   style={{width: '100%'}}
+                                                                   onClick={() => bookRoom(bookingInfo)}>
+                                                    ĐẶT PHÒNG</button> }
                                             </div>
                                         </section>
                                     </aside>
@@ -316,6 +344,7 @@ export default function HouseDetail() {
                                                 <dl>
                                                     <dt>Phone</dt>
                                                     <dd>{houseDetail.userDTO.phone}</dd>
+                                                    <br/>
                                                     <dt>Email</dt>
                                                     <dd>{houseDetail.userDTO.email}</dd>
                                                 </dl>

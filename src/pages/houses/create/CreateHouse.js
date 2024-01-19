@@ -73,6 +73,8 @@ export default function CreateHouse() {
                 >
                     <div className="col-md-9 main-formAdd" style={{marginLeft:"6rem"}}>
                         <Form>
+                            <div className="card mb-5">
+                                <div className="card-body">
                             <h3>ADD NEW HOUSE</h3>
                             <div className="formAdd">
                                 <div className="row">
@@ -133,6 +135,8 @@ export default function CreateHouse() {
                                 </div>
 
 
+                            </div>
+                            </div>
                             </div>
 
                         </Form>

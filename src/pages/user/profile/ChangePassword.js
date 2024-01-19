@@ -2,14 +2,25 @@ import {Field, Form, Formik} from "formik";
 import {useDispatch} from "react-redux";
 import {changePassword} from "../../../redux/services/UserService";
 import {useNavigate} from "react-router-dom";
+import {toast} from "react-toastify";
 
 export default function ChangePassword() {
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const changePass = (values) => {
-        dispatch(changePassword(values)).then(()=>{
-            navigate("/login")
-            localStorage.clear()
+        dispatch(changePassword(values)).then((data)=>{
+            if (data.error) {
+                toast.error(`Change Password Failure (${data.error.message})!`, {
+                    position: "top-right"
+                });
+            } else {
+                toast.success(`Change Password   Successfully!`, {
+                    position: "top-right"
+                });
+                navigate("/login")
+                localStorage.clear()
+            }
+
         })
     }
     return (
@@ -27,6 +38,8 @@ export default function ChangePassword() {
                                 } onSubmit={changePass}
                             >
                                 <Form>
+                                    <div className="card mb-5">
+                                        <div className="card-body">
                                     <div className="form-group">
                                         <label htmlFor="current_password" className="col-form-label required">Current
                                             Password</label>
@@ -50,6 +63,8 @@ export default function ChangePassword() {
                                     <button type="submit" className="btn btn-primary float-right">Change
                                         Password
                                     </button>
+                                            </div>
+                                            </div>
                                 </Form>
                             </Formik>
                         </div>

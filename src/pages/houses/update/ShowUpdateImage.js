@@ -9,6 +9,7 @@ import {storage} from "../../../firebase/FireBaseConfig";
 import {v4 as uuidv4} from "uuid";
 import {Formik} from "formik";
 import {id} from "date-fns/locale";
+import {toast} from "react-toastify";
 
 export default function ShowFormImageUpdate () {
     const currentUserId = useSelector(({users}) => {
@@ -27,12 +28,22 @@ export default function ShowFormImageUpdate () {
     }, []);
     function handleDelete(idImage) {
         // eslint-disable-next-line no-restricted-globals
-        let isConfirmed = confirm("Are you sure you want to delete");
+        let isConfirmed = confirm("Are you sure you want to delete this image ?");
         // eslint-disable-next-line no-restricted-globals
         if (isConfirmed)    {
-            dispatch(removeImageById(idImage)).then(()=> {
-                alert("Oke")
-                dispatch(getImageByHouseId(id))
+            dispatch(removeImageById(idImage)).then((data)=> {
+                if (data.error) {
+                    console.log(data.error);
+                    toast.error(`Delete Image Failure (${data.error.message})!`, {
+                        position: "top-right"
+                    });
+                } else {
+                    toast.success(`Delete Image Successfully!`, {
+                        position: "top-right"
+                    });
+                    dispatch(getImageByHouseId(id))
+                }
+
             })
         }
         else {
@@ -81,9 +92,19 @@ export default function ShowFormImageUpdate () {
                     data.push(id);
                     data.push(imageList)
                     console.log(data)
-                    await dispatch(addImages(data)).then(() => {
-                        console.log(imageList)
-                        navigate('/user');
+                    await dispatch(addImages(data)).then((data) => {
+                        if (data.error) {
+                            console.log(data.error);
+                            toast.error(`Add Image Failure (${data.error.message})!`, {
+                                position: "top-right"
+                            });
+                        } else {
+                            toast.success(`Add Image Successfully!`, {
+                                position: "top-right"
+                            });
+                            navigate(`/manager-house/list-house-user/${currentUserId}`);
+                        }
+
                     });
                 }}
             >
