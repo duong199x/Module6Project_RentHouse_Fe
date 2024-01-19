@@ -6,6 +6,9 @@ export default function NavbarUser() {
     const currentUser = useSelector(({users}) => {
         return users.currentToken;
     })
+    const decodedToken = JSON.parse(atob(currentUser.accessToken.split('.')[1]));
+    const isOwner = decodedToken.isOwner;
+
     return (
         <>
             <div className="main-navigation">
@@ -40,9 +43,13 @@ export default function NavbarUser() {
                                             <Link to={`profile/profile-detail/${currentUser.id}`} href="#"
                                                   className="nav-link">Profile</Link>
                                         </li>
+                                        { isOwner && isOwner ===2 ?
+
                                         <li className="nav-item has-child">
                                             <Link to={`manager-house/list-house-user/${currentUser.id}`} href="#" className="nav-link">Manage House</Link>
                                         </li>
+                                            : ''
+                                        }
                                         <li className="nav-item has-child">
                                             <Link to={""} href="#" className="nav-link">Message</Link>
                                         </li>

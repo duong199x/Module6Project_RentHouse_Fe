@@ -20,7 +20,6 @@ export default function Login() {
     const currentUser = useSelector(({users}) => {
         return users.currentToken;
     });
-
     if (currentUser) {
         return <Navigate to="/house"/>
     }

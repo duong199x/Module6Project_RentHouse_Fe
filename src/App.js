@@ -29,10 +29,12 @@ function App() {
     const currentUser = useSelector(({users}) => {
         return users.currentToken;
     })
-    const id = useSelector(({users}) => {
-        return users.userId;
-    })
-
+    let isOwner;
+    if(currentUser) {
+        const decodedToken = JSON.parse(atob(currentUser.accessToken.split('.')[1]));
+        isOwner = decodedToken.isOwner;
+    }
+    console.log(isOwner);
     return (
         <>
             <ToastContainer
@@ -48,9 +50,10 @@ function App() {
                 theme="light"
             />
             {/* Same as */}
-            <ToastContainer />
+            <ToastContainer/>
             <Routes>
-                <Route path="/" element={<Navigate to="login"/>} />
+                <Route path="/" element={<Navigate to="login"/>}/>
+                <Route path={"login"} element={<Login/>}/>
                 {
                     currentUser ? (
                         <>
@@ -65,16 +68,20 @@ function App() {
                                     <Route path={"bookmarks"} element={<Bookmarks/>}/>
                                     <Route path={"history/:id"} element={<HistoryBuy/>}/>
                                 </Route>
-                                <Route path={"manager-house"} element={<ManagerHouse/>}>
-                                    <Route path={'create'} element={<CreateHouse/>}/>
-                                    <Route path={'addImage'} element={<ImageUpload/>}/>
-                                    <Route path={'convenient'} element={<CreateConvenient/>}/>
-                                    <Route path={'houseupdate/:id'} element={<UpdateHouse/>}/>
-                                    <Route path={'images/:id'} element={<ShowFormImageUpdate/>}/>
-                                    <Route path={"list-house-user/:id"} element={<ListHouseOfUser/>}>
+                                {isOwner && isOwner === 2 ?
+                                    <Route path={"manager-house"} element={<ManagerHouse/>}>
+                                        <Route path={'create'} element={<CreateHouse/>}/>
+                                        <Route path={'addImage'} element={<ImageUpload/>}/>
+                                        <Route path={'convenient'} element={<CreateConvenient/>}/>
+                                        <Route path={'houseupdate/:id'} element={<UpdateHouse/>}/>
+                                        <Route path={'images/:id'} element={<ShowFormImageUpdate/>}/>
+                                        <Route path={"list-house-user/:id"} element={<ListHouseOfUser/>}>
+                                        </Route>
+                                        <Route path={"sold-item/:id"} element={<SoldItem/>}/>
                                     </Route>
-                                    <Route path={"sold-item/:id"} element={<SoldItem/>}/>
-                                </Route>
+                                    :
+                                    <Route path='*' element={<Navigate to="house"/>}/>
+                                }
                             </Route>
                             <Route path={'admin'} element={<Home/>}>
                                 <Route path={'users'} element={<UserManager/>}/>
