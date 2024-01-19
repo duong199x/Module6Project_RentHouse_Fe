@@ -24,7 +24,7 @@ export default function ManagerHouse() {
                                     </a>
                                     <a className="nav-link icon" href="">
                                         <i className="fa fa-check"></i>
-                                        <Link to={"/manager-house/sold-item"}>Sold Items</Link>
+                                        <Link to={`/manager-house/sold-item/${currentUser.id}`}>Sold Items</Link>
 
                                     </a>
                                 </nav>

@@ -32,17 +32,53 @@ export default function HistoryBuy() {
     function statusInfo(status) {
         switch (status) {
             case 'CHECK_IN':
-                return 'Nhận phòng'
+                return <>
+                    <aside style={{
+                        border: '1px solid steelblue',
+                        borderRadius: '3px',
+                        padding: '3px',
+                        backgroundColor: 'steelblue',
+                        color: 'white'
+                    }}>Nhận phòng
+                    </aside>
+                </>
                 break;
             case 'IN_PROGRESS':
-                return 'Chờ nhận phòng'
+                return <>
+                    <aside style={{
+                        border: '1px solid orange',
+                        borderRadius: '3px',
+                        padding: '3px',
+                        backgroundColor: 'orange',
+                        color: 'white'
+                    }}>Chờ nhận phòng
+                    </aside>
+                </>
                 break;
             case 'COMPLETED':
-                return 'Hoàn thành'
+                return <>
+                    <aside style={{
+                        border: '1px solid green',
+                        borderRadius: '3px',
+                        padding: '3px',
+                        backgroundColor: 'green',
+                        color: 'white'
+                    }}>Hoàn thành
+                    </aside>
+                </>
                 break;
             case 'CANCELLED':
-                return 'Đã hủy'
-                break
+                return <>
+                    <aside style={{
+                        border: '1px solid red',
+                        borderRadius: '3px',
+                        padding: '3px',
+                        backgroundColor: 'red',
+                        color: 'white'
+                    }}>Đã hủy
+                    </aside>
+                </>
+                break;
         }
     }
 
@@ -118,13 +154,7 @@ export default function HistoryBuy() {
                                         </li>
                                         <li>
                                             <figure>Trạng thái</figure>
-                                            <aside style={{
-                                                border: '1px solid green',
-                                                borderRadius: '5px',
-                                                padding: '1px',
-                                                backgroundColor: 'green',
-                                                color: 'white'
-                                            }}>{statusInfo(item.status)}</aside>
+                                            {statusInfo(item.status)}
                                         </li>
                                     </ul>
                                 </div>
