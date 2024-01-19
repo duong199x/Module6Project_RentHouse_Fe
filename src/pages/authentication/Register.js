@@ -18,11 +18,11 @@ export default function Register() {
                 if (data.error) {
                     console.log(data.error);
                     toast.error(`Register Failure (${data.error.message})!`, {
-                        position: "bottom-center"
+                        position: "top-right"
                     });
                 } else {
                     toast.success(`Register Successfully!`, {
-                        position: "bottom-center"
+                        position: "top-right"
                     });
                     navigate("/login")
                 }

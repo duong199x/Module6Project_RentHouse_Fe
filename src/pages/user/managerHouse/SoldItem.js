@@ -1,18 +1,19 @@
-import {dialogContentClasses} from "@mui/material";
-import {useDispatch, useSelector} from "react-redux";
+import "./SoldItem.css"
 import {useParams} from "react-router-dom";
 import {useEffect} from "react";
-import {getHistoryBooking, removeBooking} from "../../../redux/services/BookingService";
-import {ImageHistory} from "./ImageHistory";
+import {useDispatch, useSelector} from "react-redux";
+import {getAllBookingByHostId, getHistoryBooking, setCheckInStatus} from "../../../redux/services/BookingService";
+import {getUser} from "../../../redux/services/UserService";
+import {ImageSoldItem} from "./ImageSoldItem";
 
-export default function HistoryBuy() {
+export default function SoldItem() {
     const dispatch = useDispatch();
     const {id} = useParams();
-    const listBookingUser = useSelector(({bookings}) => {
+    const listBookingHost = useSelector(({bookings}) => {
         return bookings.list;
     })
     useEffect(() => {
-        dispatch(getHistoryBooking(id))
+        dispatch(getAllBookingByHostId(id))
     }, []);
 
     function formatDate(date) {
@@ -27,6 +28,12 @@ export default function HistoryBuy() {
             day = '0' + day;
 
         return [year, month, day].join('-');
+    }
+
+    const setCheckIn = (idBooking) => {
+        dispatch(setCheckInStatus(idBooking)).then(() => {
+            dispatch(getAllBookingByHostId(id))
+        })
     }
 
     function statusInfo(status) {
@@ -82,11 +89,6 @@ export default function HistoryBuy() {
         }
     }
 
-    const deleteBooking = (idBooking) => {
-        dispatch(removeBooking(idBooking)).then(() => {
-            dispatch(getHistoryBooking(id))
-        })
-    }
     return (
         <>
             <div className="col-md-9">
@@ -104,8 +106,8 @@ export default function HistoryBuy() {
 
                     </div>
                 </div>
-                {
-                    listBookingUser && listBookingUser.map((item) => <div
+                {listBookingHost && listBookingHost.map((item) =>
+                    <div
                         className="items list grid-xl-3-items grid-lg-3-items grid-md-2-items">
                         <div className="item">
                             <div className="wrapper">
@@ -115,7 +117,7 @@ export default function HistoryBuy() {
                                         <a href="single-listing-1.html" className="title"
                                            style={{float: 'left', marginTop: '-20px'}}>{item.house.name}</a>
                                     </h3>
-                                    <ImageHistory item={item.house}/>
+                                    <ImageSoldItem item={item.house}/>
                                 </div>
 
                                 <h4 className="location">
@@ -128,16 +130,10 @@ export default function HistoryBuy() {
                                     </figure>
                                     <figure>
                                         <a href="#">
-                                            <i className="fa fa-user"></i>Chủ nhà: {item.house.userDTO.fullName}
+                                            <i className="fa fa-user"></i>Người đặt: {item.user.fullName}
                                         </a>
                                     </figure>
                                 </div>
-
-                                <div className="description">
-                                    <p>Nếu quý khách đặt sai hoặc không muốn đặt nữa. Vui lòng bấm hủy trong thời gian
-                                        trước <b style={{color: 'red'}}>1 ngày</b></p>
-                                </div>
-
                                 <div className="additional-info">
                                     <ul>
                                         <li>
@@ -159,14 +155,14 @@ export default function HistoryBuy() {
                                     </ul>
                                 </div>
 
-                                <a href="javascript:" onClick={() => deleteBooking(item.id)}
-                                   className="detail text-caps underline">
-                                    Hủy
-                                </a>
+                                <a href="javascrip:"
+                                   className="detail text-caps underline" id='buttonCheckIn'
+                                   onClick={() => setCheckIn(item.id)}>Nhận phòng</a>
+
                             </div>
                         </div>
-                    </div>)
-                }
+                    </div>
+                )}
 
 
             </div>

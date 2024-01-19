@@ -350,7 +350,7 @@ Headers:		'Varela Round', sans-serif;
 .comments .comment .author .author-description h3, .comments .comment .author .author-description h4 {
     font-size: 1.6rem;
     font-weight: 500;
-    font-family: "Poppins", sans-serif;
+    font-family: 'Merriweather', serif;
     margin-bottom: 1rem;
 }
 .comments .comment .author .author-description h5 {
@@ -475,7 +475,7 @@ Headers:		'Varela Round', sans-serif;
 }
 /*background-image: url("../../assets/img/hero-overlay.png"); background-size: contain; background-position: bottom center; background-repeat: no-repeat; padding-bottom: 4rem; position: relative; background-color:#fff; z-index: 3;*/
 .hero .hero-wrapper {
-    padding-bottom: 7rem;
+    /*padding-bottom: 7rem;*/
 }
 .hero .main-navigation {
     z-index: 999;
@@ -1282,7 +1282,7 @@ Headers:		'Varela Round', sans-serif;
 }
 .items:not(.selectize-input).list .item .additional-info ul li {
     display: inline-block;
-    margin-right: 5rem;
+    margin-right: 3.5rem;
 }
 .items:not(.selectize-input).list .item .additional-info ul li figure {
     float: none;
@@ -2048,7 +2048,7 @@ Headers:		'Varela Round', sans-serif;
     font-size: 1rem;
     border-radius: .2rem;
     padding: .3rem .5rem;
-    font-family: 'Poppins', sans-serif;
+    font-family: 'Merriweather', sans-serif;
 }
 .tag:hover {
     background-color: #ff0000;
@@ -2348,7 +2348,7 @@ a.nav-link.active i {
 body, html {
     margin: 0;
     padding: 0;
-    font-family: 'Poppins', sans-serif;
+    font-family: 'Merriweather', sans-serif;
     font-weight: 500;
     position: relative;
 }

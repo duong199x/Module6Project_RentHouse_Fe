@@ -8,25 +8,23 @@ import {getDownloadURL, ref, uploadBytes} from "firebase/storage";
 import {storage} from "../../../firebase/FireBaseConfig";
 import {v4 as uuidv4} from "uuid";
 import {Formik} from "formik";
+import {id} from "date-fns/locale";
 
 export default function ShowFormImageUpdate () {
     const currentUserId = useSelector(({users}) => {
         return users.currentToken.id;
     })
     const navigate = useNavigate();
-    const {idHouse} = useParams()
+    const {id} = useParams()
+    console.log(id)
     const dispatch = useDispatch();
     const images = useSelector(({images}) => {
         return images.listImage;
     })
-    if (idHouse) {
-        // eslint-disable-next-line react-hooks/rules-of-hooks
-        useEffect(() => {
-            dispatch(getImageByHouseId(idHouse)).then(() => {
-                navigate(`manager-house/list-house-user/${currentUserId}`);
-            });
-        }, []);
-    }
+    console.log(images)
+    useEffect(() => {
+        dispatch(getImageByHouseId(id))
+    }, []);
     function handleDelete(idImage) {
         // eslint-disable-next-line no-restricted-globals
         let isConfirmed = confirm("Are you sure you want to delete");
@@ -34,7 +32,7 @@ export default function ShowFormImageUpdate () {
         if (isConfirmed)    {
             dispatch(removeImageById(idImage)).then(()=> {
                 alert("Oke")
-                dispatch(getImageByHouseId(idHouse))
+                dispatch(getImageByHouseId(id))
             })
         }
         else {
@@ -43,6 +41,7 @@ export default function ShowFormImageUpdate () {
     }
     return (
         <>
+            <div className="col-md-9 image-div">
             <div><h3>Click vào góc phải ảnh để xoá ảnh</h3></div>
             <div className="row" style={{display: 'flex'}}>
                 <div className="col-8">
@@ -79,7 +78,7 @@ export default function ShowFormImageUpdate () {
                         imageList.push(imageUrl);
                     }
                     const data =[];
-                    data.push(idHouse);
+                    data.push(id);
                     data.push(imageList)
                     console.log(data)
                     await dispatch(addImages(data)).then(() => {
@@ -132,6 +131,7 @@ export default function ShowFormImageUpdate () {
                     </form>
                 )}
             </Formik>
+            </div>
 
         </>
     )

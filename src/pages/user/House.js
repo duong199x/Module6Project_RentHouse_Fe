@@ -6,10 +6,9 @@ export function House ({item}) {
     const [images,setImages]= useState([]);
     useEffect(() => {
         showImage(item.id).then((response)=>{
-            // console.log(response)
             setImages(response.data)
         })
-    }, []);
+    }, [item]);
     return (
         <>
             <div className="item" key={item.id}>
@@ -25,7 +24,7 @@ export function House ({item}) {
                         <Link to={`${item.id}`}
                               className="image-wrapper background-image">
                             {/*<img src={images.length>0 ? images[0].image : ""} alt=""/>*/}
-                            <img src={images && images.length > 0 ? images[0].image : ""} alt=""/>
+                            <img src={images && images.length > 0 ? images[0].image : "https://placehold.co/400"} alt=""/>
 
                         </Link>
                     </div>
