@@ -12,15 +12,15 @@ export default function Profile() {
                         <div className="row">
                             <div className="col-md-3">
                                 <nav className="nav flex-column side-nav">
-                                    <a className="nav-link icon" href="my-profile.html">
+                                    <a className="nav-link icon" href="javascript:">
                                         <i className="fa fa-user"></i>
                                         <Link to={`/profile/profile-detail/${currentUser.id}`}>My Profile</Link>
                                     </a>
-                                    <a className="nav-link active icon" href="">
+                                    <a className="nav-link active icon" href="javascript:">
                                         <i className="fa fa-recycle"></i>
                                         <Link to={"/profile/change-password"}>Change Password</Link>
                                     </a>
-                                    <a className="nav-link icon" href="">
+                                    <a className="nav-link icon" href="javascript:">
                                         <i className="fa fa-heart"></i>
                                         <Link to={"/profile/bookmarks"}>Bookmarks</Link>
                                     </a>

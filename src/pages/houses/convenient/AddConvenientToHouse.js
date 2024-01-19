@@ -39,6 +39,8 @@ export function CreateConvenient() {
             >
                 <div className="col-md-9 convenient" >
                 <Form>
+                    <div className="card mb-5">
+                        <div className="card-body">
                     <div className="row">
                         <h3 className="h3-convenient">VUI LÒNG LỰA CHỌN CÁC TIỆN NGHI CÓ TRONG NGÔI NHÀ CỦA BẠN</h3>
                     </div>
@@ -64,6 +66,8 @@ export function CreateConvenient() {
                     </div>
                     <div className="row btn-checkbox">
                         <button type="submit" className="btn btn-success">Next</button>
+                    </div>
+                    </div>
                     </div>
 
 

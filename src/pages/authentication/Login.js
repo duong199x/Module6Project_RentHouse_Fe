@@ -8,6 +8,7 @@ import {Button, colors} from "@mui/material";
 import Weather from "../extenstion/Weather";
 import "./Login.css"
 import axios from "axios";
+import {toast} from "react-toastify";
 
 export default function Login() {
     const navigate = useNavigate();
@@ -15,12 +16,25 @@ export default function Login() {
     const loginUser = (value) => {
         dispatch(login(value)).then((data) => {
             console.log(data);
+            if (data.error) {
+                navigate("/login")
+                toast.error(`Login Failure (${data.error.message})!`, {
+                    position: "top-right"
+                });
+            }
+            else {
+                navigate("/house");
+                toast.success(`Login Successfully!`, {
+                    position: "top-right"
+                });
+
+            }
             // TODO: Gọi API để lấy  thông tin user sau khi đăng nhập thành công
             // axios.get(`http://localhost:8080/users/${data.data.id}`).then(resp => {
             //     console.log(resp);
                 // TODO: lưu vào localstorage trường role
             // });
-            navigate("/house");
+
         })
     }
 

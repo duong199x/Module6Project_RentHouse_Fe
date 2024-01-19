@@ -5,6 +5,7 @@ import {useDispatch, useSelector} from "react-redux";
 import {getAllBookingByHostId, getHistoryBooking, setCheckInStatus} from "../../../redux/services/BookingService";
 import {getUser} from "../../../redux/services/UserService";
 import {ImageSoldItem} from "./ImageSoldItem";
+import {toast} from "react-toastify";
 
 export default function SoldItem() {
     const dispatch = useDispatch();
@@ -31,8 +32,19 @@ export default function SoldItem() {
     }
 
     const setCheckIn = (idBooking) => {
-        dispatch(setCheckInStatus(idBooking)).then(() => {
-            dispatch(getAllBookingByHostId(id))
+        dispatch(setCheckInStatus(idBooking)).then((data) => {
+            console.log("data",data)
+            if (data.error) {
+                toast.error(`Check In Thất Bại !(${data.error.message})!`, {
+                    position: "top-right"
+                });
+            } else {
+                toast.success(`Check In Thành Công !`, {
+                    position: "top-right"
+                });
+                dispatch(getAllBookingByHostId(id))
+            }
+
         })
     }
 
@@ -94,7 +106,7 @@ export default function SoldItem() {
             <div className="col-md-9">
                 <div className="section-title clearfix">
                     <div className="float-left float-xs-none">
-                        <label className="mr-3 align-text-bottom">Sort by: </label>
+                        {/*<label className="mr-3 align-text-bottom">Sort by: </label>*/}
                         <select name="sorting" id="sorting" className="small width-200px"
                                 data-placeholder="Default Sorting">
                             <option value="">Default Sorting</option>
