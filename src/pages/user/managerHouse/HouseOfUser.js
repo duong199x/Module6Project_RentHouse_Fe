@@ -52,7 +52,7 @@ export function HouseOfUser({item, handleDelete}) {
                         <p>{item.description}</p>
                     </div>
 
-                    <Link to={`house/${item.id}`} href="single-listing-1.html"
+                    <Link to={`/house/${item.id}`} href="single-listing-1.html"
                           className="detail text-caps underline">Detail</Link>
                 </div>
             </div>
