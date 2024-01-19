@@ -42,13 +42,13 @@ function WindowConfirm() {
                                     <div className="icon-box">
                                         <i className="material-icons">&#xE5CD;</i>
                                     </div>
-                                    <h4 className="modal-title w-100">Awesome!</h4>
+                                    <h4 className="modal-title w-100">Error!</h4>
                                 </div>
                                 <div className="modal-body">
-                                    <p className="text-center">Xác nhận thaất bại. Check your email for detials.</p>
+                                    <p className="text-center">Xác nhận thất bại =(.</p>
                                 </div>
                                 <div class="modal-footer">
-                                    <button class="btn btn-success btn-block" data-dismiss="modal">OK</button>
+                                    <button class="btn btn-success btn-block" data-dismiss="modal">Go to website</button>
                                 </div>
                             </div>
                         </div>
