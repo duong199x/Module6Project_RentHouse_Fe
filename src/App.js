@@ -73,7 +73,7 @@ function App() {
                                     <Route path={'images/:id'} element={<ShowFormImageUpdate/>}/>
                                     <Route path={"list-house-user/:id"} element={<ListHouseOfUser/>}>
                                     </Route>
-                                    <Route path={"sold-item"} element={<SoldItem/>}/>
+                                    <Route path={"sold-item/:id"} element={<SoldItem/>}/>
                                 </Route>
                             </Route>
                             <Route path={'admin'} element={<Home/>}>

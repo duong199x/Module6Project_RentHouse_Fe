@@ -30,3 +30,17 @@ export const getAllBookingByHouseId = createAsyncThunk(
         return response.data
     }
 )
+export const getAllBookingByHostId = createAsyncThunk(
+    'booking/getAllBookingByHostId',
+    async (idHost) => {
+        let response = await getAxios().get(`booking/list/${idHost}`)
+        return response.data
+    }
+)
+export const setCheckInStatus = createAsyncThunk(
+    'booking/setCheckInStatus',
+    async (idBooking) => {
+        let response = await getAxios().patch(`/booking/status/${idBooking}`)
+        return response.data;
+    }
+)
