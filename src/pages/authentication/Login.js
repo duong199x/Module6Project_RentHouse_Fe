@@ -1,7 +1,7 @@
-import {useDispatch} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import {ErrorMessage, Field, Form, Formik} from "formik";
 import {login} from "../../redux/services/UserService";
-import {Link, useNavigate} from "react-router-dom";
+import {Link, Navigate, useNavigate} from "react-router-dom";
 import * as Yup from 'yup';
 import TextField from "@mui/material/TextField";
 import {Button, colors} from "@mui/material";
@@ -13,9 +13,18 @@ export default function Login() {
     const dispatch = useDispatch()
     const loginUser = (value) => {
         dispatch(login(value)).then(() => {
-            navigate("/user/house")
+            navigate("/house")
         })
     }
+
+    const currentUser = useSelector(({users}) => {
+        return users.currentToken;
+    });
+
+    if (currentUser) {
+        return <Navigate to="/house"/>
+    }
+
     return (
         <>
             <div className="row ht-100v flex-row-reverse no-gutters">
@@ -24,7 +33,7 @@ export default function Login() {
                         <div className="auth-logo text-center mb-5">
                             <div className="row">
                                 <div className="col-md-2">
-                                    <img src={require("../../pages/extenstion/img/logo_app.png")} className="logo-img" alt="Logo"/>
+                                    <img src={require("../extenstion/img/logo_app.png")} className="logo-img" alt="Logo"/>
                                 </div>
                                 <div className="col-md-7">
                                     <p>Login</p>

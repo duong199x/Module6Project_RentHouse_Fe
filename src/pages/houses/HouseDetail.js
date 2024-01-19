@@ -4,6 +4,12 @@ import {useEffect, useState} from "react";
 import {getImageByHouseId} from "../../redux/services/ImageService";
 import './carousel.css'
 import {getById} from "../../redux/services/HouseService";
+import {DateRangePicker} from "@mui/x-date-pickers-pro";
+import {DemoContainer, DemoItem} from "@mui/x-date-pickers/internals/demo";
+import {LocalizationProvider} from "@mui/x-date-pickers";
+import {AdapterDayjs} from "@mui/x-date-pickers/AdapterDayjs";
+import dayjs from 'dayjs';
+import {addBooking} from "../../redux/services/BookingService";
 
 export default function HouseDetail() {
     const [activeIndex, setActiveIndex] = useState(0);
@@ -18,8 +24,10 @@ export default function HouseDetail() {
         return images.listImage;
     })
     const houseDetail = useSelector(({houses}) => {
-        console.log(houses)
         return houses.houseUpdate
+    })
+    const currentUser = useSelector(({users}) => {
+        return users.currentToken;
     })
     useEffect(() => {
         dispatch(getById(id)).then(() => dispatch(getImageByHouseId(id)).then(() => setFetched(true)))
@@ -27,10 +35,63 @@ export default function HouseDetail() {
     const carouselItemStyle = {
         height: '720px',
     };
+    //date time
+    let currentDate = new Date();
+    let day = currentDate.getDate();
+    let month = currentDate.getMonth() + 1;
+    let year = currentDate.getFullYear();
+    let startDate = year + '-' + month + '-' + day;
+    let currentDate1 = new Date();
+    let currentDay = currentDate1.getDate();
+    currentDate1.setDate(currentDay + 5);
+    let dayAfter5Days = currentDate1.getDate();
+    let monthAfter5Days = currentDate1.getMonth() + 1;
+    let yearAfter5Days = currentDate1.getFullYear();
+    let endDate = yearAfter5Days + '-' + monthAfter5Days + '-' + dayAfter5Days;
+    const [value, setValue] = useState([
+        dayjs(startDate),
+        dayjs(endDate),
+    ]);
+    let betweentday = (value[1] - value[0]) / 86400000;
+    // tăng giảm khách
+    const [count, setCount] = useState(0);
+    const increment = () => {
+        if (count < 6)
+            setCount(count + 1);
+    };
+    const decrement = () => {
+        if (count > 1)
+            setCount(count - 1);
+    };
+    //xử lí thêm hoa đơn
+        let bookingInfo = {
+            startDate: formatDate(value[0]),
+            endDate: formatDate(value[1]),
+            numberOfGuests: count,
+            userId: currentUser.id,
+            houseId: houseDetail.id,
+            price: betweentday * houseDetail.price + betweentday * houseDetail.price * 0.05
+        }
+    const bookRoom = (info) => {
+        dispatch(addBooking(info)).then(() => {
+        })
+    }
+    function formatDate(date) {
+        let d = new Date(date),
+            month = '' + (d.getMonth() + 1),
+            day = '' + d.getDate(),
+            year = d.getFullYear();
 
+        if (month.length < 2)
+            month = '0' + month;
+        if (day.length < 2)
+            day = '0' + day;
+
+        return [year, month, day].join('-');
+    }
     return (
         <>{fetched &&
-            <div className="page sub-page" >
+            <div className="page sub-page">
                 <div className="hero" style={{backgroundColor: "#f2f2f2"}}>
                     <div className="hero-wrapper">
                         <div className="page-title">
@@ -48,7 +109,7 @@ export default function HouseDetail() {
                     </div>
                 </div>
                 <section className="content">
-                    <section className="block" style={{paddingTop:"0"}}>
+                    <section className="block" style={{paddingTop: "0"}}>
                         <div className="container">
                             <section>
                                 {/* Main Carousel */}
@@ -73,8 +134,8 @@ export default function HouseDetail() {
                                             return rows;
                                         }, []).map((row, rowIndex) => (
                                             <div key={rowIndex}
-                                                 className={`carousel-item ${rowIndex === 0 ? 'active' : ''}`}  >
-                                                <div className="row" style={{marginLeft:"0.1rem"}}>
+                                                 className={`carousel-item ${rowIndex === 0 ? 'active' : ''}`}>
+                                                <div className="row" style={{marginLeft: "0.1rem"}}>
                                                     {row.map((thumb, thumbIndex) => (
                                                         <div
                                                             key={thumbIndex}
@@ -82,7 +143,7 @@ export default function HouseDetail() {
                                                             data-slide-to={(rowIndex * 3) + thumbIndex}
                                                             className={`thumb col-sm-4 ${activeIndex === (rowIndex * 3) + thumbIndex ? 'active' : ''}`}
                                                             onClick={() => handleThumbnailClick((rowIndex * 3) + thumbIndex)}
-                                                            style={{maxWidth:"20%",marginTop:"12px"}}
+                                                            style={{maxWidth: "fit-content", marginTop: "12px"}}
                                                         >
                                                             <img src={thumb.image}
                                                                  alt={`thumbnail_${(rowIndex * 3) + thumbIndex}`}/>
@@ -120,11 +181,8 @@ export default function HouseDetail() {
                                             <dt>Kitchen</dt>
                                             <dd>{houseDetail.kitchen}</dd>
                                             <dt>Category</dt>
-                                            <dd>{houseDetail.category.name}</dd>
+                                            <dd>{houseDetail?.category?.name}</dd>
                                         </dl>
-                                    </section>
-                                    <section><h2>Location</h2>
-                                        <div className="map height-300px" id="map-small"></div>
                                     </section>
                                     <section><h2>Convenients</h2>
                                         <ul className="features-checkboxes columns-3">
@@ -134,104 +192,78 @@ export default function HouseDetail() {
 
                                         </ul>
                                     </section>
-                                    <hr/>
-                                    <section><h2>Similar Ads</h2>
-                                        <div className="items list compact">
-                                            <div className="item">
-                                                <div className="ribbon-featured">Featured</div>
-                                                <div className="wrapper">
-                                                    <div className="image"><h3><a href="#" className="tag category">Home
-                                                        & Decor</a> <a href="single-listing-1.html" className="title">Furniture
-                                                        for sale</a> <span className="tag">Offer</span></h3> <a
-                                                        href="single-listing-1.html"
-                                                        className="image-wrapper background-image"> <img
-                                                        src="assets/img/image-01.jpg" alt=""/> </a></div>
-                                                    <h4 className="location"><a href="#">Manhattan, NY</a></h4>
-                                                    <div className="price">$80</div>
-                                                    <div className="meta">
-                                                        <figure><i className="fa fa-calendar-o"></i>02.05.2017</figure>
-                                                        <figure><a href="#"> <i className="fa fa-user"></i>Jane Doe </a>
-                                                        </figure>
-                                                    </div>
-                                                    <div className="description"><p>Lorem ipsum dolor sit amet,
-                                                        consectetur adipiscing elit. Nullam venenatis lobortis</p></div>
-                                                    <a href="single-listing-1.html"
-                                                       className="detail text-caps underline">Detail</a></div>
-                                            </div>
-                                            <div className="item">
-                                                <div className="wrapper">
-                                                    <div className="image"><h3><a href="#"
-                                                                                  className="tag category">Education</a>
-                                                        <a href="single-listing-1.html" className="title">Creative
-                                                            Course</a> <span className="tag">Offer</span></h3> <a
-                                                        href="single-listing-1.html"
-                                                        className="image-wrapper background-image"> <img
-                                                        src="assets/img/image-02.jpg" alt=""/> </a></div>
-                                                    <h4 className="location"><a href="#">Nashville, TN</a></h4>
-                                                    <div className="price">$125</div>
-                                                    <div className="meta">
-                                                        <figure><i className="fa fa-calendar-o"></i>28.04.2017</figure>
-                                                        <figure><a href="#"> <i className="fa fa-user"></i>Peter Browner
-                                                        </a></figure>
-                                                    </div>
-                                                    <div className="description"><p>Proin at tortor eros. Phasellus
-                                                        porta nec elit non lacinia. Nam bibendum erat at leo faucibus
-                                                        vehicula. Ut laoreet porttitor risus, eget suscipit tellus
-                                                        tincidunt sit amet. </p></div>
-                                                    <div className="additional-info">
-                                                        <ul>
-                                                            <li>
-                                                                <figure>Start Date</figure>
-                                                                <aside>25.06.2017 09:00</aside>
-                                                            </li>
-                                                            <li>
-                                                                <figure>Length</figure>
-                                                                <aside>2 months</aside>
-                                                            </li>
-                                                            <li>
-                                                                <figure>Bedrooms</figure>
-                                                                <aside>3</aside>
-                                                            </li>
-                                                        </ul>
-                                                    </div>
-                                                    <a href="single-listing-1.html"
-                                                       className="detail text-caps underline">Detail</a></div>
-                                            </div>
-                                            <div className="item">
-                                                <div className="wrapper">
-                                                    <div className="image"><h3><a href="#"
-                                                                                  className="tag category">Adventure</a>
-                                                        <a href="single-listing-1.html" className="title">Into The
-                                                            Wild</a> <span className="tag">Ad</span></h3> <a
-                                                        href="single-listing-1.html"
-                                                        className="image-wrapper background-image"> <img
-                                                        src="assets/img/image-03.jpg" alt=""/> </a></div>
-                                                    <h4 className="location"><a href="#">Seattle, WA</a></h4>
-                                                    <div className="price">$1,560</div>
-                                                    <div className="meta">
-                                                        <figure><i className="fa fa-calendar-o"></i>21.04.2017</figure>
-                                                        <figure><a href="#"> <i className="fa fa-user"></i>Peak Agency
-                                                        </a></figure>
-                                                    </div>
-                                                    <div className="description"><p>Nam eget ullamcorper massa. Morbi
-                                                        fringilla lectus nec lorem tristique gravida</p></div>
-                                                    <a href="single-listing-1.html"
-                                                       className="detail text-caps underline">Detail</a></div>
-                                            </div>
-                                            <div className="center"><a href="#"
-                                                                       className="btn btn-primary text-caps btn-framed">Show
-                                                All</a></div>
-                                        </div>
+                                    <section><h2>Location</h2>
+                                        <div className="map height-300px" id="map-small"></div>
                                     </section>
+                                    <hr/>
                                 </div>
                                 <div className="col-md-4">
+                                    <aside className="sidebar">
+                                        <section>
+                                            <div className="box">
+                                                <div className="author">
+                                                    <div className="number" style={{
+                                                        fontSize: '20px',
+                                                        color: 'red',
+                                                        paddingBottom: '10px'
+                                                    }}>{houseDetail.price} VND/đêm
+                                                    </div>
+                                                    <LocalizationProvider dateAdapter={AdapterDayjs}>
+                                                        <DemoContainer
+                                                            components={['DateRangePicker', 'DateRangePicker']}>
+                                                            <DemoItem
+                                                                component="DateRangePicker">
+                                                                <DateRangePicker
+                                                                    value={value}
+                                                                    onChange={(newValue) => setValue(newValue)}
+                                                                />
+                                                            </DemoItem>
+                                                        </DemoContainer>
+                                                    </LocalizationProvider>
+                                                    <div style={{paddingTop: '10px', paddingBottom: '10px'}}>
+                                                        <div>
+                                                            <span style={{float: 'left'}}>Khách: {count}</span>
+                                                            <span style={{float: 'right'}}><button
+                                                                onClick={increment}
+                                                                style={{
+                                                                    border: 'none',
+                                                                    backgroundColor: 'white'
+                                                                }}>
+                                                                <i className="fa fa-plus"/></button>
+                                                            <button onClick={decrement}
+                                                                    style={{border: 'none', backgroundColor: 'white'}}>
+                                                            <i className="fa fa-minus"/></button></span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <hr/>
+                                                <dl>
+                                                    <dt>Giá tiền</dt>
+                                                    <dd>{betweentday * houseDetail.price} VND</dd>
+                                                </dl>
+                                                <dl>
+                                                    <dt>Thuế</dt>
+                                                    <dd>5%</dd>
+                                                </dl>
+                                                <hr/>
+                                                <dl>
+                                                    <dt><u>Tổng tiền</u></dt>
+                                                    <dd>{betweentday * houseDetail.price + betweentday * houseDetail.price * 0.05} VND</dd>
+                                                </dl>
+                                                <hr/>
+                                                <button type="submit" className="btn btn-primary"
+                                                        style={{width: '100%'}} onClick={()=>bookRoom(bookingInfo)}>Đặt phòng
+                                                </button>
+                                            </div>
+                                        </section>
+                                    </aside>
                                     <aside className="sidebar">
                                         <section><h2>Author</h2>
                                             <div className="box">
                                                 <div className="author">
                                                     <div className="author-image">
                                                         <div className="background-image"><img
-                                                            src="assets/img/author-01.jpg" alt=""/></div>
+                                                            src={houseDetail.userDTO.imageUser} alt=""/></div>
                                                     </div>
                                                     <div className="author-description">
                                                         <h3>{houseDetail.userDTO.fullName}</h3>
@@ -248,14 +280,6 @@ export default function HouseDetail() {
                                                     <dd>{houseDetail.userDTO.email}</dd>
                                                 </dl>
                                                 <form className="form email">
-                                                    <div className="form-group"><label htmlFor="name"
-                                                                                       className="col-form-label">Name</label>
-                                                        <input name="name" type="text" className="form-control"
-                                                               id="name" placeholder="Your Name"/></div>
-                                                    <div className="form-group"><label htmlFor="email"
-                                                                                       className="col-form-label">Email</label>
-                                                        <input name="email" type="email" className="form-control"
-                                                               id="email" placeholder="Your Email"/></div>
                                                     <div className="form-group"><label htmlFor="message"
                                                                                        className="col-form-label">Message</label>
                                                         <textarea name="message" id="message" className="form-control"

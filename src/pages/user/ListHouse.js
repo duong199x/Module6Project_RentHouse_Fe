@@ -3,6 +3,7 @@ import {useEffect, useState} from "react";
 import {getAllHouse} from "../../redux/services/HouseService";
 import {getAllCategories} from "../../redux/services/CategoryService";
 import {House} from "./House";
+import {Navigate} from "react-router-dom";
 
 export default function ListHouse() {
     const dispatch = useDispatch();
@@ -15,6 +16,14 @@ export default function ListHouse() {
         dispatch(getAllCategories())
         dispatch(getAllHouse());
     }, [])
+
+    const currentUser = useSelector(({users}) => {
+        return users.currentToken;
+    });
+
+    if (!currentUser) {
+        return <Navigate to="/login"/>
+    }
 
     return (
         <>

@@ -33,16 +33,16 @@ export const removeById = createAsyncThunk(
 )
 export const update = createAsyncThunk(
     'houses/update',
-    async (newProduct) => {
-        console.log(newProduct)
-        let response = await getAxios().patch('houses/update/' + newProduct.id, newProduct);
+    async (newHouse) => {
+        console.log(newHouse)
+        let response = await getAxios().patch('houses/update/' + newHouse.id, newHouse);
         return response.data;
     }
 )
 export const getHouseByUser = createAsyncThunk(
     "houses/getHouseByUser",
     async (userId) => {
-        let response = await getAxios().get('houses/user/' + userId);
+        let response = await getAxios().get('houses' + userId);
         return response.data;
     }
 )
