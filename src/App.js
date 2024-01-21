@@ -39,7 +39,7 @@ function App() {
         <>
             <ToastContainer
                 position="top-right"
-                autoClose={5000}
+                autoClose={2500}
                 hideProgressBar={false}
                 newestOnTop={false}
                 closeOnClick
@@ -50,18 +50,14 @@ function App() {
                 theme="light"
             />
             {/* Same as */}
-            <ToastContainer/>
             <Routes>
-                <Route path="/" element={<Navigate to="login"/>}/>
-                <Route path={"login"} element={<Login/>}/>
+                <Route path="/" element={<Navigate to="login"/>} />
                 {
                     currentUser ? (
                         <>
                             <Route element={<UserPage/>}>
                                 <Route path={'house'} element={<ListHouse/>}/>
-
                                 <Route path={'house/:id'} element={<HouseDetail/>}/>
-
                                 <Route path={'profile'} element={<Profile/>}>
                                     <Route path={"change-password"} element={<ChangePassword/>}/>
                                     <Route path={`profile-detail/:id`} element={<ProfileDetail/>}/>

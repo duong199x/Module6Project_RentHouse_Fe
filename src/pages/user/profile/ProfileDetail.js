@@ -7,7 +7,7 @@ import {Field, Form, Formik} from "formik";
 import {getDownloadURL, ref, uploadBytes} from "firebase/storage";
 import {storage} from "../../../firebase/FireBaseConfig";
 import {v4 as uuidv4} from "uuid";
-import { ToastContainer, toast } from 'react-toastify';
+import { toast } from 'react-toastify';
 
 export default function ProfileDetail() {
     const dispatch = useDispatch();
@@ -24,13 +24,11 @@ export default function ProfileDetail() {
         setUser(personalInfo)
     }, [personalInfo]);
     const handleSaveChanges = (values, setSubmitting) => {
-        console.log('setSubmitting', setSubmitting);
         const request = {...values, user}
         dispatch(editDetailUser(request))
             .then(
                 (data) => {
                     if (data.error) {
-                        console.log(data.error);
                         toast.error(`Update Profile Failure (${data.error.message})!`, {
                             position: "top-right"
                         });
@@ -134,7 +132,7 @@ export default function ProfileDetail() {
                                     </div>
                                     <div className="col-md-4">
                                         <div className="profile-image">
-                                            <img className="rounded-circle w-100 border shadow" src={user.imageUser ?? ''} alt=""/>
+                                            <img className="rounded-circle w-100 border shadow " src={user.imageUser ?? ''} alt=""/>
                                             <div className="single-file-input">
                                                 <label className="btn btn-framed btn-primary small" htmlFor={"user_image"}>
 

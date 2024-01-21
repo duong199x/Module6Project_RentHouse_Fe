@@ -4,6 +4,7 @@ import {useParams} from "react-router-dom";
 import {useEffect} from "react";
 import {getHistoryBooking, removeBooking} from "../../../redux/services/BookingService";
 import {ImageHistory} from "./ImageHistory";
+import {toast} from "react-toastify";
 
 export default function HistoryBuy() {
     const dispatch = useDispatch();
@@ -14,6 +15,7 @@ export default function HistoryBuy() {
     useEffect(() => {
         dispatch(getHistoryBooking(id))
     }, []);
+    let listBookingUserReverse = [...listBookingUser].reverse();
 
     function formatDate(date) {
         var d = new Date(date),
@@ -83,8 +85,18 @@ export default function HistoryBuy() {
     }
 
     const deleteBooking = (idBooking) => {
-        dispatch(removeBooking(idBooking)).then(() => {
-            dispatch(getHistoryBooking(id))
+        dispatch(removeBooking(idBooking)).then((data) => {
+            if (data.error) {
+                toast.error(`Huỷ Phòng Thất Bại! Bạn Không Thể Huỷ Trước 1 Ngày Checkin !`, {
+                    position: "top-right"
+                });
+            } else {
+                toast.success(`Huỷ Phòng Thành Công !`, {
+                    position: "top-right"
+                });
+                dispatch(getHistoryBooking(id))
+            }
+
         })
     }
     return (
@@ -92,7 +104,6 @@ export default function HistoryBuy() {
             <div className="col-md-9">
                 <div className="section-title clearfix">
                     <div className="float-left float-xs-none">
-                        <label className="mr-3 align-text-bottom">Sort by: </label>
                         <select name="sorting" id="sorting" className="small width-200px"
                                 data-placeholder="Default Sorting">
                             <option value="">Default Sorting</option>
@@ -105,7 +116,7 @@ export default function HistoryBuy() {
                     </div>
                 </div>
                 {
-                    listBookingUser && listBookingUser.map((item) => <div
+                    listBookingUserReverse && listBookingUserReverse.map((item) => <div
                         className="items list grid-xl-3-items grid-lg-3-items grid-md-2-items">
                         <div className="item">
                             <div className="wrapper">

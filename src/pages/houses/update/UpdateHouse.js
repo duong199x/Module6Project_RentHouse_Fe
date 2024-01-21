@@ -9,6 +9,7 @@ import {CustomCheckboxField, CustomSelectField, CustomTextField} from "../../../
 import {getById, update} from "../../../redux/services/HouseService";
 import {getAllConvenient} from "../../../redux/services/ConvenientService";
 import * as Yup from "yup";
+import {toast} from "react-toastify";
 
 export function UpdateHouse() {
     const addSchema = Yup.object().shape({
@@ -48,8 +49,18 @@ export function UpdateHouse() {
         let convenientIds = values.convenients.map(Number)
         values = (({convenients,userDTO, ...value}) => value)(values)
         values = {...values, convenientIds, user}
-        dispatch(update(values)).then(() => {
-            navigate(`manager-house/list-house-user/${currentUserId}`);
+        dispatch(update(values)).then((data) => {
+            if (data.error) {
+                console.log(data.error);
+                toast.error(`Update House Failure (${data.error.message})!`, {
+                    position: "top-right"
+                });
+            } else {
+                toast.success(`Update House  Successfully!`, {
+                    position: "top-right"
+                });
+                navigate(`/manager-house/list-house-user/${currentUserId}`);
+            }
         })
     }
     const houses = useSelector(({houses}) => {
@@ -71,6 +82,8 @@ export function UpdateHouse() {
                             validationSchema={addSchema}>
                         <div className="main-formAdd">
                             <Form>
+                                <div className="card mb-5">
+                                    <div className="card-body">
                                 <div className="formAdd">
                                     <div className="row">
                                         <div className="col-4"><CustomTextField name="name" label={"Name"}
@@ -138,6 +151,8 @@ export function UpdateHouse() {
                                     <div className="row btn-checkbox">
                                         <button type="submit" className="btn btn-success">UPDATE</button>
                                     </div>
+                                </div>
+                                </div>
                                 </div>
 
                             </Form>

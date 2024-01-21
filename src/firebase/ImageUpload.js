@@ -8,6 +8,7 @@ import './uploadImageStyle.css'
 import {useLocation, useNavigate} from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
 import {add} from "../redux/services/HouseService";
+import {toast} from "react-toastify";
 
 const ImageUploadForm = () => {
     const location = useLocation();
@@ -38,14 +39,28 @@ const ImageUploadForm = () => {
                     images.push(imageUrl);
                 }
                 let data = {...propsReceived, images}
-                await dispatch(add(data)).then(() => {
-                    navigate(`/manager-house/list-house-user/${currentUserId}`);
+                await dispatch(add(data)).then((data) => {
+                    if (data.error) {
+                        console.log(data.error);
+                        toast.error(`Create House Failure (${data.error.message})!`, {
+                            position: "top-right"
+                        });
+                    }
+                    else {
+                        toast.success(`Create House Successfully!`, {
+                            position: "top-right"
+                        });
+                        navigate(`house`);
+                        navigate(`/manager-house/list-house-user/${currentUserId}`);
+                    }
                 });
             }}
         >
             {({values, setFieldValue, handleSubmit}) => (
                 <div className="col-md-9 image-div">
                 <form onSubmit={handleSubmit}>
+                    <div className="card mb-5">
+                        <div className="card-body">
                     <div className={"title-formAddImage"}>
                         <h3>Để hoàn tất việc thêm mới vui lòng thêm ảnh cho ngôi nhà của bạn</h3>
                     </div>
@@ -83,6 +98,8 @@ const ImageUploadForm = () => {
                                 ))}
                             </div>
                         </div>
+                    </div>
+                    </div>
                     </div>
                 </form>
                 </div>

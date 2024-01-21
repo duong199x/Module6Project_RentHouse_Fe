@@ -5,7 +5,6 @@ export default function Bookmarks() {
 
                 <div className="section-title clearfix">
                     <div className="float-left float-xs-none">
-                        <label className="mr-3 align-text-bottom">Sort by: </label>
                         <select name="sorting" id="sorting" className="small width-200px"
                                 data-placeholder="Default Sorting">
                             <option value="">Default Sorting</option>
@@ -15,16 +14,6 @@ export default function Bookmarks() {
                             <option value="4">Highest Price First</option>
                         </select>
 
-                    </div>
-                    <div className="float-right d-xs-none thumbnail-toggle">
-                        <a href="#" className="change-class" data-change-from-class="list"
-                           data-change-to-class="grid" data-parent-class="items">
-                            <i className="fa fa-th"></i>
-                        </a>
-                        <a href="#" className="change-class active" data-change-from-class="grid"
-                           data-change-to-class="list" data-parent-class="items">
-                            <i className="fa fa-th-list"></i>
-                        </a>
                     </div>
                 </div>
 

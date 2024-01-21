@@ -14,6 +14,7 @@ export default function ListHouseOfUser() {
     useEffect(() => {
         dispatch(getHouseByUser(id))
     }, []);
+    let listHouseByUserIdReverser = [...listHouseByUserId].reverse();
     function handleDelete(idHouse) {
         // eslint-disable-next-line no-restricted-globals
         // let isConfirmed = confirm("Are you sure you want to delete");
@@ -46,7 +47,7 @@ export default function ListHouseOfUser() {
 
 
                 <div className="items list compact grid-xl-3-items grid-lg-2-items grid-md-2-items">
-                    {listHouseByUserId && listHouseByUserId.map((item) =>
+                    {listHouseByUserIdReverser && listHouseByUserIdReverser.map((item) =>
                         {
                             return (
                                 <HouseOfUser item={item} handleDelete={()=>handleDelete(item.id)}/>
