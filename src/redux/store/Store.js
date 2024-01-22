@@ -16,7 +16,7 @@ export const store = configureStore ({
         images : imageReducer,
         convenients : convenientService,
         bookings: bookingReducer,
-        comments:commentReducer()
+        comments:commentReducer
     }
 })
 export default store;
