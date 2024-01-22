@@ -20,7 +20,6 @@ export default function HistoryBuy() {
         dispatch(getHistoryBooking(id))
     }, []);
     let listBookingUserReverse = [...listBookingUser].reverse();
-    console.log("listBookingUserReverse",listBookingUserReverse)
     function formatDate(date) {
         var d = new Date(date),
             month = '' + (d.getMonth() + 1),
