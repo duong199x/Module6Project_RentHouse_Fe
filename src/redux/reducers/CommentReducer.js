@@ -1,5 +1,4 @@
 import {createSlice} from "@reduxjs/toolkit";
-import {getAllCategories} from "../services/CategoryService.js";
 import {addComment, getCommentById} from "../services/CommentService";
 
 const initialState = {
@@ -10,8 +9,8 @@ const commentSlice = createSlice({
     name: 'comments',
     initialState,
     extraReducers: builder => {
-        builder.addCase(getCommentById().fulfilled, (state, {payload}) => {
-            state.listCategories = payload;
+        builder.addCase(getCommentById.fulfilled, (state, {payload}) => {
+            state.listComment = payload;
         })
         builder.addCase(addComment.fulfilled, (state, {payload}) => {
         })
