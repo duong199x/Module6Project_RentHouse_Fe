@@ -16,7 +16,8 @@ export default function SoldItem() {
     useEffect(() => {
         dispatch(getAllBookingByHostId(id))
     }, []);
-
+    let listBookingHostReverse = [...listBookingHost].reverse();
+    console.log("listBookingHostReverse",listBookingHostReverse)
     function formatDate(date) {
         var d = new Date(date),
             month = '' + (d.getMonth() + 1),
@@ -118,7 +119,7 @@ export default function SoldItem() {
 
                     </div>
                 </div>
-                {listBookingHost && listBookingHost.map((item) =>
+                {listBookingHostReverse && listBookingHostReverse.map((item) =>
                     <div
                         className="items list grid-xl-3-items grid-lg-3-items grid-md-2-items">
                         <div className="item">
@@ -166,10 +167,15 @@ export default function SoldItem() {
                                         </li>
                                     </ul>
                                 </div>
-
-                                <a href="javascrip:"
-                                   className="detail text-caps underline" id='buttonCheckIn'
-                                   onClick={() => setCheckIn(item.id)}>Nhận phòng</a>
+                                {item.status && item.status === "IN_PROGRESS" ? <a href="javascrip:"
+                                                                                className="detail text-caps underline"
+                                                                                id='buttonCheckIn'
+                                                                                onClick={() => setCheckIn(item.id)}>Nhận phòng</a>
+                                    : <a href="javascrip:"
+                                                   className="detail text-caps underline"
+                                                   id='buttonCheckIn'
+                                                   onClick={() => setCheckIn(item.id)} style={{ pointerEvents: 'none', color: 'gray', textDecoration: 'none', cursor: 'not-allowed' ,borderColor:'gray'}}>Nhận phòng</a>
+                                }
 
                             </div>
                         </div>

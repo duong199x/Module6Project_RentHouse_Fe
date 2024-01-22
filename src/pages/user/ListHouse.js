@@ -14,6 +14,8 @@ export default function ListHouse() {
     const houses = useSelector(({ houses }) => {
         return houses.list;
     });
+
+    let listHouseReverse = [...houses].reverse();
     const convenients = useSelector(({ convenients }) => {
         if (convenients.listConvenient) {
             return convenients.listConvenient.map(convenient => ({
@@ -157,12 +159,6 @@ export default function ListHouse() {
                                 <h2>Recent Listings</h2>
                             </div>
                             <div className="float-xl-right float-md-right float-sm-none">
-                                <select name="categories" id="categories" className="small width-200px"
-                                    data-placeholder="Category">
-                                    <option value="">Category</option>
-                                    {categories && categories.map((i) => <option key={i.id} value={i.id}>{i.name} </option>)
-                                    }
-                                </select>
                                 <select name="sorting" id="sorting" className="small width-200px"
                                     data-placeholder="Default Sorting">
                                     <option value="">Default Sorting</option>
@@ -175,7 +171,7 @@ export default function ListHouse() {
                         </div>
 
                         <div className="items masonry grid-xl-4-items grid-lg-3-items grid-md-2-items">
-                            {houses && houses.map((item) => {
+                            {listHouseReverse && listHouseReverse.map((item) => {
                                 return (
                                     <House item={item}/>
 

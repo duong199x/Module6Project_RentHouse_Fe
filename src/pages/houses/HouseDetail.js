@@ -12,6 +12,7 @@ import dayjs from 'dayjs';
 import {addBooking, getAllBookingByHouseId, getHistoryBooking} from "../../redux/services/BookingService";
 import {date} from "yup";
 import {toast} from "react-toastify";
+import {Comment} from "./Comment";
 
 export default function HouseDetail() {
     const [activeIndex, setActiveIndex] = useState(0);
@@ -128,7 +129,6 @@ export default function HouseDetail() {
         let generatedDates = generateDates(new Date(formatDate(listBookingHouse[i].startDate)), new Date(formatDate(listBookingHouse[i].endDate)));
         disabledDates = [...disabledDates, ...generatedDates]
     }
-    console.log(disabledDates)
     const shouldDisableDate = (date) => {
         let dateString = date.toISOString().split('T')[0];
         const dateNow = new Date(dateString);
@@ -146,12 +146,11 @@ export default function HouseDetail() {
                     <div className="hero-wrapper">
                         <div className="page-title">
                             <div className="container clearfix">
-                                <div className="float-left float-xs-none"><h1>{houseDetail.name}<span
-                                    className="tag">Offer</span></h1> <h4 className="location"><a
-                                    href="#">{houseDetail.location}</a></h4></div>
-                                <div className="float-right float-xs-none price">
+                                <div className="float-left float-xs-none"><h1>{houseDetail.name}</h1>
+                                    <h4 className="location"><a href="#">{houseDetail.location}</a></h4></div>
+                                <div className="float-right   price">
                                     <div className="number">{houseDetail.price} VND</div>
-                                    <div className="id opacity-50"><strong>ID: </strong>3479</div>
+                                    <div className="id opacity-50"><strong>ID: </strong>{houseDetail.id}</div>
                                 </div>
                             </div>
                         </div>
@@ -222,42 +221,42 @@ export default function HouseDetail() {
                                 <div className="col-md-8">
                                     <div className="card mb-5">
                                         <div className="card-body">
-                                    <section><h2>Description</h2> <p> {houseDetail.description}<br/>
-                                        <br/>
-                                        <hr/>
-                                        CHECK IN : 14:00<br/>
-                                        CHECKOUT : 12:00</p></section>
+                                            <section><h2>Mô tả</h2> <p> {houseDetail.description}<br/>
+                                                <br/>
+                                                CHECK IN : 14:00<br/>
+                                                CHECKOUT : 12:00</p></section>
                                             <hr/>
-                                    <section><h2>Details</h2>
-                                        <dl className="columns-3">
-                                            <dt>BedRoom</dt>
-                                            <dd>{houseDetail.bedRoom}</dd>
-                                            <dt>BathRoom</dt>
-                                            <dd>{houseDetail.bathRoom}</dd>
-                                            <dt>LivingRoom</dt>
-                                            <dd>{houseDetail.livingRoom}</dd>
-                                            <dt>Kitchen</dt>
-                                            <dd>{houseDetail.kitchen}</dd>
-                                            <dt>Category</dt>
-                                            <dd>{houseDetail?.category?.name}</dd>
-                                        </dl>
-                                    </section>
+                                            <section><h2>Thông tin chi tiết</h2>
+                                                <dl className="columns-3">
+                                                    <dt>Phòng ngủ</dt>
+                                                    <dd>{houseDetail.bedRoom}</dd>
+                                                    <dt>Phòng tắm</dt>
+                                                    <dd>{houseDetail.bathRoom}</dd>
+                                                    <dt>Phòng khách</dt>
+                                                    <dd>{houseDetail.livingRoom}</dd>
+                                                    <dt>Phòng bếp</dt>
+                                                    <dd>{houseDetail.kitchen}</dd>
+                                                    <dt>Danh mục</dt>
+                                                    <dd>{houseDetail?.category?.name}</dd>
+                                                </dl>
+                                            </section>
                                             <hr/>
-                                    <section><h2>Convenients</h2>
-                                        <ul className="features-checkboxes columns-3">
-                                            {houseDetail.convenients.map((item) =>
-                                                <li>{item.name}</li>
-                                            )}
+                                            <section><h2>Tiện nghi</h2>
+                                                <ul className="features-checkboxes columns-3">
+                                                    {houseDetail.convenients.map((item) =>
+                                                        <li>{item.name}</li>
+                                                    )}
 
-                                        </ul>
-                                    </section>
+                                                </ul>
+                                            </section>
 
                                         </div>
-                                        </div>
-                                    <section><h2>Location</h2>
+                                    </div>
+                                    <section><h2>Địa điểm</h2>
                                         <div className="map height-300px" id="map-small"></div>
                                     </section>
                                     <hr/>
+                                    <Comment item={houseDetail}/>
                                 </div>
 
 
@@ -305,7 +304,9 @@ export default function HouseDetail() {
                                                 <hr/>
                                                 <dl>
                                                     <dt>Giá tiền</dt>
-                                                    <dd>{betweentday * houseDetail.price} VND</dd>
+                                                    <dd>{houseDetail.price} VND
+                                                        x {betweentday} đêm <br/>= {houseDetail.price * betweentday} VND
+                                                    </dd>
                                                 </dl>
                                                 <dl>
                                                     <dt>Thuế</dt>
@@ -317,24 +318,25 @@ export default function HouseDetail() {
                                                     <dd>{betweentday * houseDetail.price + betweentday * houseDetail.price * 0.05} VND</dd>
                                                 </dl>
                                                 <hr/>
-                                                {currentUser.id === houseDetail.userDTO.id ?  ""
-                                                    :<button type="submit" className="btn btn-primary"
-                                                                   style={{width: '100%'}}
-                                                                   onClick={() => bookRoom(bookingInfo)}>
-                                                    ĐẶT PHÒNG</button> }
+                                                {currentUser.id === houseDetail.userDTO.id ? ""
+                                                    : <button type="submit" className="btn btn-primary"
+                                                              style={{width: '100%'}}
+                                                              onClick={() => bookRoom(bookingInfo)}>
+                                                        ĐẶT PHÒNG</button>}
                                             </div>
                                         </section>
                                     </aside>
                                     <aside className="sidebar">
-                                        <section><h2>Author</h2>
+                                        <section><h2>Chủ nhà</h2>
                                             <div className="box">
                                                 <div className="author">
                                                     <div className="author-image">
                                                         <div className="background-image"><img
-                                                            src={houseDetail.userDTO.imageUser ? houseDetail.userDTO.imageUser : 'https://placehold.co/400'} alt=""/></div>
+                                                            src={houseDetail.userDTO.imageUser ? houseDetail.userDTO.imageUser : 'https://placehold.co/400'}
+                                                            alt=""/></div>
                                                     </div>
                                                     <div className="author-description">
-                                                        <h3>{houseDetail.userDTO.fullName}</h3>
+                                                        <p style={{color: 'darkred'}}>{houseDetail.userDTO.fullName}</p>
                                                         <div className="rating" data-rating="4"></div>
                                                         <a href="seller-detail-1.html" className="text-uppercase">Show
                                                             My Listings <span className="appendix">(12)</span> </a>
@@ -342,7 +344,7 @@ export default function HouseDetail() {
                                                 </div>
                                                 <hr/>
                                                 <dl>
-                                                    <dt>Phone</dt>
+                                                    <dt>Số điện thoại</dt>
                                                     <dd>{houseDetail.userDTO.phone}</dd>
                                                     <br/>
                                                     <dt>Email</dt>
@@ -350,12 +352,13 @@ export default function HouseDetail() {
                                                 </dl>
                                                 <form className="form email">
                                                     <div className="form-group"><label htmlFor="message"
-                                                                                       className="col-form-label">Message</label>
+                                                                                       className="col-form-label">Liên
+                                                        hệ</label>
                                                         <textarea name="message" id="message" className="form-control"
                                                                   rows="4"
                                                                   placeholder="Hi there! I am interested in your offer ID 53951. Please give me more details."></textarea>
                                                     </div>
-                                                    <button type="submit" className="btn btn-primary">Send</button>
+                                                    <button type="submit" className="btn btn-primary">Gửi</button>
                                                 </form>
                                             </div>
                                         </section>

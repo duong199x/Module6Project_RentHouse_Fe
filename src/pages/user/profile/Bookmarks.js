@@ -33,12 +33,12 @@ export default function Bookmarks() {
                                 </h3>
                                 <a href="single-listing-1.html"
                                    className="image-wrapper background-image">
-                                    <img src="assets/img/image-01.jpg" alt=""/>
+                                    <img src="https://placehold.co/400" alt=""/>
                                 </a>
                             </div>
 
                             <h4 className="location">
-                                <a href="#">Manhattan, NY</a>
+                            <a href="#">Manhattan, NY</a>
                             </h4>
                             <div className="price">$80</div>
                             <div className="meta">
@@ -78,7 +78,7 @@ export default function Bookmarks() {
                                 </h3>
                                 <a href="single-listing-1.html"
                                    className="image-wrapper background-image">
-                                    <img src="assets/img/image-02.jpg" alt=""/>
+                                    <img src="https://placehold.co/400" alt=""/>
                                 </a>
                             </div>
 
@@ -140,7 +140,7 @@ export default function Bookmarks() {
                                 </h3>
                                 <a href="single-listing-1.html"
                                    className="image-wrapper background-image">
-                                    <img src="assets/img/image-03.jpg" alt=""/>
+                                    <img src="https://placehold.co/400" alt=""/>
                                 </a>
                             </div>
 
@@ -185,7 +185,7 @@ export default function Bookmarks() {
                                 </h3>
                                 <a href="single-listing-1.html"
                                    className="image-wrapper background-image">
-                                    <img src="assets/img/image-04.jpg" alt=""/>
+                                    <img src="https://placehold.co/400" alt=""/>
                                 </a>
                             </div>
 
@@ -251,7 +251,7 @@ export default function Bookmarks() {
                                 </h3>
                                 <a href="single-listing-1.html"
                                    className="image-wrapper background-image">
-                                    <img src="assets/img/image-05.jpg" alt=""/>
+                                    <img src="https://placehold.co/400" alt=""/>
                                 </a>
                             </div>
 
@@ -314,7 +314,7 @@ export default function Bookmarks() {
                                 </h3>
                                 <a href="single-listing-1.html"
                                    className="image-wrapper background-image">
-                                    <img src="assets/img/image-18.jpg" alt=""/>
+                                    <img src="https://placehold.co/400" alt=""/>
                                 </a>
                             </div>
 
@@ -379,7 +379,7 @@ export default function Bookmarks() {
                                 </h3>
                                 <a href="single-listing-1.html"
                                    className="image-wrapper background-image">
-                                    <img src="assets/img/image-19.jpg" alt=""/>
+                                    <img src="https://placehold.co/400" alt=""/>
                                 </a>
                             </div>
 
