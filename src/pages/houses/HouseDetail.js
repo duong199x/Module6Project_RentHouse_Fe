@@ -13,6 +13,7 @@ import {addBooking, getAllBookingByHouseId, getHistoryBooking} from "../../redux
 import {date} from "yup";
 import {toast} from "react-toastify";
 import {Comment} from "./Comment";
+import {getCommentById} from "../../redux/services/CommentService";
 
 export default function HouseDetail() {
     const [activeIndex, setActiveIndex] = useState(0);
@@ -139,6 +140,7 @@ export default function HouseDetail() {
         dateString = `${year}-${month}-${day}`;
         return disabledDates.includes(dateString);
     };
+
     return (
         <>{fetched &&
             <div className="page sub-page">
@@ -256,7 +258,7 @@ export default function HouseDetail() {
                                         <div className="map height-300px" id="map-small"></div>
                                     </section>
                                     <hr/>
-                                    <Comment item={houseDetail}/>
+                                    <Comment house={houseDetail} id={id} userId={currentUser.id}/>
                                 </div>
 
 

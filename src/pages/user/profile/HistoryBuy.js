@@ -1,15 +1,17 @@
 import {Box, Button, dialogContentClasses, Modal, Rating, Stack, Typography} from "@mui/material";
 import {useDispatch, useSelector} from "react-redux";
-import {useParams} from "react-router-dom";
+import {useNavigate, useParams} from "react-router-dom";
 import {useEffect, useState} from "react";
 import {getHistoryBooking, removeBooking} from "../../../redux/services/BookingService";
 import {ImageHistory} from "./ImageHistory";
 import {toast} from "react-toastify";
 import "./HistoryBuy.css"
 import {Field, Form, Formik} from "formik";
+import {addComment} from "../../../redux/services/CommentService";
 
 export default function HistoryBuy() {
     const dispatch = useDispatch();
+    const navigate = useNavigate();
     const {id} = useParams();
     const listBookingUser = useSelector(({bookings}) => {
         return bookings.list;
@@ -18,7 +20,7 @@ export default function HistoryBuy() {
         dispatch(getHistoryBooking(id))
     }, []);
     let listBookingUserReverse = [...listBookingUser].reverse();
-
+    console.log("listBookingUserReverse",listBookingUserReverse)
     function formatDate(date) {
         var d = new Date(date),
             month = '' + (d.getMonth() + 1),
@@ -103,7 +105,10 @@ export default function HistoryBuy() {
     }
     //danh gia
     const [open, setOpen] = useState(false);
-    const handleOpen = () => setOpen(true);
+    const handleOpen = (id) => {
+        setIdSelected(id)
+        setOpen(true);
+    }
     const handleClose = () => setOpen(false);
     const style = {
         position: 'absolute',
@@ -112,17 +117,22 @@ export default function HistoryBuy() {
         transform: 'translate(-50%, -50%)',
         width: 600,
         height: 400,
-        bgcolor: '#e6ffff',
+        bgcolor: '#f2f2f2',
         border: '2px solid #000',
         boxShadow: 24,
         p: 4,
         borderRadius: '10px',
     };
+    const [idSelected,setIdSelected]= useState(0);
     const [rating, setRating] = useState(5);
-    console.log("rating",rating)
     const handleComment = (values) => {
-        values.star = rating
-        console.log("values",values)
+        values.star = rating;
+        dispatch(addComment(values)).then(() => {
+            handleClose()
+            dispatch(getHistoryBooking(id))
+
+            }
+        )
     }
     return (
         <>
@@ -141,7 +151,10 @@ export default function HistoryBuy() {
                     </div>
                 </div>
                 {
-                    listBookingUserReverse && listBookingUserReverse.map((item) => <div className="items list grid-xl-3-items grid-lg-3-items grid-md-2-items">
+                    listBookingUserReverse && listBookingUserReverse.map((item) =>
+                        <div
+                            className="items list grid-xl-3-items grid-lg-3-items grid-md-2-items">
+                            {console.log("item",item)}
                             <div className="item">
                                 <div className="wrapper">
                                     <div className="image">
@@ -198,7 +211,7 @@ export default function HistoryBuy() {
                                            className="detail text-caps underline">
                                             Hủy
                                         </a> : item.status === "COMPLETED" ?
-                                            <a href="javascript:" onClick={handleOpen}
+                                            <a href="javascript:" onClick={()=>handleOpen(item.house.id)}
                                                className="detail text-caps underline" id="commentRating">
                                                 Đánh giá
                                             </a> :
@@ -215,47 +228,59 @@ export default function HistoryBuy() {
 
                                 </div>
                             </div>
-                            <Modal
-                                open={open}
-                                onClose={handleClose}
-                                aria-labelledby="modal-modal-title"
-                                aria-describedby="modal-modal-description"
-                            >
-                                <Formik initialValues={{
-                                    content:"",
-                                    star:0,
-                                    userId:id,
-                                    houseId:item.id
-                                }} onSubmit={handleComment}>
-                                    <Form>
-                                <Box sx={style}>
-                                    <center><h1> Đánh giá nhà</h1></center>
-                                    <Typography id="modal-modal-title" variant="h5" component="h1" style={{paddingBottom:'5px'}}>
-                                        Xếp hạng
-                                    </Typography>
-                                    <Rating
-                                        name="simple-controlled"
-                                        value={rating}
-                                        onChange={(event, newValue) => {
-                                            setRating(newValue);
-                                        }}
-                                    />
-                                    <Typography id="modal-modal-title" variant="h5" component="h1" style={{paddingBottom:'5px'}}>
-                                        Đánh giá
-                                    </Typography>
-                                    <Field
-                                        as="textarea"
-                                        id="myTextarea"
-                                        name="content"
-                                        rows="8" // Optional: Specify the number of visible text lines
-                                        cols="60"></Field>
-                                    <button type={"submit"} className="btn btn-info" style={{width:"70px",height:"40px",marginTop:"10px",paddingTop:'10px',float: 'right'}}>Gửi</button>
-                                </Box>
-                                    </Form>
-                                </Formik>
-                            </Modal>
                         </div>
                     )}
+
+                <Modal
+                    open={open}
+                    onClose={handleClose}
+                    aria-labelledby="modal-modal-title"
+                    aria-describedby="modal-modal-description"
+                >
+                    <Formik initialValues={{
+                        content: "",
+                        star: 0,
+                        userId: id,
+                        houseId: idSelected,
+                    }} onSubmit={handleComment}
+                            enableReinitialize={true}
+                    >
+                        <Form>
+                            <Box sx={style}>
+                                <center><h1> Đánh giá nhà thuê</h1></center>
+                                <Typography id="modal-modal-title" variant="h5" component="h1"
+                                            style={{paddingBottom: '5px'}}>
+                                   <strong>Xếp hạng</strong>
+                                </Typography>
+                                <Rating
+                                    name="simple-controlled"
+                                    value={rating}
+                                    onChange={(event, newValue) => {
+                                        setRating(newValue);
+                                    }}
+                                />
+                                <Typography id="modal-modal-title" variant="h5" component="h1"
+                                            style={{paddingBottom: '5px'}}>
+                                    <strong>Đánh giá</strong>
+                                </Typography>
+                                <Field
+                                    as="textarea"
+                                    id="myTextarea"
+                                    name="content"
+                                    rows="8" // Optional: Specify the number of visible text lines
+                                    cols="60"></Field>
+                                <button type={"submit"} className="btn btn-info" style={{
+                                    width: "70px",
+                                    height: "40px",
+                                    marginTop: "10px",
+                                    paddingTop: '10px',
+                                    float: 'right'
+                                }}>Gửi
+                                </button>
+                            </Box>
+                        </Form>
+                    </Formik>
+                </Modal>
             </div>
 
         </>
