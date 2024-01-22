@@ -1,3 +1,6 @@
+import {Box, Rating, Typography} from "@mui/material";
+import {useState} from "react";
+
 export function Comment({item}) {
     return (
         <>
@@ -17,7 +20,9 @@ export function Comment({item}) {
                         </div>
                     </div>
                     <p>
-                        <span>★★★★★</span> ⋆
+                            <Box sx={{'& > legend': {mt: 2},}}>
+                            <Rating name="read-only" value={5} readOnly />
+                            </Box>
                         <span> 15-01-2024</span>
                     </p>
                     <p> Lorem Ipsum is simply dummy text of the printing and typesetting industry.

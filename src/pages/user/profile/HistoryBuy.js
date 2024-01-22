@@ -1,10 +1,12 @@
-import {dialogContentClasses} from "@mui/material";
+import {Box, Button, dialogContentClasses, Modal, Rating, Stack, Typography} from "@mui/material";
 import {useDispatch, useSelector} from "react-redux";
 import {useParams} from "react-router-dom";
-import {useEffect} from "react";
+import {useEffect, useState} from "react";
 import {getHistoryBooking, removeBooking} from "../../../redux/services/BookingService";
 import {ImageHistory} from "./ImageHistory";
 import {toast} from "react-toastify";
+import "./HistoryBuy.css"
+import {Field, Form, Formik} from "formik";
 
 export default function HistoryBuy() {
     const dispatch = useDispatch();
@@ -99,6 +101,29 @@ export default function HistoryBuy() {
 
         })
     }
+    //danh gia
+    const [open, setOpen] = useState(false);
+    const handleOpen = () => setOpen(true);
+    const handleClose = () => setOpen(false);
+    const style = {
+        position: 'absolute',
+        top: '50%',
+        left: '50%',
+        transform: 'translate(-50%, -50%)',
+        width: 600,
+        height: 400,
+        bgcolor: '#e6ffff',
+        border: '2px solid #000',
+        boxShadow: 24,
+        p: 4,
+        borderRadius: '10px',
+    };
+    const [rating, setRating] = useState(5);
+    console.log("rating",rating)
+    const handleComment = (values) => {
+        values.star = rating
+        console.log("values",values)
+    }
     return (
         <>
             <div className="col-md-9">
@@ -116,70 +141,121 @@ export default function HistoryBuy() {
                     </div>
                 </div>
                 {
-                    listBookingUserReverse && listBookingUserReverse.map((item) => <div
-                        className="items list grid-xl-3-items grid-lg-3-items grid-md-2-items">
-                        <div className="item">
-                            <div className="wrapper">
-                                <div className="image">
-                                    <h3>
-                                        <a href="#" className="tag category">{item.house.category.name}</a>
-                                        <a href="single-listing-1.html" className="title"
-                                           style={{float: 'left', marginTop: '-20px'}}>{item.house.name}</a>
-                                    </h3>
-                                    <ImageHistory item={item.house}/>
-                                </div>
+                    listBookingUserReverse && listBookingUserReverse.map((item) => <div className="items list grid-xl-3-items grid-lg-3-items grid-md-2-items">
+                            <div className="item">
+                                <div className="wrapper">
+                                    <div className="image">
+                                        <h3>
+                                            <a href="#" className="tag category">{item.house.category.name}</a>
+                                            <a href="single-listing-1.html" className="title"
+                                               style={{float: 'left', marginTop: '-20px'}}>{item.house.name}</a>
+                                        </h3>
+                                        <ImageHistory item={item.house}/>
+                                    </div>
 
-                                <h4 className="location">
-                                    <a href="#">{item.house.location}</a>
-                                </h4>
-                                <div className="price">{item.price} VND</div>
-                                <div className="meta">
-                                    <figure>
-                                        <i className="fa fa-calendar-o"></i>Ngày đặt: {formatDate(item.createAt)}
-                                    </figure>
-                                    <figure>
-                                        <a href="#">
-                                            <i className="fa fa-user"></i>Chủ nhà: {item.house.userDTO.fullName}
-                                        </a>
-                                    </figure>
-                                </div>
+                                    <h4 className="location">
+                                        <a href="#">{item.house.location}</a>
+                                    </h4>
+                                    <div className="price">{item.price} VND</div>
+                                    <div className="meta">
+                                        <figure>
+                                            <i className="fa fa-calendar-o"></i>Ngày đặt: {formatDate(item.createAt)}
+                                        </figure>
+                                        <figure>
+                                            <a href="#">
+                                                <i className="fa fa-user"></i>Chủ nhà: {item.house.userDTO.fullName}
+                                            </a>
+                                        </figure>
+                                    </div>
 
-                                <div className="description">
-                                    <p>Nếu quý khách đặt sai hoặc không muốn đặt nữa. Vui lòng bấm hủy trong thời gian
-                                        trước <b style={{color: 'red'}}>1 ngày</b></p>
-                                </div>
+                                    <div className="description">
+                                        <p>Nếu quý khách đặt sai hoặc không muốn đặt nữa. Vui lòng bấm hủy trong thời gian
+                                            trước <b style={{color: 'red'}}>1 ngày</b></p>
+                                    </div>
 
-                                <div className="additional-info">
-                                    <ul>
-                                        <li>
-                                            <figure>Ngày bắt đầu</figure>
-                                            <aside>{formatDate(item.startDate)}</aside>
-                                        </li>
-                                        <li>
-                                            <figure>Ngày kết thúc</figure>
-                                            <aside>{formatDate(item.endDate)}</aside>
-                                        </li>
-                                        <li>
-                                            <figure>Số khách</figure>
-                                            <aside>{item.numberOfGuests}</aside>
-                                        </li>
-                                        <li>
-                                            <figure>Trạng thái</figure>
-                                            {statusInfo(item.status)}
-                                        </li>
-                                    </ul>
-                                </div>
+                                    <div className="additional-info">
+                                        <ul>
+                                            <li>
+                                                <figure>Ngày bắt đầu</figure>
+                                                <aside>{formatDate(item.startDate)}</aside>
+                                            </li>
+                                            <li>
+                                                <figure>Ngày kết thúc</figure>
+                                                <aside>{formatDate(item.endDate)}</aside>
+                                            </li>
+                                            <li>
+                                                <figure>Số khách</figure>
+                                                <aside>{item.numberOfGuests}</aside>
+                                            </li>
+                                            <li>
+                                                <figure>Trạng thái</figure>
+                                                {statusInfo(item.status)}
+                                            </li>
+                                        </ul>
+                                    </div>
+                                    {item.status && item.status === "IN_PROGRESS" ?
+                                        <a href="javascript:" onClick={() => deleteBooking(item.id)}
+                                           className="detail text-caps underline">
+                                            Hủy
+                                        </a> : item.status === "COMPLETED" ?
+                                            <a href="javascript:" onClick={handleOpen}
+                                               className="detail text-caps underline" id="commentRating">
+                                                Đánh giá
+                                            </a> :
+                                            <a href="javascript:" onClick={() => deleteBooking(item.id)}
+                                               className="detail text-caps underline isDis" style={{
+                                                pointerEvents: 'none',
+                                                color: 'gray',
+                                                textDecoration: 'none',
+                                                cursor: 'not-allowed',
+                                                borderColor: 'gray'
+                                            }}>
+                                                Hủy
+                                            </a>}
 
-                                <a href="javascript:" onClick={() => deleteBooking(item.id)}
-                                   className="detail text-caps underline">
-                                    Hủy
-                                </a>
+                                </div>
                             </div>
+                            <Modal
+                                open={open}
+                                onClose={handleClose}
+                                aria-labelledby="modal-modal-title"
+                                aria-describedby="modal-modal-description"
+                            >
+                                <Formik initialValues={{
+                                    content:"",
+                                    star:0,
+                                    userId:id,
+                                    houseId:item.id
+                                }} onSubmit={handleComment}>
+                                    <Form>
+                                <Box sx={style}>
+                                    <center><h1> Đánh giá nhà</h1></center>
+                                    <Typography id="modal-modal-title" variant="h5" component="h1" style={{paddingBottom:'5px'}}>
+                                        Xếp hạng
+                                    </Typography>
+                                    <Rating
+                                        name="simple-controlled"
+                                        value={rating}
+                                        onChange={(event, newValue) => {
+                                            setRating(newValue);
+                                        }}
+                                    />
+                                    <Typography id="modal-modal-title" variant="h5" component="h1" style={{paddingBottom:'5px'}}>
+                                        Đánh giá
+                                    </Typography>
+                                    <Field
+                                        as="textarea"
+                                        id="myTextarea"
+                                        name="content"
+                                        rows="8" // Optional: Specify the number of visible text lines
+                                        cols="60"></Field>
+                                    <button type={"submit"} className="btn btn-info" style={{width:"70px",height:"40px",marginTop:"10px",paddingTop:'10px',float: 'right'}}>Gửi</button>
+                                </Box>
+                                    </Form>
+                                </Formik>
+                            </Modal>
                         </div>
-                    </div>)
-                }
-
-
+                    )}
             </div>
 
         </>

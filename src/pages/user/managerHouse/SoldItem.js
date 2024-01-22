@@ -167,10 +167,15 @@ export default function SoldItem() {
                                         </li>
                                     </ul>
                                 </div>
-
-                                <a href="javascrip:"
-                                   className="detail text-caps underline" id='buttonCheckIn'
-                                   onClick={() => setCheckIn(item.id)}>Nhận phòng</a>
+                                {item.status && item.status === "IN_PROGRESS" ? <a href="javascrip:"
+                                                                                className="detail text-caps underline"
+                                                                                id='buttonCheckIn'
+                                                                                onClick={() => setCheckIn(item.id)}>Nhận phòng</a>
+                                    : <a href="javascrip:"
+                                                   className="detail text-caps underline"
+                                                   id='buttonCheckIn'
+                                                   onClick={() => setCheckIn(item.id)} style={{ pointerEvents: 'none', color: 'gray', textDecoration: 'none', cursor: 'not-allowed' ,borderColor:'gray'}}>Nhận phòng</a>
+                                }
 
                             </div>
                         </div>
