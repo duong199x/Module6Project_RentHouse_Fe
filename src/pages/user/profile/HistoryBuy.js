@@ -20,6 +20,7 @@ export default function HistoryBuy() {
         dispatch(getHistoryBooking(id))
     }, []);
     let listBookingUserReverse = [...listBookingUser].reverse();
+    console.log("listBookingUserReverse",listBookingUserReverse)
     function formatDate(date) {
         var d = new Date(date),
             month = '' + (d.getMonth() + 1),
@@ -153,20 +154,19 @@ export default function HistoryBuy() {
                     listBookingUserReverse && listBookingUserReverse.map((item) =>
                         <div
                             className="items list grid-xl-3-items grid-lg-3-items grid-md-2-items">
-                            {console.log("item",item)}
                             <div className="item">
                                 <div className="wrapper">
                                     <div className="image">
                                         <h3>
-                                            <a href="#" className="tag category">{item.house.category.name}</a>
+                                            <a href="#" className="tag category">{item.categoryName}</a>
                                             <a href="single-listing-1.html" className="title"
-                                               style={{float: 'left', marginTop: '-20px'}}>{item.house.name}</a>
+                                               style={{float: 'left', marginTop: '-20px'}}>{item.name}</a>
                                         </h3>
-                                        <ImageHistory item={item.house}/>
+                                        {item.houseId && <ImageHistory item={item.houseId}/>}
                                     </div>
 
                                     <h4 className="location">
-                                        <a href="#">{item.house.location}</a>
+                                        <a href="#">{item.location}</a>
                                     </h4>
                                     <div className="price">{item.price} VND</div>
                                     <div className="meta">
@@ -175,7 +175,7 @@ export default function HistoryBuy() {
                                         </figure>
                                         <figure>
                                             <a href="#">
-                                                <i className="fa fa-user"></i>Chủ nhà: {item.house.userDTO.fullName}
+                                                <i className="fa fa-user"></i>Chủ nhà: {item.hostName}
                                             </a>
                                         </figure>
                                     </div>
@@ -209,11 +209,21 @@ export default function HistoryBuy() {
                                         <a href="javascript:" onClick={() => deleteBooking(item.id)}
                                            className="detail text-caps underline">
                                             Hủy
-                                        </a> : item.status === "COMPLETED" ?
-                                            <a href="javascript:" onClick={()=>handleOpen(item.house.id)}
+                                        </a> : item.status === "COMPLETED" && item.commented === false?
+                                            <a href="javascript:" onClick={()=>handleOpen(item.houseId)}
                                                className="detail text-caps underline" id="commentRating">
                                                 Đánh giá
-                                            </a> :
+                                            </a>: item.status === "COMPLETED" && item.commented === true?
+                                                <a href="javascript:" onClick={()=>handleOpen(item.houseId)}
+                                                   className="detail text-caps underline" id="commentRating" style={{
+                                                    pointerEvents: 'none',
+                                                    color: 'gray',
+                                                    textDecoration: 'none',
+                                                    cursor: 'not-allowed',
+                                                    borderColor: 'gray'
+                                                }}>
+                                                    Đánh giá
+                                                </a> :
                                             <a href="javascript:" onClick={() => deleteBooking(item.id)}
                                                className="detail text-caps underline isDis" style={{
                                                 pointerEvents: 'none',

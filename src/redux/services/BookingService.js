@@ -11,7 +11,7 @@ export const addBooking = createAsyncThunk(
 export const getHistoryBooking = createAsyncThunk(
     'booking/getHistoryBooking',
     async (idUser) => {
-        let response = await getAxios().get(`/booking/${idUser}`);
+        let response = await getAxios().get(`/booking/histories/${idUser}`);
         return response.data;
     }
 )
