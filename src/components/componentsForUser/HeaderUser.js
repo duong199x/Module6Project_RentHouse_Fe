@@ -4,6 +4,13 @@ import {Link, useNavigate} from "react-router-dom";
 import * as React from "react";
 import {logout} from "../../redux/services/UserService";
 import {useDispatch, useSelector} from "react-redux";
+import { useState, useRef } from "react";
+import {
+    KnockFeedProvider,
+    NotificationIconButton,
+    NotificationFeedPopover,
+  } from "@knocklabs/react-notification-feed";
+  import "@knocklabs/react-notification-feed/dist/index.css";
 
 export default function HeaderUser() {
     const dispatch = useDispatch()
@@ -16,6 +23,9 @@ export default function HeaderUser() {
     const currentUser = useSelector(({users}) => {
         return users.currentToken;
     })
+
+    const [isVisible, setIsVisible] = useState(false);
+    const notifButtonRef = useRef(null);
     return (
         <>
             <header className="hero">
@@ -41,10 +51,33 @@ export default function HeaderUser() {
                                     <Link to={"/register"}><i className="fa fa-pencil-square-o"></i>Register</Link>
                                 </li>
                                     </>
-                                    ) : '' }
+                                    ) :(
+                                        <>
+                                        <li>
+                                        <KnockFeedProvider
+                                        apiKey={process.env.REACT_APP_KNOCK_PUBLIC_API_KEY}
+                                        feedId={process.env.REACT_APP_KNOCK_FEED_CHANNEL_ID}
+                                        userId={String(currentUser.id)}
+                                      >
+                                        <>
+                                          <NotificationIconButton
+                                            ref={notifButtonRef}
+                                            onClick={(e) => setIsVisible(!isVisible)}
+                                          />
+                                          <NotificationFeedPopover
+                                            buttonRef={notifButtonRef}
+                                            isVisible={isVisible}
+                                            onClose={() => setIsVisible(false)}
+                                          />
+                                        </>
+                                      </KnockFeedProvider> 
+                                            </li>     
                                 <li style={{padding: "8px"}}>
                                     <button onClick={logoutScreen} style={{background: "transparent", color: "white", border: 'none', cursor:'pointer'}}><i className="fa fa-pencil-square-o"></i>Logout</button>
                                 </li>
+                                </>
+                                    )
+                                 }
                             </ul>
 
                         </div>

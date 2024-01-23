@@ -1,6 +1,6 @@
 import {useDispatch, useSelector} from "react-redux";
 import {ErrorMessage, Field, Form, Formik} from "formik";
-import {login} from "../../redux/services/UserService";
+import {getUser, login} from "../../redux/services/UserService";
 import {Link, Navigate, useNavigate} from "react-router-dom";
 import * as Yup from 'yup';
 import TextField from "@mui/material/TextField";
@@ -9,7 +9,7 @@ import Weather from "../extenstion/Weather";
 import "./Login.css"
 import axios from "axios";
 import {toast} from "react-toastify";
-
+import { Knock } from "@knocklabs/node";
 export default function Login() {
     const navigate = useNavigate();
     const dispatch = useDispatch()
@@ -23,6 +23,17 @@ export default function Login() {
                 });
             }
             else {
+                dispatch(getUser(data.payload.id)).then(async (res)=>{
+                    const knockClient = new Knock(process.env.REACT_APP_KNOCK_API_KEY);
+                    const knockUser = await knockClient.users.bulkIdentify(
+                        [
+                            {
+                                id: String(res.payload.id),
+                                name: String(res.payload.username),
+                                email: String(res.payload.email),
+                              },
+                        ]);
+                })
                 navigate("/house");
                 toast.success(`Login Successfully!`, {
                     position: "top-right"
@@ -37,7 +48,6 @@ export default function Login() {
 
         })
     }
-
     const currentUser = useSelector(({users}) => {
         return users.currentToken;
     });
