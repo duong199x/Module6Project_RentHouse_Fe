@@ -30,7 +30,6 @@ export default function HouseDetail() {
     const houseDetail = useSelector(({houses}) => {
         return houses.houseUpdate
     })
-    console.log("houseDetail",houseDetail)
     const currentUser = useSelector(({users}) => {
         return users.currentToken;
     })
