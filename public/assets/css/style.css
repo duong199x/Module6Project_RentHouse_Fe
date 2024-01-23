@@ -4081,3 +4081,18 @@ textarea.form-control {
     left: -6px;
     line-height: 40px;
 }
+
+.rnf-dropdown > select{
+    padding: 0;
+    border-radius: 0;
+    box-shadow: none;
+}
+.rnf-notification-feed-popover{
+    z-index: 9999 !important;
+}
+.rnf-notification-cell__timestamp, .rnf-notification-feed__type,.rnf-notification-cell__content{
+    color: #000 !important;
+}
+.rnf-notification-cell__content{
+    font-size: small !important;
+}
