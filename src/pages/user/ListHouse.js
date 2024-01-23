@@ -44,7 +44,6 @@ export default function ListHouse() {
             ]
         },
         onSubmit: (values) => {
-            console.log(values)
             dispatch(searchHouse(values));
         },
     });
@@ -128,7 +127,7 @@ export default function ListHouse() {
                                                     <div className="form-group">
                                                         <input name="minPrice" type="text"
                                                             className="form-control small" id="min-price"
-                                                            placeholder="Minimal Price" onChange={formik.handleChange} value={formik.values.minPrice}/>
+                                                            placeholder="Minimal Price" onChange={formik.handleChange} value={formik.values.minPrice ? formik.values.minPrice : 0}/>
                                                         <span className="input-group-addon small">$</span>
                                                     </div>
                                                 </div>
@@ -136,7 +135,7 @@ export default function ListHouse() {
                                                     <div className="form-group">
                                                         <input name="maxPrice" type="text"
                                                             className="form-control small" id="max-price"
-                                                            placeholder="Maximal Price" onChange={formik.handleChange} value={formik.values.maxPrice}/>
+                                                            placeholder="Maximal Price" onChange={formik.handleChange} value={formik.values.maxPrice? formik.values.maxPrice : 0}/>
                                                         <span className="input-group-addon small">$</span>
                                                     </div>
                                                 </div>
@@ -162,7 +161,7 @@ export default function ListHouse() {
                         <div className="items masonry grid-xl-4-items grid-lg-3-items grid-md-2-items">
                             {listHouseReverse && listHouseReverse.map((item) => {
                                 return (
-                                    <House item={item}/>
+                                    <House key={item.id} item={item}/>
 
                                 );
                             })}

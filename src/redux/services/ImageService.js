@@ -1,5 +1,4 @@
 import {createAsyncThunk} from "@reduxjs/toolkit";
-import axios from "axios";
 import getAxios from "./customAxios";
 
 export const getAllImage = createAsyncThunk(
@@ -12,7 +11,6 @@ export const getAllImage = createAsyncThunk(
 export const addImages = createAsyncThunk(
     'images/add',
     async (data) => {
-        console.log(data)
         let response = await getAxios().post('/images/create/' + data[0], data[1]);
         return response.data;
     }

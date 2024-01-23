@@ -15,7 +15,6 @@ export default function Login() {
     const dispatch = useDispatch()
     const loginUser = (value) => {
         dispatch(login(value)).then((data) => {
-            console.log(data);
             if (data.error) {
                 navigate("/login")
                 toast.error(`Login Failure (${data.error.message})!`, {

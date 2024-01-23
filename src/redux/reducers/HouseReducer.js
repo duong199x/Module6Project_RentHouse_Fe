@@ -29,7 +29,6 @@ const houseSlice = createSlice({
             state.list = payload;
         })
         builder.addCase(add.fulfilled, (state, {payload}) => {
-            console.log(payload)
             // state.list.push(payload);
             state.message=payload.message;
         })

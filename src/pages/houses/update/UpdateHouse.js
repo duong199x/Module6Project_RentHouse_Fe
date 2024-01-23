@@ -51,7 +51,6 @@ export function UpdateHouse() {
         values = {...values, convenientIds, user}
         dispatch(update(values)).then((data) => {
             if (data.error) {
-                console.log(data.error);
                 toast.error(`Update House Failure (${data.error.message})!`, {
                     position: "top-right"
                 });
