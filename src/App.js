@@ -35,7 +35,6 @@ function App() {
         const decodedToken = JSON.parse(atob(currentUser.accessToken.split('.')[1]));
         isOwner = decodedToken.isOwner;
     }
-    console.log(isOwner);
     return (
         <>
             <ToastContainer

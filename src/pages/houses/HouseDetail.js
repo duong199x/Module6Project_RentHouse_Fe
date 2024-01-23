@@ -13,10 +13,12 @@ import {addBooking, getAllBookingByHouseId, getHistoryBooking} from "../../redux
 import {date} from "yup";
 import {toast} from "react-toastify";
 import {Comment} from "./Comment";
+import { Knock } from "@knocklabs/node";
 import {getCommentById} from "../../redux/services/CommentService";
 import {createHouseInWishlist} from "../../redux/services/WishlistService";
 
 export default function HouseDetail() {
+    const knockClient = new Knock(process.env.REACT_APP_KNOCK_API_KEY);
     const [activeIndex, setActiveIndex] = useState(0);
     const [fetched, setFetched] = useState(false);
 
@@ -29,6 +31,7 @@ export default function HouseDetail() {
         return images.listImage;
     })
     const houseDetail = useSelector(({houses}) => {
+        console.log(houses.houseUpdate);
         return houses.houseUpdate
     })
     const currentUser = useSelector(({users}) => {
@@ -79,13 +82,18 @@ export default function HouseDetail() {
     }
     const navigate = useNavigate();
     const bookRoom = (info) => {
-        dispatch(addBooking(info)).then((data) => {
+        dispatch(addBooking(info)).then(async (data) => {
             if (data.error) {
                 console.log(data.error);
                 toast.error(`Book House Failure (${data.error.message})!`, {
                     position: "top-right"
                 });
             } else {
+                const recipient = await knockClient.users.get(houseDetail.userDTO.id);
+                await knockClient.notify('rent-a-house', {
+                    actor: String(currentUser.id),
+                    recipients: [String(recipient.id)]
+                })
                 toast.success(`Book House  Successfully!`, {
                     position: "top-right"
                 });
