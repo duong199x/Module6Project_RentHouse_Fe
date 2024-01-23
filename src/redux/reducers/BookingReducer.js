@@ -4,7 +4,7 @@ import {
     addBooking,
     getAllBookingByHostId,
     getAllBookingByHouseId,
-    getHistoryBooking,
+    getHistoryBooking, getMoney,
     removeBooking, setCheckInStatus
 } from "../services/BookingService";
 
@@ -18,6 +18,8 @@ const initialState = {
         price: ""
     },
     list: []
+    ,
+    money :[]
 }
 
 const categorySlice = createSlice({
@@ -39,6 +41,9 @@ const categorySlice = createSlice({
         })
         builder.addCase(setCheckInStatus.fulfilled, (state, action) => {
 
+        })
+        builder.addCase(getMoney.fulfilled, (state, {payload}) => {
+            state.money = payload;
         })
     }
 
