@@ -4109,3 +4109,6 @@ textarea.form-control {
 .rnf-notification-feed__knock-branding{
     display: none;
 }
+.apexcharts-toolbar{
+    z-index: 0 !important;
+}

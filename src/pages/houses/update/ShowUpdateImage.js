@@ -17,12 +17,10 @@ export default function ShowFormImageUpdate () {
     })
     const navigate = useNavigate();
     const {id} = useParams()
-    console.log(id)
     const dispatch = useDispatch();
     const images = useSelector(({images}) => {
         return images.listImage;
     })
-    console.log(images)
     useEffect(() => {
         dispatch(getImageByHouseId(id))
     }, []);
@@ -33,7 +31,6 @@ export default function ShowFormImageUpdate () {
         if (isConfirmed)    {
             dispatch(removeImageById(idImage)).then((data)=> {
                 if (data.error) {
-                    console.log(data.error);
                     toast.error(`Delete Image Failure (${data.error.message})!`, {
                         position: "top-right"
                     });
@@ -80,7 +77,6 @@ export default function ShowFormImageUpdate () {
                         console.warn('No images selected');
                         return;
                     }
-                    console.log(imagesToUpload)
                     const imageList = [];
                     for (const image of imagesToUpload) {
                         const imageRef = ref(storage, `images/${image.name + uuidv4()}`);
@@ -91,10 +87,8 @@ export default function ShowFormImageUpdate () {
                     const data =[];
                     data.push(id);
                     data.push(imageList)
-                    console.log(data)
                     await dispatch(addImages(data)).then((data) => {
                         if (data.error) {
-                            console.log(data.error);
                             toast.error(`Add Image Failure (${data.error.message})!`, {
                                 position: "top-right"
                             });

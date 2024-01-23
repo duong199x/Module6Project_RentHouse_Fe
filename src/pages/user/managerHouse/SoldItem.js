@@ -3,7 +3,6 @@ import {useParams} from "react-router-dom";
 import {useEffect} from "react";
 import {useDispatch, useSelector} from "react-redux";
 import {getAllBookingByHostId, getHistoryBooking, setCheckInStatus} from "../../../redux/services/BookingService";
-import {getUser} from "../../../redux/services/UserService";
 import {ImageSoldItem} from "./ImageSoldItem";
 import {toast} from "react-toastify";
 
@@ -17,7 +16,6 @@ export default function SoldItem() {
         dispatch(getAllBookingByHostId(id))
     }, []);
     let listBookingHostReverse = [...listBookingHost].reverse();
-    console.log("listBookingHostReverse",listBookingHostReverse)
     function formatDate(date) {
         var d = new Date(date),
             month = '' + (d.getMonth() + 1),
@@ -34,7 +32,6 @@ export default function SoldItem() {
 
     const setCheckIn = (idBooking) => {
         dispatch(setCheckInStatus(idBooking)).then((data) => {
-            console.log("data",data)
             if (data.error) {
                 toast.error(`Check In Thất Bại !(${data.error.message})!`, {
                     position: "top-right"
@@ -62,7 +59,6 @@ export default function SoldItem() {
                     }}>Nhận phòng
                     </aside>
                 </>
-                break;
             case 'IN_PROGRESS':
                 return <>
                     <aside style={{
@@ -74,7 +70,6 @@ export default function SoldItem() {
                     }}>Chờ nhận phòng
                     </aside>
                 </>
-                break;
             case 'COMPLETED':
                 return <>
                     <aside style={{
@@ -86,7 +81,6 @@ export default function SoldItem() {
                     }}>Hoàn thành
                     </aside>
                 </>
-                break;
             case 'CANCELLED':
                 return <>
                     <aside style={{
@@ -98,7 +92,6 @@ export default function SoldItem() {
                     }}>Đã hủy
                     </aside>
                 </>
-                break;
         }
     }
 
@@ -120,7 +113,7 @@ export default function SoldItem() {
                     </div>
                 </div>
                 {listBookingHostReverse && listBookingHostReverse.map((item) =>
-                    <div
+                    <div key={item.id}
                         className="items list grid-xl-3-items grid-lg-3-items grid-md-2-items">
                         <div className="item">
                             <div className="wrapper">
@@ -167,11 +160,11 @@ export default function SoldItem() {
                                         </li>
                                     </ul>
                                 </div>
-                                {item.status && item.status === "IN_PROGRESS" ? <a href="javascrip:"
+                                {item.status && item.status === "IN_PROGRESS" ? <a 
                                                                                 className="detail text-caps underline"
                                                                                 id='buttonCheckIn'
                                                                                 onClick={() => setCheckIn(item.id)}>Nhận phòng</a>
-                                    : <a href="javascrip:"
+                                    : <a 
                                                    className="detail text-caps underline"
                                                    id='buttonCheckIn'
                                                    onClick={() => setCheckIn(item.id)} style={{ pointerEvents: 'none', color: 'gray', textDecoration: 'none', cursor: 'not-allowed' ,borderColor:'gray'}}>Nhận phòng</a>

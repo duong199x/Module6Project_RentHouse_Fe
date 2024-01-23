@@ -51,8 +51,7 @@ export default function Bookmarks() {
 
                 <div className="items list compact grid-xl-3-items grid-lg-3-items grid-md-2-items">
                     {listWishlist && listWishlist.map((item) => (
-                        <>
-                            <div className="item">
+                            <div className="item" key={item.id}>
                                 <div className="ribbon-vertical">
                                     <i className="fa fa-star"></i>
                                 </div>
@@ -86,11 +85,10 @@ export default function Bookmarks() {
                                         <p>{item.description}</p>
                                     </div>
 
-                                    <a href="javascript:"
+                                    <a
                                        className="detail text-caps underline" type='submit' onClick={()=>deleteItemWishlist(item.id)}>Delete</a>
                                 </div>
                             </div>
-                        </>
                     ))}
                 </div>
                 <div className="page-pagination">

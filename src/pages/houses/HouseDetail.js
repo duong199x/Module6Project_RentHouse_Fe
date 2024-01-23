@@ -31,7 +31,6 @@ export default function HouseDetail() {
         return images.listImage;
     })
     const houseDetail = useSelector(({houses}) => {
-        console.log(houses.houseUpdate);
         return houses.houseUpdate
     })
     const currentUser = useSelector(({users}) => {
@@ -84,7 +83,6 @@ export default function HouseDetail() {
     const bookRoom = (info) => {
         dispatch(addBooking(info)).then(async (data) => {
             if (data.error) {
-                console.log(data.error);
                 toast.error(`Book House Failure (${data.error.message})!`, {
                     position: "top-right"
                 });
@@ -156,7 +154,6 @@ export default function HouseDetail() {
     const handleAddWishlist = (data) => {
         dispatch(createHouseInWishlist(data)).then((data) => {
             if (data.error) {
-                console.log(data.error);
                 toast.error(`Thêm vào Bookmark (${data.error.message})!`, {
                     position: "top-right"
                 });
@@ -276,7 +273,7 @@ export default function HouseDetail() {
                                             <section><h2>Tiện nghi</h2>
                                                 <ul className="features-checkboxes columns-3">
                                                     {houseDetail.convenients.map((item) =>
-                                                        <li>{item.name}</li>
+                                                        <li key={item.id}>{item.name}</li>
                                                     )}
 
                                                 </ul>

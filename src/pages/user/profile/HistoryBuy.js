@@ -1,6 +1,6 @@
-import {Box, Button, dialogContentClasses, Modal, Rating, Stack, Typography} from "@mui/material";
+import {Modal, Rating, Typography} from "@mui/material";
 import {useDispatch, useSelector} from "react-redux";
-import {useNavigate, useParams} from "react-router-dom";
+import {useParams} from "react-router-dom";
 import {useEffect, useState} from "react";
 import {getHistoryBooking, removeBooking} from "../../../redux/services/BookingService";
 import {ImageHistory} from "./ImageHistory";
@@ -9,7 +9,6 @@ import "./HistoryBuy.css"
 import {Field, Form, Formik} from "formik";
 import {addComment} from "../../../redux/services/CommentService";
 import { Knock } from "@knocklabs/node";
-import { getUser } from "../../../redux/services/UserService";
 import { getById } from "../../../redux/services/HouseService";
 export default function HistoryBuy() {
     const knockClient = new Knock(process.env.REACT_APP_KNOCK_API_KEY);
@@ -17,7 +16,6 @@ export default function HistoryBuy() {
         return users.currentToken;
     })
     const dispatch = useDispatch();
-    const navigate = useNavigate();
     const {id} = useParams();
     const listBookingUser = useSelector(({bookings}) => {
         return bookings.list;
@@ -26,7 +24,6 @@ export default function HistoryBuy() {
         dispatch(getHistoryBooking(id))
     }, []);
     let listBookingUserReverse = [...listBookingUser].reverse();
-    console.log(listBookingUserReverse)
     function formatDate(date) {
         var d = new Date(date),
             month = '' + (d.getMonth() + 1),
@@ -87,6 +84,8 @@ export default function HistoryBuy() {
                     }}>Đã hủy
                     </aside>
                 </>
+            default:
+                break;
         }
     }
 
@@ -137,7 +136,6 @@ export default function HistoryBuy() {
     const [rating, setRating] = useState(5);
     const handleComment = (values) => {
         dispatch(getById(values.houseId)).then(async (data)=>{
-            console.log(data);
             let recipient = await knockClient.users.get(data.payload.userDTO.id);
             await knockClient.notify('comment', {
                 actor: String(currentUser.id),
@@ -173,13 +171,13 @@ export default function HistoryBuy() {
                 </div>
                 {
                     listBookingUserReverse && listBookingUserReverse.map((item) =>
-                        <div
+                        <div key={item.bookingId}
                             className="items list grid-xl-3-items grid-lg-3-items grid-md-2-items">
                             <div className="item">
                                 <div className="wrapper">
                                     <div className="image">
                                         <h3>
-                                            <a href="#" className="tag category">{item.categoryName}</a>
+                                            <a className="tag category">{item.categoryName}</a>
                                             <a href="single-listing-1.html" className="title"
                                                style={{float: 'left', marginTop: '-20px'}}>{item.name}</a>
                                         </h3>
@@ -187,7 +185,7 @@ export default function HistoryBuy() {
                                     </div>
 
                                     <h4 className="location">
-                                        <a href="#">{item.location}</a>
+                                        <a >{item.location}</a>
                                     </h4>
                                     <div className="price">{item.price} VND</div>
                                     <div className="meta">
@@ -195,7 +193,7 @@ export default function HistoryBuy() {
                                             <i className="fa fa-calendar-o"></i>Ngày đặt: {formatDate(item.createAt)}
                                         </figure>
                                         <figure>
-                                            <a href="#">
+                                            <a >
                                                 <i className="fa fa-user"></i>Chủ nhà: {item.hostName}
                                             </a>
                                         </figure>
@@ -227,15 +225,15 @@ export default function HistoryBuy() {
                                         </ul>
                                     </div>
                                     {item.status && item.status === "IN_PROGRESS" ?
-                                        <a href="javascript:" onClick={() => deleteBooking(item.bookingId,item.idHost,item.name)}
+                                        <button onClick={() => deleteBooking(item.bookingId,item.idHost,item.name)}
                                            className="detail text-caps underline">
                                             Hủy
-                                        </a> : item.status === "COMPLETED" && item.commented === false?
-                                            <a href="javascript:" onClick={()=>handleOpen(item.houseId)}
+                                        </button> : item.status === "COMPLETED" && item.commented === false?
+                                            <button onClick={()=>handleOpen(item.houseId)}
                                                className="detail text-caps underline" id="commentRating">
                                                 Đánh giá
-                                            </a>: item.status === "COMPLETED" && item.commented === true?
-                                                <a href="javascript:" onClick={()=>handleOpen(item.houseId)}
+                                            </button>: item.status === "COMPLETED" && item.commented === true?
+                                                <button onClick={()=>handleOpen(item.houseId)}
                                                    className="detail text-caps underline" id="commentRating" style={{
                                                     pointerEvents: 'none',
                                                     color: 'gray',
@@ -244,8 +242,8 @@ export default function HistoryBuy() {
                                                     borderColor: 'gray'
                                                 }}>
                                                     Đánh giá
-                                                </a> :
-                                            <a href="javascript:" onClick={() => deleteBooking(item.id)}
+                                                </button> :
+                                            <button onClick={() => deleteBooking(item.id)}
                                                className="detail text-caps underline isDis" style={{
                                                 pointerEvents: 'none',
                                                 color: 'gray',
@@ -254,7 +252,7 @@ export default function HistoryBuy() {
                                                 borderColor: 'gray'
                                             }}>
                                                 Hủy
-                                            </a>}
+                                            </button>}
 
                                 </div>
                             </div>
@@ -267,6 +265,7 @@ export default function HistoryBuy() {
                     aria-labelledby="modal-modal-title"
                     aria-describedby="modal-modal-description"
                 >
+                    <div>
                     <Formik initialValues={{
                         content: "",
                         star: 0,
@@ -276,7 +275,7 @@ export default function HistoryBuy() {
                             enableReinitialize={true}
                     >
                         <Form>
-                            <Box sx={style}>
+                            <div style={style}>
                                 <center><h1> Đánh giá nhà thuê</h1></center>
                                 <Typography id="modal-modal-title" variant="h5" component="h1"
                                             style={{paddingBottom: '5px'}}>
@@ -307,9 +306,11 @@ export default function HistoryBuy() {
                                     float: 'right'
                                 }}>Gửi
                                 </button>
-                            </Box>
+                            </div>
                         </Form>
                     </Formik>
+                    
+                     </div>
                 </Modal>
             </div>
 
