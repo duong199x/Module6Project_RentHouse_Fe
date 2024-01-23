@@ -19,7 +19,6 @@ export const removeBooking = createAsyncThunk(
     'booking/removeBooking',
     async (idBooking) => {
         let response = await getAxios().delete(`/booking/${idBooking}`)
-        console.log("response", response)
         return response.data;
     }
 )

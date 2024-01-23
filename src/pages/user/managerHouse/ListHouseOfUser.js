@@ -50,8 +50,7 @@ export default function ListHouseOfUser() {
                     {listHouseByUserIdReverser && listHouseByUserIdReverser.map((item) =>
                         {
                             return (
-                                <HouseOfUser item={item} handleDelete={()=>handleDelete(item.id)}/>
-
+                                <HouseOfUser key={item.id} item={item} handleDelete={()=>handleDelete(item.id)}/>
                             )
                         }
 

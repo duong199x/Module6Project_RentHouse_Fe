@@ -6,7 +6,6 @@ export function HouseOfUser({item, handleDelete}) {
     const [images, setImages] = useState([]);
     useEffect(() => {
         showImage(item.id).then((response) => {
-            // console.log(response)
             setImages(response.data)
         })
     }, []);
@@ -42,8 +41,7 @@ export function HouseOfUser({item, handleDelete}) {
                         <a
                             onClick={() =>
                                 ondelect()
-                            }
-                            href='javascript:' className="ad-remove">
+                            } className="ad-remove">
                             <i className="fa fa-trash"></i>REMOVE
                         </a>
                     </div>

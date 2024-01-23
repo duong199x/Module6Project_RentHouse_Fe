@@ -1,5 +1,4 @@
 import {createAsyncThunk} from "@reduxjs/toolkit";
-import axios from "axios";
 import getAxios from "./customAxios";
 
 export const getAllHouse = createAsyncThunk(
@@ -13,7 +12,6 @@ export const add = createAsyncThunk(
     'houses/add',
     async (newHouse) => {
         let response = await getAxios().post('houses/create', newHouse);
-        console.log(response)
         return response.data;
     }
 )
@@ -34,7 +32,6 @@ export const removeById = createAsyncThunk(
 export const update = createAsyncThunk(
     'houses/update',
     async (newHouse) => {
-        console.log(newHouse)
         let response = await getAxios().patch('houses/update/' + newHouse.id, newHouse);
         return response.data;
     }
@@ -51,7 +48,6 @@ export const searchHouse = createAsyncThunk(
     "houses/search",
     async (request) => {
         let response = await getAxios().post('houses/search', request);
-        console.log(response.data);
         return response.data;
     }
 )

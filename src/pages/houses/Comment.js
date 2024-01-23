@@ -11,7 +11,6 @@ export function Comment({id, house, userId}) {
     const listComment = useSelector(({comments}) => {
         return comments.listComment;
     })
-    console.log("listComment", listComment)
     useEffect(() => {
         dispatch(getCommentById(id))
     }, []);
