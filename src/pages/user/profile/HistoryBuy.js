@@ -8,8 +8,14 @@ import {toast} from "react-toastify";
 import "./HistoryBuy.css"
 import {Field, Form, Formik} from "formik";
 import {addComment} from "../../../redux/services/CommentService";
-
+import { Knock } from "@knocklabs/node";
+import { getUser } from "../../../redux/services/UserService";
+import { getById } from "../../../redux/services/HouseService";
 export default function HistoryBuy() {
+    const knockClient = new Knock(process.env.REACT_APP_KNOCK_API_KEY);
+    const currentUser = useSelector(({users}) => {
+        return users.currentToken;
+    })
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const {id} = useParams();
@@ -20,6 +26,7 @@ export default function HistoryBuy() {
         dispatch(getHistoryBooking(id))
     }, []);
     let listBookingUserReverse = [...listBookingUser].reverse();
+    console.log(listBookingUserReverse)
     function formatDate(date) {
         var d = new Date(date),
             month = '' + (d.getMonth() + 1),
@@ -47,7 +54,6 @@ export default function HistoryBuy() {
                     }}>Nhận phòng
                     </aside>
                 </>
-                break;
             case 'IN_PROGRESS':
                 return <>
                     <aside style={{
@@ -59,7 +65,6 @@ export default function HistoryBuy() {
                     }}>Chờ nhận phòng
                     </aside>
                 </>
-                break;
             case 'COMPLETED':
                 return <>
                     <aside style={{
@@ -71,7 +76,6 @@ export default function HistoryBuy() {
                     }}>Hoàn thành
                     </aside>
                 </>
-                break;
             case 'CANCELLED':
                 return <>
                     <aside style={{
@@ -83,17 +87,24 @@ export default function HistoryBuy() {
                     }}>Đã hủy
                     </aside>
                 </>
-                break;
         }
     }
 
-    const deleteBooking = (idBooking) => {
-        dispatch(removeBooking(idBooking)).then((data) => {
+    const deleteBooking = (idBooking,idHost,name) => {
+        dispatch(removeBooking(idBooking)).then(async (data) => {
             if (data.error) {
                 toast.error(`Huỷ Phòng Thất Bại! Bạn Không Thể Huỷ Trước 1 Ngày Checkin !`, {
                     position: "top-right"
                 });
             } else {
+                let recipient = await knockClient.users.get(idHost);
+                await knockClient.notify('cancel-rent', {
+                    actor: String(currentUser.id),
+                    recipients: [String(recipient.id)],
+                    data:{
+                        name: {name}
+                    }
+                })
                 toast.success(`Huỷ Phòng Thành Công !`, {
                     position: "top-right"
                 });
@@ -125,6 +136,17 @@ export default function HistoryBuy() {
     const [idSelected,setIdSelected]= useState(0);
     const [rating, setRating] = useState(5);
     const handleComment = (values) => {
+        dispatch(getById(values.houseId)).then(async (data)=>{
+            console.log(data);
+            let recipient = await knockClient.users.get(data.payload.userDTO.id);
+            await knockClient.notify('comment', {
+                actor: String(currentUser.id),
+                recipients: [String(recipient.id)],
+                data:{
+                    comment: values.content
+                }
+            })
+        });
         values.star = rating;
         dispatch(addComment(values)).then(() => {
             handleClose()
@@ -205,7 +227,7 @@ export default function HistoryBuy() {
                                         </ul>
                                     </div>
                                     {item.status && item.status === "IN_PROGRESS" ?
-                                        <a href="javascript:" onClick={() => deleteBooking(item.id)}
+                                        <a href="javascript:" onClick={() => deleteBooking(item.bookingId,item.idHost,item.name)}
                                            className="detail text-caps underline">
                                             Hủy
                                         </a> : item.status === "COMPLETED" && item.commented === false?
