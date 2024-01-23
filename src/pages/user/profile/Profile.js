@@ -16,13 +16,13 @@ export default function Profile() {
                                         <i className="fa fa-user"></i>
                                         <Link to={`/profile/profile-detail/${currentUser.id}`}>My Profile</Link>
                                     </a>
-                                    <a className="nav-link active icon" href="javascript:">
+                                    <a className="nav-link icon" href="javascript:">
                                         <i className="fa fa-recycle"></i>
                                         <Link to={"/profile/change-password"}>Change Password</Link>
                                     </a>
                                     <a className="nav-link icon" href="javascript:">
                                         <i className="fa fa-heart"></i>
-                                        <Link to={"/profile/bookmarks"}>Bookmarks</Link>
+                                        <Link to={`/profile/bookmarks/${currentUser.id}`}>Bookmarks</Link>
                                     </a>
                                     <Link to={`/profile/history/${currentUser.id}`} className="nav-link icon" href="">
                                         <i className="fa fa-check"></i>History Buy (Order)

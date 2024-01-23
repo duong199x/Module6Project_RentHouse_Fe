@@ -10,7 +10,6 @@ import {useFormik} from "formik";
 export default function ListHouse() {
     const dispatch = useDispatch();
     const categories = useSelector(state => state.categories.listCategories);
-    const message = useSelector(state => state.houses.message);
     const houses = useSelector(({ houses }) => {
         return houses.list;
     });
@@ -62,8 +61,7 @@ export default function ListHouse() {
         <>
                 <form className="hero-form form pt-5"
                 onSubmit={formik.handleSubmit}>
-                        <h2 className="text-danger text-center mb-3">HÃY THUÊ VÀ BÁN NHÀ THEO CÁCH CỦA BẠN ^^</h2>
-                        {message && <h2 style={{ color: 'green' }}> {message} </h2>}
+                        <h2 className="text-danger text-center " style={{marginBottom:"32px !important"}}>HÃY THUÊ VÀ BÁN NHÀ THEO CÁCH CỦA BẠN</h2>
                     <div className="container">
                         <div className="main-search-form">
                             <div className="form-row">
@@ -83,8 +81,8 @@ export default function ListHouse() {
                                     </div>
                                 </div>
                                 <div className="col-md-3 col-sm-3">
-                                    <div className="form-group">
-                                        <select className="" name="categoryId" id="category" placeholder="Select Category" onChange={formik.handleChange} value={formik.values.categoryId}>
+                                    <div className="form-group" style={{marginBottom:"0px",height:"100%"}}>
+                                        <select style={{height:"80%"}} className="" name="categoryId" id="category" placeholder="Select Category" onChange={formik.handleChange} value={formik.values.categoryId}>
                                             <option value="" label="Select Category" />
                                             {categories &&
                                                 categories.map((category) => (
@@ -158,16 +156,7 @@ export default function ListHouse() {
                             <div className="float-xl-left float-md-left float-sm-none">
                                 <h2>Recent Listings</h2>
                             </div>
-                            <div className="float-xl-right float-md-right float-sm-none">
-                                <select name="sorting" id="sorting" className="small width-200px"
-                                    data-placeholder="Default Sorting">
-                                    <option value="">Default Sorting</option>
-                                    <option value="1">Newest First</option>
-                                    <option value="2">Oldest First</option>
-                                    <option value="3">Lowest Price First</option>
-                                    <option value="4">Highest Price First</option>
-                                </select>
-                            </div>
+
                         </div>
 
                         <div className="items masonry grid-xl-4-items grid-lg-3-items grid-md-2-items">

@@ -1,12 +1,10 @@
 import {useEffect, useState} from "react";
 import {showImage} from "../../../redux/services/ImageService";
-import {useParams} from "react-router-dom";
 
-export function ImageHistory({item}) {
+export function ImageBookmark({item}) {
     const [images, setImages] = useState([]);
     useEffect(() => {
         showImage(item).then((response) => {
-            console.log(response)
             setImages(response.data)
         })
     }, []);

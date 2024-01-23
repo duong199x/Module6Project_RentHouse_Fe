@@ -11,7 +11,7 @@ export const addBooking = createAsyncThunk(
 export const getHistoryBooking = createAsyncThunk(
     'booking/getHistoryBooking',
     async (idUser) => {
-        let response = await getAxios().get(`/booking/${idUser}`);
+        let response = await getAxios().get(`/booking/histories/${idUser}`);
         return response.data;
     }
 )
@@ -42,5 +42,17 @@ export const setCheckInStatus = createAsyncThunk(
     async (idBooking) => {
         let response = await getAxios().patch(`/booking/status/${idBooking}`)
         return response.data;
+    }
+)
+
+export const getMoney = createAsyncThunk(
+    'booking/getMoney',
+    async ({ month, userId }) => {
+        try {
+            let response = await getAxios().get(`/booking/moneyWeek/${userId}?month=${month}`);
+            return response.data;
+        } catch (error) {
+            throw error;
+        }
     }
 )

@@ -11,7 +11,14 @@ export const getCommentById = createAsyncThunk(
 export const addComment = createAsyncThunk(
     'comment/addComment',
     async (comment) => {
-        let response = await getAxios().post(`/comment`,comment);
+        let response = await getAxios().post(`/comment`, comment);
+        return response.data;
+    }
+)
+export const deleteComment = createAsyncThunk(
+    'comment/deleteComment',
+    async (id) => {
+        let response = await getAxios().delete(`/comment/${id}`)
         return response.data;
     }
 )
