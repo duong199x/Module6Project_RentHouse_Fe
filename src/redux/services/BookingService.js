@@ -44,3 +44,15 @@ export const setCheckInStatus = createAsyncThunk(
         return response.data;
     }
 )
+
+export const getMoney = createAsyncThunk(
+    'booking/getMoney',
+    async ({ month, userId }) => {
+        try {
+            let response = await getAxios().get(`/booking/moneyWeek/${userId}?month=${month}`);
+            return response.data;
+        } catch (error) {
+            throw error;
+        }
+    }
+)

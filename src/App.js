@@ -23,6 +23,7 @@ import ManagerHouse from "./pages/user/managerHouse/ManagerHouse";
 import HistoryBuy from "./pages/user/profile/HistoryBuy";
 import {ToastContainer} from "react-toastify";
 import SoldItem from "./pages/user/managerHouse/SoldItem";
+import MoneyDiagram from "./pages/user/managerHouse/MoneyDiagram";
 
 
 function App() {
@@ -74,6 +75,7 @@ function App() {
                                         <Route path={"list-house-user/:id"} element={<ListHouseOfUser/>}>
                                         </Route>
                                         <Route path={"sold-item/:id"} element={<SoldItem/>}/>
+                                        <Route path={"money/:id"} element={<MoneyDiagram/>}/>
                                     </Route>
                                     :
                                     <Route path='*' element={<Navigate to="house"/>}/>
