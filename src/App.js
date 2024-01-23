@@ -62,7 +62,7 @@ function App() {
                                 <Route path={'profile'} element={<Profile/>}>
                                     <Route path={"change-password"} element={<ChangePassword/>}/>
                                     <Route path={`profile-detail/:id`} element={<ProfileDetail/>}/>
-                                    <Route path={"bookmarks"} element={<Bookmarks/>}/>
+                                    <Route path={"bookmarks/:id"} element={<Bookmarks/>}/>
                                     <Route path={"history/:id"} element={<HistoryBuy/>}/>
                                 </Route>
                                 {isOwner && isOwner === 2 ?
