@@ -14,6 +14,7 @@ import {date} from "yup";
 import {toast} from "react-toastify";
 import {Comment} from "./Comment";
 import {getCommentById} from "../../redux/services/CommentService";
+import {createHouseInWishlist} from "../../redux/services/WishlistService";
 
 export default function HouseDetail() {
     const [activeIndex, setActiveIndex] = useState(0);
@@ -140,7 +141,24 @@ export default function HouseDetail() {
         dateString = `${year}-${month}-${day}`;
         return disabledDates.includes(dateString);
     };
-
+    const dataAddWishlist = {
+        userId: currentUser.id,
+        houseId: houseDetail.id
+    }
+    const handleAddWishlist = (data) => {
+        dispatch(createHouseInWishlist(data)).then((data) => {
+            if (data.error) {
+                console.log(data.error);
+                toast.error(`Thêm vào Bookmark (${data.error.message})!`, {
+                    position: "top-right"
+                });
+            } else {
+                toast.success(`Thêm vào Bookmark Thành công!`, {
+                    position: "top-right"
+                });
+            }
+        })
+    }
     return (
         <>{fetched &&
             <div className="page sub-page">
@@ -152,7 +170,11 @@ export default function HouseDetail() {
                                     <h4 className="location"><a href="#">{houseDetail.location}</a></h4></div>
                                 <div className="float-right   price">
                                     <div className="number">{houseDetail.price} VND</div>
-                                    <div className="id opacity-50"><strong>ID: </strong>{houseDetail.id}</div>
+                                    <div className="id opacity-70">
+                                        <button className={'btnWishlist'} style={{}}
+                                                onClick={() => handleAddWishlist(dataAddWishlist)}>
+                                            <i className="fa fa-heart"></i> <u>Lưu</u></button>
+                                    </div>
                                 </div>
                             </div>
                         </div>

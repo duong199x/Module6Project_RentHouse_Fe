@@ -7,6 +7,7 @@ import categoryReducer from "../reducers/CategoryReducer";
 import convenientService from "../reducers/ConvenientService";
 import bookingReducer from "../reducers/BookingReducer";
 import commentReducer from "../reducers/CommentReducer";
+import wishlistReducer from "../reducers/WishlistReducer";
 
 export const store = configureStore ({
     reducer: {
@@ -16,7 +17,8 @@ export const store = configureStore ({
         images : imageReducer,
         convenients : convenientService,
         bookings: bookingReducer,
-        comments:commentReducer
+        comments:commentReducer,
+        wishlists:wishlistReducer
     }
 })
 export default store;
