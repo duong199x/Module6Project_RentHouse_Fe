@@ -4,7 +4,7 @@ import getAxios from "./customAxios";
 export const getCommentById = createAsyncThunk(
     'comment/getCommentById',
     async (idHouse) => {
-        let response = await getAxios().get(`/comment/${idHouse}`);
+        let response = await getAxios().get(`/comment/house/${idHouse}`);
         return response.data;
     }
 )

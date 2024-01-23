@@ -8,6 +8,7 @@ import {toast} from "react-toastify";
 import "./HistoryBuy.css"
 import {Field, Form, Formik} from "formik";
 import {addComment} from "../../../redux/services/CommentService";
+import {tr} from "date-fns/locale";
 
 export default function HistoryBuy() {
     const dispatch = useDispatch();
@@ -16,10 +17,12 @@ export default function HistoryBuy() {
     const listBookingUser = useSelector(({bookings}) => {
         return bookings.list;
     })
+    console.log("listBookingUser", listBookingUser)
     useEffect(() => {
         dispatch(getHistoryBooking(id))
     }, []);
     let listBookingUserReverse = [...listBookingUser].reverse();
+
     function formatDate(date) {
         var d = new Date(date),
             month = '' + (d.getMonth() + 1),
@@ -122,13 +125,13 @@ export default function HistoryBuy() {
         p: 4,
         borderRadius: '10px',
     };
-    const [idSelected,setIdSelected]= useState(0);
+    const [idSelected, setIdSelected] = useState(0);
     const [rating, setRating] = useState(5);
     const handleComment = (values) => {
         values.star = rating;
         dispatch(addComment(values)).then(() => {
-            handleClose()
-            dispatch(getHistoryBooking(id))
+                handleClose()
+                dispatch(getHistoryBooking(id))
 
             }
         )
@@ -153,20 +156,19 @@ export default function HistoryBuy() {
                     listBookingUserReverse && listBookingUserReverse.map((item) =>
                         <div
                             className="items list grid-xl-3-items grid-lg-3-items grid-md-2-items">
-                            {console.log("item",item)}
                             <div className="item">
                                 <div className="wrapper">
                                     <div className="image">
                                         <h3>
-                                            <a href="#" className="tag category">{item.house.category.name}</a>
+                                            <a href="#" className="tag category">{item.categoryName}</a>
                                             <a href="single-listing-1.html" className="title"
-                                               style={{float: 'left', marginTop: '-20px'}}>{item.house.name}</a>
+                                               style={{float: 'left', marginTop: '-20px'}}>{item.name}</a>
                                         </h3>
-                                        <ImageHistory item={item.house}/>
+                                        <ImageHistory item={item.houseId}/>
                                     </div>
 
                                     <h4 className="location">
-                                        <a href="#">{item.house.location}</a>
+                                        <a href="#">{item.location}</a>
                                     </h4>
                                     <div className="price">{item.price} VND</div>
                                     <div className="meta">
@@ -175,7 +177,7 @@ export default function HistoryBuy() {
                                         </figure>
                                         <figure>
                                             <a href="#">
-                                                <i className="fa fa-user"></i>Chủ nhà: {item.house.userDTO.fullName}
+                                                <i className="fa fa-user"></i>Chủ nhà: {item.hostName}
                                             </a>
                                         </figure>
                                     </div>
@@ -205,25 +207,36 @@ export default function HistoryBuy() {
                                             </li>
                                         </ul>
                                     </div>
+                                    {console.log("item.commented",item.commented)}
                                     {item.status && item.status === "IN_PROGRESS" ?
                                         <a href="javascript:" onClick={() => deleteBooking(item.id)}
                                            className="detail text-caps underline">
                                             Hủy
-                                        </a> : item.status === "COMPLETED" ?
-                                            <a href="javascript:" onClick={()=>handleOpen(item.house.id)}
+                                        </a> : item.status === "COMPLETED" && item.commented === false ?
+                                            <a href="javascript:" onClick={() => handleOpen(item.houseId)}
                                                className="detail text-caps underline" id="commentRating">
                                                 Đánh giá
-                                            </a> :
-                                            <a href="javascript:" onClick={() => deleteBooking(item.id)}
-                                               className="detail text-caps underline isDis" style={{
-                                                pointerEvents: 'none',
-                                                color: 'gray',
-                                                textDecoration: 'none',
-                                                cursor: 'not-allowed',
-                                                borderColor: 'gray'
-                                            }}>
-                                                Hủy
-                                            </a>}
+                                            </a> : item.status === "COMPLETED" && item.commented === true ?
+                                                <a href="javascript:" onClick={() => handleOpen(item.houseId)}
+                                                   className="detail text-caps underline" id="commentRating" style={{
+                                                    pointerEvents: 'none',
+                                                    color: 'gray',
+                                                    textDecoration: 'none',
+                                                    cursor: 'not-allowed',
+                                                    borderColor: 'gray'
+                                                }}>
+                                                    Đánh giá
+                                                </a> :
+                                                <a href="javascript:" onClick={() => deleteBooking(item.id)}
+                                                   className="detail text-caps underline isDis" style={{
+                                                    pointerEvents: 'none',
+                                                    color: 'gray',
+                                                    textDecoration: 'none',
+                                                    cursor: 'not-allowed',
+                                                    borderColor: 'gray'
+                                                }}>
+                                                    Hủy
+                                                </a>}
 
                                 </div>
                             </div>
@@ -249,7 +262,7 @@ export default function HistoryBuy() {
                                 <center><h1> Đánh giá nhà thuê</h1></center>
                                 <Typography id="modal-modal-title" variant="h5" component="h1"
                                             style={{paddingBottom: '5px'}}>
-                                   <strong>Xếp hạng</strong>
+                                    <strong>Xếp hạng</strong>
                                 </Typography>
                                 <Rating
                                     name="simple-controlled"

@@ -5,7 +5,7 @@ import {useParams} from "react-router-dom";
 export function ImageHistory({item}) {
     const [images, setImages] = useState([]);
     useEffect(() => {
-        showImage(item.id).then((response) => {
+        showImage(item).then((response) => {
             console.log(response)
             setImages(response.data)
         })
