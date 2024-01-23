@@ -4090,9 +4090,22 @@ textarea.form-control {
 .rnf-notification-feed-popover{
     z-index: 9999 !important;
 }
-.rnf-notification-cell__timestamp, .rnf-notification-feed__type,.rnf-notification-cell__content{
+ .rnf-notification-feed__type,.rnf-notification-cell__content{
     color: #000 !important;
 }
 .rnf-notification-cell__content{
     font-size: small !important;
+}
+.rnf-notification-cell__content > p{
+    opacity: 1 !important;
+    line-height: 1.8rem;
+}
+.rnf-notification-cell__timestamp{
+    color: gray !important;
+}
+.rnf-mark-all-as-read,.rnf-dropdown > select,.rnf-notification-feed__type{
+    font-size: small !important;
+}
+.rnf-notification-feed__knock-branding{
+    display: none;
 }
