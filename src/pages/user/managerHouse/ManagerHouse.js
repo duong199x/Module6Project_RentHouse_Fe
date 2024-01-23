@@ -29,8 +29,7 @@ export default function ManagerHouse() {
                                     </a>
                                     <a className="nav-link icon" href="">
                                         <i className="fa fa-check"></i>
-                                        <Link to={`/manager-house/sold-item/${currentUser.id}`}>Money Diagram</Link>
-
+                                        <Link to={`/manager-house/money/${currentUser.id}`}>Money Diagram</Link>
                                     </a>
                                 </nav>
                             </div>
