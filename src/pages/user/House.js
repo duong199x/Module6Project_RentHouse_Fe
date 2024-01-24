@@ -38,7 +38,7 @@ export function House ({item}) {
                         </figure>
                         <figure>
                             <a href="#">
-                                <i className="fa fa-user"></i>Jane Doe
+                                <i className="fa fa-user"></i>{item.userDTO.fullName}
                             </a>
                         </figure>
                     </div>

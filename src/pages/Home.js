@@ -8,10 +8,8 @@ import HeaderUser from "../components/componentsForUser/HeaderUser";
 export const Home = () => {
     return (
         <>
-            <Header/>
             <Navbar/>
             <Outlet/>
-            <Footer/>
         </>
     )
 }

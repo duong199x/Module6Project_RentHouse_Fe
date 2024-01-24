@@ -1,6 +1,6 @@
 import {Modal, Rating, Typography} from "@mui/material";
 import {useDispatch, useSelector} from "react-redux";
-import {useParams} from "react-router-dom";
+import {useNavigate, useParams} from "react-router-dom";
 import {useEffect, useState} from "react";
 import {getHistoryBooking, removeBooking} from "../../../redux/services/BookingService";
 import {ImageHistory} from "./ImageHistory";
@@ -119,18 +119,19 @@ export default function HistoryBuy() {
         setOpen(true);
     }
     const handleClose = () => setOpen(false);
-    const style = {
+    const styleComment = {
         position: 'absolute',
         top: '50%',
         left: '50%',
         transform: 'translate(-50%, -50%)',
         width: 600,
         height: 400,
-        bgcolor: '#f2f2f2',
+        backgroundColor: 'white',
         border: '2px solid #000',
         boxShadow: 24,
         p: 4,
         borderRadius: '10px',
+        padding:'35px'
     };
     const [idSelected,setIdSelected]= useState(0);
     const [rating, setRating] = useState(5);
@@ -262,7 +263,7 @@ export default function HistoryBuy() {
                             enableReinitialize={true}
                     >
                         <Form>
-                            <div style={style}>
+                            <div style={styleComment}>
                                 <center><h1> Đánh giá nhà thuê</h1></center>
                                 <Typography id="modal-modal-title" variant="h5" component="h1"
                                             style={{paddingBottom: '5px'}}>
@@ -284,7 +285,7 @@ export default function HistoryBuy() {
                                     id="myTextarea"
                                     name="content"
                                     rows="8" // Optional: Specify the number of visible text lines
-                                    cols="60"></Field>
+                                    cols="80"></Field><br/>
                                 <button type={"submit"} className="btn btn-info" style={{
                                     width: "70px",
                                     height: "40px",
@@ -296,7 +297,7 @@ export default function HistoryBuy() {
                             </div>
                         </Form>
                     </Formik>
-                    
+
                      </div>
                 </Modal>
             </div>

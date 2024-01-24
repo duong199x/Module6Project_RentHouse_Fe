@@ -33,7 +33,7 @@ export default function Login() {
                         ]);
                 })
                 navigate("/house");
-                toast.success(`Đăng nhập thành !`, {
+                toast.success(`Đăng nhập thành công!`, {
                     position: "top-right"
                 });
 

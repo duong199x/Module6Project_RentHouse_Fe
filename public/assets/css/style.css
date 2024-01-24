@@ -4112,3 +4112,15 @@ textarea.form-control {
 .apexcharts-toolbar{
     z-index: 0 !important;
 }
+
+.btn.btn-outline-success{
+    color: green ;
+}
+
+.btn.btn-outline-success:hover{
+    color: white;
+}
+
+.btn-outline-success:focus{
+    box-shadow: none;
+}
