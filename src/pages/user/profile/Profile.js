@@ -1,5 +1,5 @@
-import { Link, Outlet } from "react-router-dom";
-import { useSelector } from "react-redux";
+import {Link, Outlet} from "react-router-dom";
+import {useSelector} from "react-redux";
 
 export default function Profile() {
   const currentUser = useSelector(({ users }) => {
@@ -17,25 +17,25 @@ export default function Profile() {
                   className="nav-link icon"
                 >
                   <i className="fa fa-user"></i>
-                  My Profile
+                  Thông tin
                 </Link>
                 <Link to="/profile/change-password" className="nav-link icon">
                   <i className="fa fa-recycle"></i>
-                  Change Password
+                  Đổi mật khẩu
                 </Link>
                 <Link
                   to={`/profile/bookmarks/${currentUser.id}`}
                   className="nav-link icon"
                 >
                   <i className="fa fa-heart"></i>
-                  Bookmarks
+                  Danh sách nhà đã lưu
                 </Link>
                 <Link
                   to={`/profile/history/${currentUser.id}`}
                   className="nav-link icon"
                 >
                   <i className="fa fa-check"></i>
-                  History Buy (Order)
+                  Lịch sử thuê nhà
                 </Link>
               </nav>
             </div>

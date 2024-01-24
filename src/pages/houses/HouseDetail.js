@@ -16,6 +16,7 @@ import {Comment} from "./Comment";
 import { Knock } from "@knocklabs/node";
 import {getCommentById} from "../../redux/services/CommentService";
 import {createHouseInWishlist} from "../../redux/services/WishlistService";
+import GoogleMap from "../extenstion/GoogleMap";
 
 export default function HouseDetail() {
     const knockClient = new Knock(process.env.REACT_APP_KNOCK_API_KEY);
@@ -282,7 +283,9 @@ export default function HouseDetail() {
                                         </div>
                                     </div>
                                     <section><h2>Địa điểm</h2>
-                                        <div className="map height-300px" id="map-small"></div>
+                                        <div className="map height-300px" id="map-small">
+                                            <GoogleMap place={houseDetail.location}/>
+                                        </div>
                                     </section>
                                     <hr/>
                                     <Comment house={houseDetail} id={id} userId={currentUser.id}/>

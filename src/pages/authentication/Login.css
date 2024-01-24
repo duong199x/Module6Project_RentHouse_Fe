@@ -111,11 +111,14 @@
 }
 
 .form-group button {
-    width: 100px;
+    width: 112px;
     height: 40px;
     font-size: 12px;
     background-color: #ff0000;
 }
 .text-title {
     color: red;
+}
+.title-website{
+    margin-bottom: 5rem !important;
 }

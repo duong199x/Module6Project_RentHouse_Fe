@@ -1,6 +1,6 @@
 import {Modal, Rating, Typography} from "@mui/material";
 import {useDispatch, useSelector} from "react-redux";
-import {useParams} from "react-router-dom";
+import {useNavigate, useParams} from "react-router-dom";
 import {useEffect, useState} from "react";
 import {getHistoryBooking, removeBooking} from "../../../redux/services/BookingService";
 import {ImageHistory} from "./ImageHistory";
@@ -47,7 +47,7 @@ export default function HistoryBuy() {
                         borderRadius: '3px',
                         padding: '3px',
                         backgroundColor: 'steelblue',
-                        color: 'white',
+                        color: 'white'
                     }}>Nhận phòng
                     </aside>
                 </>
@@ -157,19 +157,6 @@ export default function HistoryBuy() {
     return (
         <>
             <div className="col-md-9">
-                <div className="section-title clearfix">
-                    <div className="float-left float-xs-none">
-                        <select name="sorting" id="sorting" className="small width-200px"
-                                data-placeholder="Default Sorting">
-                            <option value="">Default Sorting</option>
-                            <option value="1">Newest First</option>
-                            <option value="2">Oldest First</option>
-                            <option value="3">Lowest Price First</option>
-                            <option value="4">Highest Price First</option>
-                        </select>
-
-                    </div>
-                </div>
                 {
                     listBookingUserReverse && listBookingUserReverse.map((item) =>
                         <div key={item.bookingId}
@@ -262,7 +249,7 @@ export default function HistoryBuy() {
 
                 <Modal
                     open={open}
-                        onClose={handleClose}
+                    onClose={handleClose}
                     aria-labelledby="modal-modal-title"
                     aria-describedby="modal-modal-description"
                 >
@@ -298,7 +285,7 @@ export default function HistoryBuy() {
                                     id="myTextarea"
                                     name="content"
                                     rows="8" // Optional: Specify the number of visible text lines
-                                    cols="60"></Field>
+                                    cols="80"></Field><br/>
                                 <button type={"submit"} className="btn btn-info" style={{
                                     width: "70px",
                                     height: "40px",
@@ -310,7 +297,7 @@ export default function HistoryBuy() {
                             </div>
                         </Form>
                     </Formik>
-                    
+
                      </div>
                 </Modal>
             </div>

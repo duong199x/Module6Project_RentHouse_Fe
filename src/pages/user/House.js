@@ -16,14 +16,13 @@ export function House ({item}) {
                 <div className="wrapper">
                     <div className="image">
                         <h3>
-                            <a href="#" className="tag category">{item?.category?.name}</a>
+                            <a href="#" className="tag category" >{item?.category?.name}</a>
                             <Link to={`${item.id}`} className="title">
                                 {item.name}</Link>
                             <span className="tag">Offer</span>
                         </h3>
                         <Link to={`${item.id}`}
                               className="image-wrapper background-image">
-                            {/*<img src={images.length>0 ? images[0].image : ""} alt=""/>*/}
                             <img src={images && images.length > 0 ? images[0].image : "https://placehold.co/400"} alt=""/>
 
                         </Link>
@@ -49,7 +48,7 @@ export function House ({item}) {
                     </div>
 
                     <Link to={`${item.id}`} href="single-listing-1.html"
-                          className="detail text-caps underline">Detail</Link>
+                          className="detail text-caps underline">Chi tiết</Link>
                 </div>
             </div>
         </>

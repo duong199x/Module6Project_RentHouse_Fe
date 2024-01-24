@@ -8,7 +8,7 @@ export default function NavbarUser() {
     })
     const decodedToken = JSON.parse(atob(currentUser.accessToken.split('.')[1]));
     const isOwner = decodedToken.isOwner;
-    console.log("isOwner",isOwner)
+
     return (
         <>
             <div className="main-navigation">
@@ -47,19 +47,18 @@ export default function NavbarUser() {
                                 </li>
                                 <li className="nav-item has-child">
                                     <Link to={`profile/profile-detail/${currentUser.id}`} className="nav-link" href="#">
-                                        Tài khoản </Link>
+                                        Tài khoản</Link>
 
                                     <ul className="child">
                                         <li className="nav-item has-child">
                                             <Link to={`profile/profile-detail/${currentUser.id}`} href="#"
-                                                  className="nav-link">Trang cá nhân</Link>
+                                                  className="nav-link">Thông tin</Link>
                                         </li>
-                                        {isOwner && isOwner === 2 ?
+                                        { isOwner && isOwner ===2 ?
 
-                                            <li className="nav-item has-child">
-                                                <Link to={`manager-house/list-house-user/${currentUser.id}`} href="#"
-                                                      className="nav-link">Quản lí nhà</Link>
-                                            </li>
+                                        <li className="nav-item has-child">
+                                            <Link to={`manager-house/list-house-user/${currentUser.id}`} href="#" className="nav-link">Quản lý nhà</Link>
+                                        </li>
                                             : ''
                                         }
                                         <li className="nav-item has-child">
@@ -67,8 +66,7 @@ export default function NavbarUser() {
                                         </li>
 
                                         <li className="nav-item has-child">
-                                            <Link to={`/profile/history/${currentUser.id}`} href="#"
-                                                  className="nav-link">Chuyến đi</Link>
+                                            <Link to={`/profile/history/${currentUser.id}`} href="#" className="nav-link">Chuyến đi</Link>
                                         </li>
                                     </ul>
 

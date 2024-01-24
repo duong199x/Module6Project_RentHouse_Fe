@@ -4,10 +4,9 @@ import {getUser, login} from "../../redux/services/UserService";
 import {Link, Navigate, useNavigate} from "react-router-dom";
 import * as Yup from 'yup';
 import TextField from "@mui/material/TextField";
-import {Button, colors} from "@mui/material";
+import {Button} from "@mui/material";
 import Weather from "../extenstion/Weather";
 import "./Login.css"
-import axios from "axios";
 import {toast} from "react-toastify";
 import { Knock } from "@knocklabs/node";
 export default function Login() {
@@ -17,14 +16,14 @@ export default function Login() {
         dispatch(login(value)).then((data) => {
             if (data.error) {
                 navigate("/login")
-                toast.error(`Login Failure (${data.error.message})!`, {
+                toast.error(`Đăng nhập thất bại (${data.error.message})!`, {
                     position: "top-right"
                 });
             }
             else {
                 dispatch(getUser(data.payload.id)).then(async (res)=>{
                     const knockClient = new Knock(process.env.REACT_APP_KNOCK_API_KEY);
-                    const knockUser = await knockClient.users.bulkIdentify(
+                    await knockClient.users.bulkIdentify(
                         [
                             {
                                 id: String(res.payload.id),
@@ -34,7 +33,7 @@ export default function Login() {
                         ]);
                 })
                 navigate("/house");
-                toast.success(`Login Successfully!`, {
+                toast.success(`Đăng nhập thành công!`, {
                     position: "top-right"
                 });
 
@@ -60,13 +59,13 @@ export default function Login() {
                 <div className="col-md-6 d-flex justify-content-center align-items-center">
                     <div className="signup-form">
                         <div className="auth-logo text-center mb-5">
-                            <div className="row">
+                            <div className="row title-website">
                                 <div className="col-md-2">
                                     <img src={require("../extenstion/img/logo_app.png")} className="logo-img" alt="Logo"/>
                                 </div>
-                                <div className="col-md-7">
-                                    <p>Login</p>
-                                    <span>Enjoy the sublime</span>
+                                <div className="col-md-7" style={{marginLeft:"10rem"}}>
+                                    <p>Đăng Nhập</p>
+                                    <p>Trải nghiệm và tận hưởng dịch vụ</p>
                                 </div>
                             </div>
                         </div>
@@ -81,10 +80,10 @@ export default function Login() {
                                 ,
                                 password: Yup.string()
                                     .required('Required')
-                                    .min(8, 'Password should be at least 8 characters long')
+                                    .min(8, 'Mật khẩu phải dài ít nhất 8 ký tự')
                                     .matches(
                                         /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[#?!@$%^&*-])[A-Za-z\d@$!%*?&]{8,}$/,
-                                        'Password must have at least one lowercase letter, one uppercase letter, one digit, and one special character, with a minimum length of 8 characters.'
+                                        'Mật khẩu phải có ít nhất một chữ thường, một chữ in hoa, một chữ số và một ký tự đặc biệt, có độ dài tối thiểu là 8 ký tự.'
                                     )
                             })}
                             onSubmit={loginUser}
@@ -120,20 +119,20 @@ export default function Login() {
                                             </div>
                                         </div>
                                         <div className="col-md-12 mb-3">
-                                            <Link>Forgot password?</Link>
+                                            <Link>Bạn quên mật khẩu?</Link>
                                         </div>
                                         <div className="col-md-6 text-right">
                                             <div className="form-group">
                                                 <center>
                                                     <Button type="submit" variant="contained" color="primary">
-                                                        Sign In
+                                                        Đăng nhập
                                                     </Button>
                                                 </center>
                                             </div>
                                         </div>
                                         <div className="col-md-12 text-center mt-5">
                                           <span className="go-login">
-                                              Not yet a member? <Link to="/register"><u>Sign Up</u></Link>
+                                              Bạn chưa là thành viên? <Link to="/register"><u>Đăng ký</u></Link>
                                           </span>
                                         </div>
                                     </div>
