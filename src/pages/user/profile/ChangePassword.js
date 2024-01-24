@@ -41,27 +41,25 @@ export default function ChangePassword() {
                                     <div className="card mb-5">
                                         <div className="card-body">
                                     <div className="form-group">
-                                        <label htmlFor="current_password" className="col-form-label required">Current
-                                            Password</label>
+                                        <label htmlFor="current_password" className="col-form-label required">Mật khẩu hiện tại</label>
                                         <Field name={"oldPassword"} type="password" className="form-control"
-                                               id="current_password" placeholder="Current Password" required/>
+                                               id="current_password" placeholder="Nhập mật khẩu hiện tại" required/>
                                     </div>
                                     <div className="form-group">
                                         <label htmlFor="new_current_password"
-                                               className="col-form-label required">New Password</label>
+                                               className="col-form-label required">Mật khẩu mới</label>
                                         <Field name={"password"} type="password"
                                                className="form-control" id="new_current_password"
-                                               placeholder="New Password" required/>
+                                               placeholder="Nhập mật khẩu mới" required/>
                                     </div>
                                     <div className="form-group">
                                         <label htmlFor="repeat_new_current_password"
-                                               className="col-form-label required">Repeat Password</label>
+                                               className="col-form-label required">Xác nhận mật khẩu mới</label>
                                         <Field name={"confirmPassword"} type="password"
                                                className="form-control" id="repeat_new_current_password"
-                                               placeholder="Repeat New Password" required/>
+                                               placeholder="Xác nhận mật khẩu mới" required/>
                                     </div>
-                                    <button type="submit" className="btn btn-primary float-right">Change
-                                        Password
+                                    <button type="submit" className="btn btn-primary float-right">Thay đổi
                                     </button>
                                             </div>
                                             </div>

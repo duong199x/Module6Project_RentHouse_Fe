@@ -27,35 +27,34 @@ export default function NavbarUser() {
                             <ul className="navbar-nav">
                                 <li>
                                     <Link to={"house"} href="#"
-                                          className="nav-link">Home</Link>
+                                          className="nav-link">Trang chủ</Link>
                                 </li>
                                 <li>
                                     <Link to={`/profile/bookmarks/${currentUser.id}`} href="#"
-                                          className="nav-link">Wishlist</Link>
+                                          className="nav-link">Yêu thích</Link>
                                 </li>
                                 <li className="nav-item has-child">
                                     <Link to={`profile/profile-detail/${currentUser.id}`} className="nav-link" href="#">
-                                        Your
-                                        Profile</Link>
+                                        Tài khoản</Link>
 
                                     <ul className="child">
                                         <li className="nav-item has-child">
                                             <Link to={`profile/profile-detail/${currentUser.id}`} href="#"
-                                                  className="nav-link">Profile</Link>
+                                                  className="nav-link">Thông tin</Link>
                                         </li>
                                         { isOwner && isOwner ===2 ?
 
                                         <li className="nav-item has-child">
-                                            <Link to={`manager-house/list-house-user/${currentUser.id}`} href="#" className="nav-link">Manage House</Link>
+                                            <Link to={`manager-house/list-house-user/${currentUser.id}`} href="#" className="nav-link">Quản lý nhà</Link>
                                         </li>
                                             : ''
                                         }
                                         <li className="nav-item has-child">
-                                            <Link to={""} href="#" className="nav-link">Message</Link>
+                                            <Link to={""} href="#" className="nav-link">Tin nhắn</Link>
                                         </li>
 
                                         <li className="nav-item has-child">
-                                            <Link to={`/profile/history/${currentUser.id}`} href="#" className="nav-link">Trips</Link>
+                                            <Link to={`/profile/history/${currentUser.id}`} href="#" className="nav-link">Chuyến đi</Link>
                                         </li>
                                     </ul>
 

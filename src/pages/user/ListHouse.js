@@ -67,13 +67,13 @@ export default function ListHouse() {
                                 <div className="col-md-3 col-sm-3">
                                     <div className="form-group">
                                         <input name="name" type="text" className="form-control" id="what"
-                                            placeholder="What are you looking for?" onChange={formik.handleChange} value={formik.values.name}/>
+                                            placeholder="Nhập tên chỗ nghỉ mà bạn muốn tìm" onChange={formik.handleChange} value={formik.values.name}/>
                                     </div>
                                 </div>
                                 <div className="col-md-3 col-sm-3">
                                     <div className="form-group">
                                         <input name="location" type="text" className="form-control"
-                                            id="input-location" placeholder="Enter Location" onChange={formik.handleChange} value={formik.values.location}/>
+                                            id="input-location" placeholder="Nhập vị trí" onChange={formik.handleChange} value={formik.values.location}/>
                                         <span className="geo-location input-group-addon" data-toggle="tooltip"
                                             data-placement="top" title="Find My Position"><i
                                                 className="fa fa-map-marker"></i></span>
@@ -81,8 +81,8 @@ export default function ListHouse() {
                                 </div>
                                 <div className="col-md-3 col-sm-3">
                                     <div className="form-group" style={{marginBottom:"0px",height:"100%"}}>
-                                        <select style={{height:"80%"}} className="" name="categoryId" id="category" placeholder="Select Category" onChange={formik.handleChange} value={formik.values.categoryId}>
-                                            <option value="" label="Select Category" />
+                                        <select style={{height:"80%"}} className="" name="categoryId" id="category" placeholder="Chọn danh mục" onChange={formik.handleChange} value={formik.values.categoryId}>
+                                            <option value="" label="Chọn danh mục" />
                                             {categories &&
                                                 categories.map((category) => (
                                                     <option key={category.id} value={category.id}>
@@ -95,14 +95,14 @@ export default function ListHouse() {
                                 </div>
 
                                 <div className="col-md-3 col-sm-3">
-                                    <button type="submit" className="btn btn-primary width-100">Search</button>
+                                    <button type="submit" className="btn btn-primary width-100">Tìm kiếm</button>
                                 </div>
                             </div>
                         </div>
                         <div className="alternative-search-form">
                             <a href="#collapseAlternativeSearchForm" className="icon" data-toggle="collapse"
                                 aria-expanded="false" aria-controls="collapseAlternativeSearchForm"><i
-                                    className="fa fa-plus"></i>More Options</a>
+                                    className="fa fa-plus"></i>Lựa chọn khác</a>
                             <div className="collapse" id="collapseAlternativeSearchForm">
                                 <div className="wrapper">
                                     <div className="form-row">
@@ -115,7 +115,7 @@ export default function ListHouse() {
                                                     options={convenients}
                                                     value={convenients.filter(option => formik.values.convenientIds.includes(option.value))}
                                                     onChange={handleSelectChange}
-                                                    placeholder="Convenient"
+                                                    placeholder="Chọn các tiện nghi"
                                                     name="convenientIds"
                                                 />
 
@@ -153,7 +153,7 @@ export default function ListHouse() {
 
                         <div className="section-title clearfix">
                             <div className="float-xl-left float-md-left float-sm-none">
-                                <h2>Recent Listings</h2>
+                                <h2>Danh sách gần đây</h2>
                             </div>
 
                         </div>
@@ -166,19 +166,9 @@ export default function ListHouse() {
                                 );
                             })}
 
-                            {/*<a href="submit.html" className="item call-to-action">*/}
-                            {/*    <div className="wrapper">*/}
-                            {/*        <div className="title">*/}
-                            {/*            <i className="fa fa-plus-square-o"></i>*/}
-                            {/*            Submit Your Ad*/}
-                            {/*        </div>*/}
-                            {/*    </div>*/}
-                            {/*</a>*/}
-
-
                         </div>
                         <div className="center">
-                            <a href="#" className="btn btn-primary btn-framed btn-rounded">Load More</a>
+                            <a href="#" className="btn btn-primary btn-framed btn-rounded">Tải thêm</a>
                         </div>
                     </div>
 
