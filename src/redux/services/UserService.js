@@ -3,7 +3,7 @@ import getAxios from "./customAxios";
 
 export const login = createAsyncThunk(
     "users/login",
-    async (user, {rejectWithValue} ) => {
+    async (user, {rejectWithValue}) => {
         try {
             let res = await getAxios().post("auth/login", user)
             return res.data;
@@ -29,7 +29,7 @@ export const changePassword = createAsyncThunk(
 )
 export const logout = createAsyncThunk(
     "users/logout",
-    async ()=>{
+    async () => {
         try {
             let res = await getAxios().get("users/logout")
             return res.data;
@@ -42,15 +42,23 @@ export const logout = createAsyncThunk(
 export const editDetailUser = createAsyncThunk(
     'user/edit',
     async (data) => {
-        let res  = await getAxios().patch('users/' + data.id, data);
+        let res = await getAxios().patch('users/' + data.id, data);
         return res;
     }
 )
 
 export const getUser = createAsyncThunk(
     'user/get',
-    async (id) =>{
+    async (id) => {
         const res = await getAxios().get('users/' + id);
         return res.data;
+    }
+)
+
+export const getAllUserByAdmin = createAsyncThunk(
+    'user/getAllUserByAdmin',
+    async () => {
+        const res = await getAxios().get('/admin/users')
+        return res.data
     }
 )

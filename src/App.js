@@ -31,7 +31,7 @@ function App() {
         return users.currentToken;
     })
     let isOwner;
-    if(currentUser) {
+    if (currentUser) {
         const decodedToken = JSON.parse(atob(currentUser.accessToken.split('.')[1]));
         isOwner = decodedToken.isOwner;
     }
@@ -51,7 +51,7 @@ function App() {
             />
             {/* Same as */}
             <Routes>
-                <Route path="/" element={<Navigate to="login"/>} />
+                <Route path="/" element={<Navigate to="login"/>}/>
                 {
                     currentUser ? (
                         <>
@@ -79,10 +79,15 @@ function App() {
                                     :
                                     <Route path='*' element={<Navigate to="house"/>}/>
                                 }
-                            </Route>
-                            <Route path={'admin'} element={<Home/>}>
-                                <Route path={'users'} element={<UserManager/>}/>
-                                <Route path={'houses'} element={<HouseManager/>}/>
+                                {
+                                    currentUser.roles[0].authority === "ROLE_ADMIN" ?
+                                        <Route path={'admin'} element={<Home/>}>
+                                            <Route path={'users'} element={<UserManager/>}/>
+                                            <Route path={'houses'} element={<HouseManager/>}/>
+                                        </Route>
+                                        :
+                                        <Route path='*' element={<Navigate to="house"/>}/>
+                                }
                             </Route>
                             {/*<Route path='*' element={<Navigate to="house"/>}/>*/}
                         </>
