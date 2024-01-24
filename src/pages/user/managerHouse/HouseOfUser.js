@@ -12,6 +12,9 @@ export function HouseOfUser({item, handleDelete}) {
     const ondelect = () => {
         handleDelete(item.id)
     }
+    const formatPrice = (money) =>{
+        return money.toLocaleString('it-IT', {style : 'currency', currency : 'VND'});
+    }
     return (
         <>
             <div className="item">
@@ -19,7 +22,7 @@ export function HouseOfUser({item, handleDelete}) {
                     <div className="image">
                         <h3 style={{top:"-4px"}}>
                             <a href="single-listing-1.html" className="title" style={{float:"left"}}>{item.name}</a>
-                            <a href="#" className="tag category" >{item?.category?.name}</a>
+                            <a href="#" className="tag category" style={{marginTop:'25px'}}>{item?.category?.name}</a>
                             <span className="tag" style={{float:"left",marginLeft:"4px"}}>Offer</span>
                         </h3>
                         <Link to={`house/${item.id}`}
@@ -31,7 +34,7 @@ export function HouseOfUser({item, handleDelete}) {
                     <h4 className="location">
                         <a href="#">{item.location}</a>
                     </h4>
-                    <div className="price">{item.price} VND</div>
+                    <div className="price">{formatPrice(item.price)}</div>
                     <div className="admin-controls">
                         <Link to={`/manager-house/houseupdate/${item.id}`}>
                             <i className="fa fa-pencil"></i>EDIT

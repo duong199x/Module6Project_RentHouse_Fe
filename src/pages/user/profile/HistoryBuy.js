@@ -154,6 +154,9 @@ export default function HistoryBuy() {
             }
         )
     }
+    const formatPrice = (money) =>{
+        return money.toLocaleString('it-IT', {style : 'currency', currency : 'VND'});
+    }
     return (
         <>
             <div className="col-md-9">
@@ -172,10 +175,10 @@ export default function HistoryBuy() {
                                         {item.houseId && <ImageHistory item={item.houseId}/>}
                                     </div>
 
-                                    <h4 className="location">
-                                        <a >{item.location}</a>
+                                    <h4 className="location  one-line-text" style={{width:'380px',cursor:'pointer'}}>
+                                        <a title={item.location}>{item.location}</a>
                                     </h4>
-                                    <div className="price">{item.price} VND</div>
+                                    <div className="price">{formatPrice(item.price)}</div>
                                     <div className="meta">
                                         <figure>
                                             <i className="fa fa-calendar-o"></i>Ngày đặt: {formatDate(item.createAt)}

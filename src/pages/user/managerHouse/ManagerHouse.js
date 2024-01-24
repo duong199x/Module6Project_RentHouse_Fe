@@ -19,25 +19,25 @@ export default function ManagerHouse() {
                     to={`/manager-house/list-house-user/${currentUser.id}`}
                   >
                     <i className="fa fa-star"></i>
-                    My Ads Listing
+                    Danh sách nhà
                   </Link>
                   <Link className="nav-link icon" to={`/manager-house/create`}>
                     <i className="fa fa-star"></i>
-                    Add House
+                    Thêm nhà
                   </Link>
                   <Link
                     className="nav-link icon"
                     to={`/manager-house/sold-item/${currentUser.id}`}
                   >
                     <i className="fa fa-check"></i>
-                    Sold Items
+                    Nhà đã cho thuê
                   </Link>
                   <Link
                     className="nav-link icon"
                     to={`/manager-house/money/${currentUser.id}`}
                   >
                     <i className="fa fa-check"></i>
-                    Money Diagram
+                    Biểu đồ doanh thu
                   </Link>
                 </nav>
               </div>

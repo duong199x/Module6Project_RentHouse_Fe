@@ -31,6 +31,9 @@ export default function Bookmarks() {
             dispatch(getAllWishlist(id))
         })
     }
+    const formatPrice = (money) =>{
+        return money.toLocaleString('it-IT', {style : 'currency', currency : 'VND'});
+    }
     return (
         <>
             <div className="col-md-9">
@@ -55,7 +58,7 @@ export default function Bookmarks() {
                                     <h4 className="location">
                                         <a href="#">{item.location}</a>
                                     </h4>
-                                    <div className="price">{item.price}</div>
+                                    <div className="price">{formatPrice(item.price)}</div>
                                     <div className="meta">
                                         <figure>
                                             <i className="fa fa-calendar-o"></i>{formatDate(item.createdAt)}
