@@ -893,8 +893,8 @@ Headers:		'Varela Round', sans-serif;
     text-shadow: none;
     text-decoration: none;
     top: inherit;
-    bottom: 1rem;
-    left: 0;
+    bottom: 13.8rem;
+    left: 10rem;
 }
 .items:not(.selectize-input) .item h3 .tag:not(.category) {
     background-color: #fff;
@@ -1190,7 +1190,7 @@ Headers:		'Varela Round', sans-serif;
     position: absolute;
     color: #fff;
     bottom: inherit;
-    top: -1rem;
+    top: -3rem;
     left: -25.5rem;
 }
 /*------ H4 ------*/
@@ -2348,7 +2348,7 @@ a.nav-link.active i {
 body, html {
     margin: 0;
     padding: 0;
-    font-family: 'Merriweather', sans-serif;
+    /*font-family: 'Merriweather', sans-serif;*/
     font-weight: 500;
     position: relative;
 }

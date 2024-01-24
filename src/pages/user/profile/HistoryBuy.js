@@ -156,19 +156,6 @@ export default function HistoryBuy() {
     return (
         <>
             <div className="col-md-9">
-                <div className="section-title clearfix">
-                    <div className="float-left float-xs-none">
-                        <select name="sorting" id="sorting" className="small width-200px"
-                                data-placeholder="Default Sorting">
-                            <option value="">Default Sorting</option>
-                            <option value="1">Newest First</option>
-                            <option value="2">Oldest First</option>
-                            <option value="3">Lowest Price First</option>
-                            <option value="4">Highest Price First</option>
-                        </select>
-
-                    </div>
-                </div>
                 {
                     listBookingUserReverse && listBookingUserReverse.map((item) =>
                         <div key={item.bookingId}

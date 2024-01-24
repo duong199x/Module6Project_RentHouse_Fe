@@ -36,7 +36,7 @@ export default function HeaderUser() {
                             <ul className="left">
                                 <li>
                             <span>
-                                <i className="fa fa-phone"></i> +1 123 456 789
+                                <i className="fa fa-phone"></i> +84 868 10 29 92
                             </span>
                                 </li>
                             </ul>
@@ -45,10 +45,10 @@ export default function HeaderUser() {
                                 {!currentUser ? (
                                     <>
                                 <li>
-                                    <Link to={"/login"}><i className="fa fa-sign-in"></i>Log In</Link>
+                                    <Link to={"/login"}><i className="fa fa-sign-in"></i>Đăng nhập</Link>
                                 </li>
                                 <li>
-                                    <Link to={"/register"}><i className="fa fa-pencil-square-o"></i>Register</Link>
+                                    <Link to={"/register"}><i className="fa fa-pencil-square-o"></i>Đăng ký</Link>
                                 </li>
                                     </>
                                     ) :(
@@ -73,7 +73,7 @@ export default function HeaderUser() {
                                       </KnockFeedProvider> 
                                             </li>     
                                 <li style={{padding: "8px"}}>
-                                    <button onClick={logoutScreen} style={{background: "transparent", color: "white", border: 'none', cursor:'pointer'}}><i className="fa fa-pencil-square-o"></i>Logout</button>
+                                    <button onClick={logoutScreen} style={{background: "transparent", color: "white", border: 'none', cursor:'pointer'}}><i className="fa fa-pencil-square-o"></i>Đăng xuất</button>
                                 </li>
                                 </>
                                     )

@@ -2,7 +2,7 @@ import {ErrorMessage, Field, Form, Formik} from "formik";
 import {useDispatch, useSelector} from "react-redux";
 import {Link, Navigate, useNavigate} from "react-router-dom";
 import {register} from "../../redux/services/UserService";
-import { ToastContainer, toast } from 'react-toastify';
+import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import * as Yup from 'yup';
 import TextField from "@mui/material/TextField";
@@ -17,17 +17,17 @@ export default function Register() {
             (data) => {
                 if (data.error) {
                     console.log(data.error);
-                    toast.error(`Register Failure (${data.error.message})!`, {
+                    toast.error(`Đăng ký thất bại (${data.error.message})!`, {
                         position: "top-right"
                     });
                 } else {
-                    toast.success(`Register Successfully!`, {
+                    toast.success(`Đăng ký thành công!`, {
                         position: "top-right"
                     });
                     navigate("/login")
                 }
             }).catch(() => {
-            toast.error("Register Failure !", {
+            toast.error("Đăng ký thất bại !", {
                 position: "top-left"
             });
         }).finally(() => setSubmitting(false));
@@ -52,9 +52,9 @@ export default function Register() {
                                     <img src={require("../extenstion/img/logo_app.png")} className="logo-img"
                                          alt="Logo"/>
                                 </div>
-                                <div className="col-md-7">
-                                    <p>Register</p>
-                                    <span>Enjoy The Sublime</span>
+                                <div className="col-md-7" style={{marginLeft:"10rem"}}>
+                                    <p>Đăng Nhập</p>
+                                    <p>Trải nghiệm và tận hưởng dịch vụ</p>
                                 </div>
                             </div>
                         </div>
@@ -70,25 +70,25 @@ export default function Register() {
                                     .required('Required')
                                     .matches(
                                         /^\S+$/,
-                                        "Requires names without spaces"
+                                        "Yêu cầu tên không có dấu cách"
                                     )
                                 ,
                                 email: Yup.string()
                                     .required('Required')
                                     .matches(
                                         /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@(gmail\.com|example\.com\.vn|microsoft\.com\.vn)$/,
-                                        'Invalid email format. Should end with @gmail.com, @example.com.vn, or @microsoft.com.vn'
+                                        'Định dạng email không hợp lệ. Nên kết thúc bằng @gmail.com, @example.com.vn hoặc @microsoft.com.vn'
                                     ),
                                 password: Yup.string()
                                     .required('Required')
                                     .min(8, 'Password should be at least 8 characters long')
                                     .matches(
                                         /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[#?!@$%^&*-])[A-Za-z\d@$!%*?&]{8,}$/,
-                                        'Password must have at least one lowercase letter, one uppercase letter, one digit, and one special character, with a minimum length of 8 characters.'
+                                        'Mật khẩu phải có ít nhất một chữ thường, một chữ in hoa, một chữ số và một ký tự đặc biệt, có độ dài tối thiểu là 8 ký tự.'
                                     ),
                                 confirmPassword: Yup.string()
                                     .required('Required')
-                                    .oneOf([Yup.ref('password')], 'Passwords must match'),
+                                    .oneOf([Yup.ref('password')], 'Mật khẩu phải trùng khớp'),
                             })}
                             onSubmit={(values, { setSubmitting }) => {
                                 handleRegister(values, setSubmitting)
@@ -142,17 +142,16 @@ export default function Register() {
                                         </div>
                                     </div>
                                     <div className="col-md-12">
-                                        <p className="agree-privacy">By clicking the Sign Up button below you agreed to
-                                            our privacy policy and terms of use of our website.</p>
+                                        <p className="agree-privacy" style={{marginBottom:"24px",color:"red"}}>Bằng cách nhấp vào nút Đăng ký bên dưới, bạn đã đồng ý với chính sách bảo mật và điều khoản sử dụng trang web của chúng tôi.</p>
                                     </div>
                                     <div className="col-md-6">
-                                        <span className="go-login">Already a member? <Link
-                                            to="/login"><u>Sign In</u></Link></span>
+                                        <span className="go-login">Bạn đã là thành viên?<br/> <Link
+                                            to="/login"><u>Đăng nhập</u></Link></span>
                                     </div>
                                     <div className="col-md-6 text-right">
                                         <div className="form-group">
                                             <Button type="submit" variant="contained" disabled={isSubmitting}>
-                                                Sign Up
+                                                Đăng ký
                                             </Button>
                                         </div>
                                     </div>

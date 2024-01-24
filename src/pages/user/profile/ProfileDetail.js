@@ -29,17 +29,17 @@ export default function ProfileDetail() {
             .then(
                 (data) => {
                     if (data.error) {
-                        toast.error(`Update Profile Failure (${data.error.message})!`, {
+                        toast.error(`Cập nhật thông tin thất bại (${data.error.message})!`, {
                             position: "top-right"
                         });
                     } else {
-                        toast.success(`Update Profile Successfully!`, {
+                        toast.success(`Cập nhật thông tin thành công!`, {
                             position: "top-right"
                         });
                     }
                 }).catch(() => {
-            toast.error("Update Profile Failure !", {
-                position: "top-left"
+            toast.error("Cập nhật thông tin thất bại !", {
+                position: "top-right"
             });
         }).finally(() => setSubmitting(false));
     };
@@ -76,58 +76,57 @@ export default function ProfileDetail() {
                             <div className="card-body">
                                 <div className="row">
                                     <div className="col-md-8">
-                                        <h2 className="mb-1 border-bottom">Personal Information</h2>
+                                        <h2 className="mb-1 border-bottom">Thông tin cá nhân</h2>
                                         <section className="mb-1">
                                             <div className="form-group">
-                                                <label htmlFor="location" className="col-form-label required">UserName</label>
+                                                <label htmlFor="location" className="col-form-label required">Tên đăng nhập</label>
                                                 <Field name="username" type="text" className="form-control" id="input-location2"
                                                        placeholder="Your UserName" required disabled/>
                                             </div>
                                             <div className="form-group">
-                                                <label htmlFor="location" className="col-form-label required">FullName</label>
+                                                <label htmlFor="location" className="col-form-label required">Họ và tên</label>
                                                 <Field name="fullName" type="text" className="w-100" id="input-location2"
-                                                       placeholder="Your FullName" required/>
+                                                       placeholder="Nhập tên đầy đủ của bạn" required/>
                                             </div>
                                             <div className="form-group">
-                                                <label htmlFor="location" className="col-form-label required">Address</label>
+                                                <label htmlFor="location" className="col-form-label required">Địa chỉ</label>
                                                 <Field name="address" type="text" className="w-100" id="input-location2"
-                                                       placeholder="Your Address" required/>
+                                                       placeholder="Nhập địa chỉ của bạn" required/>
                                             </div>
                                             <div className="row">
                                                 <div className="col-md-6">
                                                     <div className="form-group">
-                                                        <label htmlFor="location" className="col-form-label required">Age</label>
+                                                        <label htmlFor="location" className="col-form-label required">Tuổi</label>
                                                         <Field name="age" type="number" className="w-100" id="input-location2"
-                                                               placeholder="Your Age" required/>
+                                                               placeholder="Nhập tuổi của bạn" required/>
                                                     </div>
                                                 </div>
                                                 <div className="col-md-6">
                                                     <div className="form-group">
-                                                        <label htmlFor="location" className="col-form-label required">Date Of
-                                                            Birth</label>
+                                                        <label htmlFor="location" className="col-form-label required">Ngày tháng năm sinh</label>
                                                         <Field name="dateOfBirth" type="date" className="w-100"
                                                                id="input-location2"
-                                                               placeholder="Your Date Of Birth" required/>
+                                                               placeholder="Nhập ngày tháng năm sinh của bạn" required/>
                                                     </div>
                                                 </div>
                                             </div>
                                         </section>
                                         <section className="mb-1">
-                                            <h2 className="mb-1 border-bottom">Contact</h2>
+                                            <h2 className="mb-1 border-bottom">Liên hệ</h2>
                                             <div className="form-group">
-                                                <label htmlFor="phone" className="col-form-label">Phone</label>
+                                                <label htmlFor="phone" className="col-form-label">Số điện thoại</label>
                                                 <Field name="phone" type="text" className="w-100" id="phone"
-                                                       placeholder="Your Phone"/>
+                                                       placeholder="Nhập số điện thoại của bạn"/>
                                             </div>
 
                                             <div className="form-group">
                                                 <label htmlFor="email" className="col-form-label">Email</label>
                                                 <Field name="email" type="email" className="form-control" id="email"
-                                                       placeholder="Your Email" disabled/>
+                                                       placeholder="Nhập địa chỉ email của bạn" disabled/>
                                             </div>
                                         </section>
                                         <section className="text-center">
-                                            <button type="submit" className="btn btn-primary" disabled={isSubmitting}>Save Changes</button>
+                                            <button type="submit" className="btn btn-primary" disabled={isSubmitting}>Lưu</button>
                                         </section>
                                     </div>
                                     <div className="col-md-4">
@@ -140,7 +139,7 @@ export default function ProfileDetail() {
                                                         handleUpload(e)
                                                     }}/>
 
-                                                    {loading ? 'Uploading...' : 'Upload a picture'}
+                                                    {loading ? 'Uploading...' : 'Tải ảnh lên'}
                                                 </label>
                                             </div>
                                         </div>

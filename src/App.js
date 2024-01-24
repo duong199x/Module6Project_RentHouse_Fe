@@ -48,10 +48,11 @@ function App() {
                 draggable
                 pauseOnHover
                 theme="light"
+                style={{ height: "40px" }}
             />
             {/* Same as */}
             <Routes>
-                <Route path="/" element={<Navigate to="login"/>} />
+                <Route path="/" element={<Login/>}/>
                 {
                     currentUser ? (
                         <>
