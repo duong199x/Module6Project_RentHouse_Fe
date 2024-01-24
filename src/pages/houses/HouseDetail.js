@@ -165,6 +165,9 @@ export default function HouseDetail() {
             }
         })
     }
+    const formatPrice = (money) =>{
+        return money.toLocaleString('it-IT', {style : 'currency', currency : 'VND'});
+    }
     return (
         <>{fetched &&
             <div className="page sub-page">
@@ -175,7 +178,7 @@ export default function HouseDetail() {
                                 <div className="float-left float-xs-none"><h1>{houseDetail.name}</h1>
                                     <h4 className="location"><a href="#">{houseDetail.location}</a></h4></div>
                                 <div className="float-right   price">
-                                    <div className="number">{houseDetail.price} VND</div>
+                                    <div className="number">{formatPrice(houseDetail.price)}</div>
                                     <div className="id opacity-70">
                                         <button className={'btnWishlist'} style={{}}
                                                 onClick={() => handleAddWishlist(dataAddWishlist)}>
@@ -301,7 +304,7 @@ export default function HouseDetail() {
                                                         fontSize: '20px',
                                                         color: 'red',
                                                         paddingBottom: '10px'
-                                                    }}>{houseDetail.price} VND/đêm
+                                                    }}>{formatPrice(houseDetail.price)}/đêm
                                                     </div>
                                                     <LocalizationProvider dateAdapter={AdapterDayjs}>
                                                         <DemoContainer
@@ -336,8 +339,8 @@ export default function HouseDetail() {
                                                 <hr/>
                                                 <dl>
                                                     <dt>Giá tiền</dt>
-                                                    <dd>{houseDetail.price} VND
-                                                        x {betweentday} đêm <br/>= {houseDetail.price * betweentday} VND
+                                                    <dd>{formatPrice(houseDetail.price)}
+                                                        x {betweentday} đêm <br/>= {formatPrice(houseDetail.price * betweentday)}
                                                     </dd>
                                                 </dl>
                                                 <dl>
@@ -347,7 +350,7 @@ export default function HouseDetail() {
                                                 <hr/>
                                                 <dl>
                                                     <dt><u>Tổng tiền</u></dt>
-                                                    <dd>{betweentday * houseDetail.price + betweentday * houseDetail.price * 0.05} VND</dd>
+                                                    <dd>{formatPrice(betweentday * houseDetail.price + betweentday * houseDetail.price * 0.05)}</dd>
                                                 </dl>
                                                 <hr/>
                                                 {currentUser.id === houseDetail.userDTO.id ? ""

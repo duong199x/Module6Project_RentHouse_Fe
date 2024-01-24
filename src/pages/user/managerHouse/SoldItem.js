@@ -94,7 +94,9 @@ export default function SoldItem() {
                 </>
         }
     }
-
+    const formatPrice = (money) =>{
+        return money.toLocaleString('it-IT', {style : 'currency', currency : 'VND'});
+    }
     return (
         <>
             <div className="col-md-9">
@@ -126,10 +128,10 @@ export default function SoldItem() {
                                     <ImageSoldItem item={item.house}/>
                                 </div>
 
-                                <h4 className="location">
-                                    <a href="#">{item.house.location}</a>
+                                <h4 className="location one-line-text" style={{width:'380px',cursor:'pointer'}}>
+                                    <a href="#" title={item.house.location}>{item.house.location}</a>
                                 </h4>
-                                <div className="price">{item.price} VND</div>
+                                <div className="price">{formatPrice(item.price)} VND</div>
                                 <div className="meta">
                                     <figure>
                                         <i className="fa fa-calendar-o"></i>Ngày đặt: {formatDate(item.createAt)}

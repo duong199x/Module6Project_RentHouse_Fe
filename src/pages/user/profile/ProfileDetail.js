@@ -130,8 +130,8 @@ export default function ProfileDetail() {
                                         </section>
                                     </div>
                                     <div className="col-md-4">
-                                        <div className="profile-image">
-                                            <img className="rounded-circle w-100 border shadow " src={user.imageUser ?? ''} alt=""/>
+                                        <div className="">
+                                            <img className="img-fluid rounded border shadow" src={user.imageUser ?? ''} alt=""/>
                                             <div className="single-file-input">
                                                 <label className="btn btn-framed btn-primary small" htmlFor={"user_image"}>
 
