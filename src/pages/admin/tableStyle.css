@@ -12,15 +12,6 @@
 /*button {*/
 /*    border-radius: 10%;*/
 /*}*/
-#buttonUserAccept{
-    color: green;
-    border: solid 2px green;
-    background-color: white;
-}
-#buttonUserAccept:hover{
-    background-color: green;
-    color: white;
-}
 #buttonUserInfo{
     color: #0049e8;
     border: solid 2px #0049e8;

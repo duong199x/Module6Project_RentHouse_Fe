@@ -1,12 +1,13 @@
 import {createSlice} from "@reduxjs/toolkit";
 import {
+    acceptToHost,
     changePassword,
-    changepassword,
+    changepassword, deleteUser,
     editDetailUser, getAllUserByAdmin,
     getUser,
     login,
     logout,
-    register
+    register, registerToHost
 } from "../services/UserService";
 
 const initialState = {
@@ -52,6 +53,13 @@ const userSlice = createSlice({
             })
             .addCase(getAllUserByAdmin.fulfilled, (state, {payload}) => {
                 state.list = payload
+            })
+            .addCase(registerToHost.fulfilled, (state, {payload}) => {
+
+            })
+            .addCase(acceptToHost.fulfilled, (state, {payload}) => {
+            })
+            .addCase(deleteUser.fulfilled, (state, {payload}) => {
             })
     }
 })

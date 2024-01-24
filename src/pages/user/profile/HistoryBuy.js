@@ -47,7 +47,7 @@ export default function HistoryBuy() {
                         borderRadius: '3px',
                         padding: '3px',
                         backgroundColor: 'steelblue',
-                        color: 'white'
+                        color: 'white',
                     }}>Nhận phòng
                     </aside>
                 </>
@@ -119,18 +119,19 @@ export default function HistoryBuy() {
         setOpen(true);
     }
     const handleClose = () => setOpen(false);
-    const style = {
+    const styleComment = {
         position: 'absolute',
         top: '50%',
         left: '50%',
         transform: 'translate(-50%, -50%)',
         width: 600,
         height: 400,
-        bgcolor: '#f2f2f2',
+        backgroundColor: 'white',
         border: '2px solid #000',
         boxShadow: 24,
         p: 4,
         borderRadius: '10px',
+        padding:'35px'
     };
     const [idSelected,setIdSelected]= useState(0);
     const [rating, setRating] = useState(5);
@@ -275,7 +276,7 @@ export default function HistoryBuy() {
                             enableReinitialize={true}
                     >
                         <Form>
-                            <div style={style}>
+                            <div style={styleComment}>
                                 <center><h1> Đánh giá nhà thuê</h1></center>
                                 <Typography id="modal-modal-title" variant="h5" component="h1"
                                             style={{paddingBottom: '5px'}}>

@@ -2,19 +2,20 @@ import * as React from 'react';
 import './tableStyle.css'
 import {useDispatch, useSelector} from "react-redux";
 import {useEffect, useState} from "react";
-import {getAllUserByAdmin} from "../../redux/services/UserService";
+import {acceptToHost, deleteUser, getAllUserByAdmin} from "../../redux/services/UserService";
 import {Box, Modal, Typography} from "@mui/material";
+import {useParams} from "react-router-dom";
 
-const users = []
 export default function UserManager() {
     const dispatch = useDispatch();
     const listUser = useSelector(({users}) => {
         return users.list
     })
+    const {id} = useParams()
     console.log("listUser", listUser)
     useEffect(() => {
-        dispatch(getAllUserByAdmin())
-    }, []);
+        dispatch(getAllUserByAdmin(id))
+    }, [dispatch, id]);
     const [open, setOpen] = React.useState(false);
     let [value, setValue] = useState(null)
     console.log("value", value)
@@ -37,7 +38,15 @@ export default function UserManager() {
         boxShadow: 24,
         p: 4,
     };
-    const handleIsOwner = () => {
+    const handleIsOwner = (idUser) => {
+        dispatch(acceptToHost(idUser)).then(() => {
+            dispatch(getAllUserByAdmin())
+        })
+    }
+    const deleteUserById = (idUser) => {
+        dispatch(deleteUser(idUser)).then(() => {
+            dispatch(getAllUserByAdmin(id))
+        })
     }
     return (
         <>
@@ -56,7 +65,7 @@ export default function UserManager() {
                     </thead>
 
                     <tbody>
-                    {listUser.map((item) => (
+                    {listUser && listUser.map((item) => (
                             <tr key={item.id}>
                                 <th scope="row">{item.id}</th>
                                 <td><img src={item.imageUser} alt=""
@@ -71,21 +80,23 @@ export default function UserManager() {
                                     </button>
                                 </td>
                                 {item.isOwner === 1 ?
-                                    <td style={{width: '100px'}}>
-                                        <button className="btn btn-primary text-caps btn-rounded btn-framed "
-                                                id={'buttonUserAccept'} onClick={() =>
-                                            handleIsOwner
-                                        }>Xác nhận
+                                    <td className="button-user-accept" style={{width: '100px'}}>
+                                        <button className="btn btn-outline-success text-caps btn-rounded "
+                                                id={'buttonUserAccept'}
+                                                onClick={() =>
+                                                    handleIsOwner(item.id)}
+                                        >Xác nhận
                                             chủ nhà
                                         </button>
                                     </td>
                                     : item.isOwner === 2 ? <td style={{width: '100px'}}>
-                                            <button className="btn btn-primary text-caps btn-rounded btn-framed" style={{
+                                            <button className="btn btn-outline-success text-caps btn-rounded " style={{
                                                 pointerEvents: 'none',
                                                 color: 'gray',
                                                 textDecoration: 'none',
                                                 cursor: 'not-allowed',
-                                                borderColor: 'gray'
+                                                borderColor: 'gray',
+                                                backgroundColor: 'transparent'
                                             }}>Xác nhận
                                                 chủ nhà
                                             </button>
@@ -95,7 +106,9 @@ export default function UserManager() {
                                 }
 
                                 <td style={{width: '100px'}}>
-                                    <button className="btn btn-primary text-caps btn-rounded btn-framed">Xóa</button>
+                                    <button className="btn btn-primary text-caps btn-rounded btn-framed"
+                                            onClick={() => deleteUserById(item.id)}>Xóa
+                                    </button>
                                 </td>
 
                             </tr>

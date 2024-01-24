@@ -24,6 +24,7 @@ import HistoryBuy from "./pages/user/profile/HistoryBuy";
 import {ToastContainer} from "react-toastify";
 import SoldItem from "./pages/user/managerHouse/SoldItem";
 import MoneyDiagram from "./pages/user/managerHouse/MoneyDiagram";
+import RegisterHost from "./pages/user/RegisterHost";
 
 
 function App() {
@@ -58,6 +59,7 @@ function App() {
                             <Route element={<UserPage/>}>
                                 <Route path={'house'} element={<ListHouse/>}/>
                                 <Route path={'house/:id'} element={<HouseDetail/>}/>
+                                <Route path={"register-host/:id"} element={<RegisterHost/>}/>
                                 <Route path={'profile'} element={<Profile/>}>
                                     <Route path={"change-password"} element={<ChangePassword/>}/>
                                     <Route path={`profile-detail/:id`} element={<ProfileDetail/>}/>
@@ -82,7 +84,7 @@ function App() {
                                 {
                                     currentUser.roles[0].authority === "ROLE_ADMIN" ?
                                         <Route path={'admin'} element={<Home/>}>
-                                            <Route path={'users'} element={<UserManager/>}/>
+                                            <Route path={':id/users'} element={<UserManager/>}/>
                                             <Route path={'houses'} element={<HouseManager/>}/>
                                         </Route>
                                         :

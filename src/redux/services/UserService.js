@@ -57,8 +57,29 @@ export const getUser = createAsyncThunk(
 
 export const getAllUserByAdmin = createAsyncThunk(
     'user/getAllUserByAdmin',
-    async () => {
-        const res = await getAxios().get('/admin/users')
+    async (id) => {
+        const res = await getAxios().get(`/admin/${id}/users`)
+        return res.data
+    }
+)
+export const registerToHost = createAsyncThunk(
+    'user/registerToHost',
+    async (idUser) => {
+        const res = await getAxios().patch(`/users/status/${idUser}`)
+        return res.data
+    }
+)
+export const acceptToHost = createAsyncThunk(
+        'user/acceptToHost',
+        async (idUser) => {
+            const res = await getAxios().patch(`/admin/status/${idUser}`)
+            return res.data
+        }
+    )
+export const deleteUser = createAsyncThunk(
+    'user/deleteUser',
+    async (idUser) => {
+        const res = await getAxios().delete(`users/${idUser}`)
         return res.data
     }
 )

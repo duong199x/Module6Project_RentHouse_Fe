@@ -8,7 +8,7 @@ export default function NavbarUser() {
     })
     const decodedToken = JSON.parse(atob(currentUser.accessToken.split('.')[1]));
     const isOwner = decodedToken.isOwner;
-
+    console.log("isOwner",isOwner)
     return (
         <>
             <div className="main-navigation">
@@ -28,11 +28,15 @@ export default function NavbarUser() {
                                 {
                                     currentUser.roles[0].authority === "ROLE_ADMIN" ?
                                         <li>
-                                            <Link to={"/admin/users"} href="#"
+                                            <Link to={`/admin/${currentUser.id}/users`} href="#"
                                                   className="nav-link">Quản Lí</Link>
                                         </li> : ''
                                 }
-
+                                {isOwner === 0 && currentUser.roles[0].authority === "ROLE_USER"?
+                                    <li>
+                                        <Link to={`/register-host/${currentUser.id}`} href="#"
+                                              className="nav-link">Đăng kí làm chủ nhà</Link>
+                                    </li> : ""}
                                 <li>
                                     <Link to={"house"} href="#"
                                           className="nav-link">Trang chủ</Link>
