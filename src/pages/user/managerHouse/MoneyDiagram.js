@@ -23,6 +23,10 @@ export default function MoneyDiagram() {
             data: data,
         }];
     };
+    const sum  = money.reduce(function (acc, obj) { return acc + obj[1]; }, 0);
+    const formatPrice = (money) =>{
+        return money.toLocaleString('it-IT', {style : 'currency', currency : 'VND'});
+    }
     const options = {
         chart: {
             height: 350,
@@ -75,6 +79,7 @@ export default function MoneyDiagram() {
                     </div>
                     <div id="html-dist"></div>
                 </div>
+                <span style={{marginLeft:'10px',marginBottom:'10px'}}>Doanh thu của tháng: {formatPrice(sum)}</span>
                 </div>
             </div>
 

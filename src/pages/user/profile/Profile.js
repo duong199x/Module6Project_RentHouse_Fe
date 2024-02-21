@@ -28,7 +28,7 @@ export default function Profile() {
                   className="nav-link icon"
                 >
                   <i className="fa fa-heart"></i>
-                  Danh sách nhà đã lưu
+                  Danh sách nhà yêu thích
                 </Link>
                 <Link
                   to={`/profile/history/${currentUser.id}`}

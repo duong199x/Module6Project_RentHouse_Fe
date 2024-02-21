@@ -2383,7 +2383,7 @@ h1 {
 h2 {
     font-family: 'Varela Round', sans-serif;
     font-size: 2.4rem;
-    margin-bottom: 4rem;
+    /*margin-bottom: 4rem;*/
     padding-top: 1rem;
 }
 h3 {
@@ -3194,7 +3194,7 @@ textarea.form-control {
     padding-bottom: 5rem;
 }
 .block section {
-    margin-bottom: 6rem;
+    margin-bottom: 2rem;
 }
 .box {
     background-color: #fff;
