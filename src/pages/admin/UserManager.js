@@ -5,6 +5,8 @@ import {useEffect, useState} from "react";
 import {acceptToHost, deleteUser, getAllUserByAdmin} from "../../redux/services/UserService";
 import {Box, Modal, Typography} from "@mui/material";
 import {useParams} from "react-router-dom";
+import {toast} from "react-toastify";
+import {getImageByHouseId} from "../../redux/services/ImageService";
 
 export default function UserManager() {
     const dispatch = useDispatch();
@@ -39,8 +41,18 @@ export default function UserManager() {
         p: 4,
     };
     const handleIsOwner = (idUser) => {
-        dispatch(acceptToHost(idUser)).then(() => {
-            dispatch(getAllUserByAdmin())
+        dispatch(acceptToHost(idUser)).then((data) => {
+            if (data.error) {
+                toast.error(`Cập nhật thất bại (${data.error.message})!`, {
+                    position: "top-right"
+                });
+            } else {
+                toast.success(`Cập nhật thành công người dùng lên chủ nhà !`, {
+                    position: "top-right"
+                });
+                dispatch(getAllUserByAdmin())
+            }
+
         })
     }
     const deleteUserById = (idUser) => {
@@ -68,7 +80,7 @@ export default function UserManager() {
                     {listUser && listUser.map((item) => (
                             <tr key={item.id}>
                                 <th scope="row">{item.id}</th>
-                                <td><img src={item.imageUser} alt=""
+                                <td><img src={item.imageUser ? item.imageUser : "https://static-00.iconduck.com/assets.00/avatar-default-symbolic-icon-479x512-n8sg74wg.png"} alt=""
                                          style={{height: '80px', width: '80px', borderRadius: '20%'}}/></td>
                                 <td>{item.username}</td>
                                 <td>{item.email}</td>
